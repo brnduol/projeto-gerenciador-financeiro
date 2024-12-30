@@ -15,6 +15,7 @@ public class TelaContas1 extends javax.swing.JFrame {
      */
     public TelaContas1() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -37,7 +38,12 @@ public class TelaContas1 extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
-        mbMenu = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,8 +80,24 @@ public class TelaContas1 extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        mbMenu.setText("Menu");
-        jMenuBar1.add(mbMenu);
+        jMenu2.setText("Menu");
+
+        jMenuItem1.setText("Tela principal");
+        jMenu2.add(jMenuItem1);
+
+        jMenuItem2.setText("Historico");
+        jMenu2.add(jMenuItem2);
+
+        jMenuItem3.setText("Graficos");
+        jMenu2.add(jMenuItem3);
+
+        jMenuItem4.setText("Categorias");
+        jMenu2.add(jMenuItem4);
+
+        jMenuItem5.setText("Sair");
+        jMenu2.add(jMenuItem5);
+
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -179,10 +201,15 @@ public class TelaContas1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JMenu mbMenu;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtSaldo;
     // End of variables declaration//GEN-END:variables
