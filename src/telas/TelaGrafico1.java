@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package telas;
-
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.DefaultCategoryDataset;
 /**
  *
  * @author Bruno Eduardo <https://github.com/brnduol>
@@ -15,6 +18,7 @@ public class TelaGrafico1 extends javax.swing.JFrame {
      */
     public TelaGrafico1() {
         initComponents();
+        adicionarGrafico(); 
     }
 
     /**
