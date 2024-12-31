@@ -3,19 +3,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package telas;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
+import javax.swing.*;
 /**
  *
  * @author Bruno Eduardo <https://github.com/brnduol>
  */
 public class TelaGrafico1 extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form TelaGrafico1
      */
     public TelaGrafico1() {
         initComponents();
-
+        setSize(1000, 800);  
+        jPanel1.setLayout(new java.awt.BorderLayout()); 
     }
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,22 +36,151 @@ public class TelaGrafico1 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblMesGrafico = new javax.swing.JLabel();
+        lblAnoGrafico = new javax.swing.JLabel();
+        btnGerarGrafico = new javax.swing.JButton();
+        txtAnoGrafico = new javax.swing.JTextField();
+        txtMesHistorico1 = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        lblMesGrafico.setText("Mês");
+
+        lblAnoGrafico.setText("Ano");
+
+        btnGerarGrafico.setText("Gerar");
+        btnGerarGrafico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGerarGraficoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 530, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 262, Short.MAX_VALUE)
+        );
+
+        jMenu2.setText("Menu");
+
+        jMenuItem2.setText("Tela Principal");
+        jMenu2.add(jMenuItem2);
+
+        jMenuItem1.setText("Contas");
+        jMenu2.add(jMenuItem1);
+
+        jMenuItem3.setText("Graficos");
+        jMenu2.add(jMenuItem3);
+
+        jMenuItem4.setText("Categorias");
+        jMenu2.add(jMenuItem4);
+
+        jMenuItem5.setText("Sair");
+        jMenu2.add(jMenuItem5);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnGerarGrafico)
+                .addGap(318, 318, 318))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(124, 124, 124)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblMesGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblAnoGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(47, 47, 47)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtMesHistorico1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAnoGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMesGrafico)
+                    .addComponent(txtMesHistorico1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(2, 2, 2)
+                .addComponent(btnGerarGrafico)
+                .addGap(4, 4, 4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAnoGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAnoGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(87, 87, 87)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(138, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+                        
 
+        private void mostrarGrafico() {
+            // Criar o dataset do gráfico de pizza
+            DefaultPieDataset dataset = new DefaultPieDataset();
+
+            // Adicionar valores de exemplo
+            dataset.setValue("Categoria 1", 50);
+            dataset.setValue("Categoria 2", 30);
+            dataset.setValue("Categoria 3", 20);
+
+            // Criar o gráfico de pizza
+            JFreeChart chart = ChartFactory.createPieChart(
+                "Gráfico", // Título do gráfico
+                dataset, // Dataset com os dados
+                true, // Exibir legenda
+                true, // Exibir tooltip
+                false // Exibir URLs
+            );
+            
+            System.out.println("Gráfico gerado");
+            
+            
+            // Adicionar o gráfico ao painel (jPanel1)
+            ChartPanel chartPanel = new ChartPanel(chart);
+            chartPanel.setPreferredSize(new java.awt.Dimension(600, 400));
+
+            // Limpar o painel antes de adicionar um novo gráfico
+            jPanel1.removeAll();
+            jPanel1.add(chartPanel, java.awt.BorderLayout.CENTER);
+            jPanel1.revalidate();
+            jPanel1.repaint();
+    }   
+  
+    
+    private void btnGerarGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarGraficoActionPerformed
+                                         
+        mostrarGrafico();
+       
+    }//GEN-LAST:event_btnGerarGraficoActionPerformed
+
+                    
+
+    
     /**
      * @param args the command line arguments
      */
@@ -70,7 +209,7 @@ public class TelaGrafico1 extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable()  {
             public void run() {
                 new TelaGrafico1().setVisible(true);
             }
@@ -78,5 +217,18 @@ public class TelaGrafico1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGerarGrafico;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblAnoGrafico;
+    private javax.swing.JLabel lblMesGrafico;
+    private javax.swing.JTextField txtAnoGrafico;
+    private javax.swing.JTextField txtMesHistorico1;
     // End of variables declaration//GEN-END:variables
 }
