@@ -4,9 +4,12 @@
  */
 package classesGerenciador;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
- * @author Bruno Eduardo <https://github.com/brnduol>
+ * @author lucia
  */
 public class Categoria {
   private int id;
