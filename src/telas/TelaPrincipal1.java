@@ -201,20 +201,26 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
             }
         });
 
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1485477024-menu_78574.png"))); // NOI18N
         jMenu2.setText("Menu");
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/shoppaymentorderbuy-23_icon-icons.com_73884.png"))); // NOI18N
         jMenuItem1.setText("Contas");
         jMenu2.add(jMenuItem1);
 
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Historical_icon-icons.com_54175.png"))); // NOI18N
         jMenuItem2.setText("Historico");
         jMenu2.add(jMenuItem2);
 
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1477521928_10_icon-icons.com_74620.png"))); // NOI18N
         jMenuItem3.setText("Graficos");
         jMenu2.add(jMenuItem3);
 
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1486486297-attribute-category-label-shop-price-price-tag-tag_81213.png"))); // NOI18N
         jMenuItem4.setText("Categorias");
         jMenu2.add(jMenuItem4);
 
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/logout256_24927.png"))); // NOI18N
         jMenuItem5.setText("Sair");
         jMenu2.add(jMenuItem5);
 
@@ -296,7 +302,7 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
                 .addComponent(jButton4)

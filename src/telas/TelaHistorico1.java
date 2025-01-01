@@ -36,20 +36,26 @@ public class TelaHistorico1 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1485477024-menu_78574.png"))); // NOI18N
         jMenu2.setText("Menu");
 
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/32officeicons-31_89708.png"))); // NOI18N
         jMenuItem2.setText("Tela Principal");
         jMenu2.add(jMenuItem2);
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/shoppaymentorderbuy-23_icon-icons.com_73884.png"))); // NOI18N
         jMenuItem1.setText("Contas");
         jMenu2.add(jMenuItem1);
 
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1477521928_10_icon-icons.com_74620.png"))); // NOI18N
         jMenuItem3.setText("Graficos");
         jMenu2.add(jMenuItem3);
 
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1486486297-attribute-category-label-shop-price-price-tag-tag_81213.png"))); // NOI18N
         jMenuItem4.setText("Categorias");
         jMenu2.add(jMenuItem4);
 
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/logout256_24927.png"))); // NOI18N
         jMenuItem5.setText("Sair");
         jMenu2.add(jMenuItem5);
 
@@ -65,7 +71,7 @@ public class TelaHistorico1 extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 577, Short.MAX_VALUE)
+            .addGap(0, 561, Short.MAX_VALUE)
         );
 
         pack();
