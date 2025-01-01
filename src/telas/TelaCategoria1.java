@@ -37,7 +37,12 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
-        mbMenu = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,8 +103,24 @@ public class TelaCategoria1 extends javax.swing.JFrame {
                 .addGap(39, 39, 39))
         );
 
-        mbMenu.setText("Menu");
-        jMenuBar1.add(mbMenu);
+        jMenu2.setText("Menu");
+
+        jMenuItem4.setText("Tela Principal");
+        jMenu2.add(jMenuItem4);
+
+        jMenuItem1.setText("Contas");
+        jMenu2.add(jMenuItem1);
+
+        jMenuItem2.setText("Historico");
+        jMenu2.add(jMenuItem2);
+
+        jMenuItem3.setText("Graficos");
+        jMenu2.add(jMenuItem3);
+
+        jMenuItem5.setText("Sair");
+        jMenu2.add(jMenuItem5);
+
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -143,7 +164,7 @@ public class TelaCategoria1 extends javax.swing.JFrame {
                             .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(34, 34, 34)
                         .addComponent(bntCriar)
-                        .addGap(0, 272, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(78, 78, 78)
                 .addComponent(bntExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -192,14 +213,19 @@ public class TelaCategoria1 extends javax.swing.JFrame {
     private javax.swing.JButton bntCriar;
     private javax.swing.JButton bntExcluir;
     private javax.swing.JComboBox<String> cmbTipo;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblTipo;
-    private javax.swing.JMenu mbMenu;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }
