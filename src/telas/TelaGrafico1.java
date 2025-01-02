@@ -20,10 +20,45 @@ public class TelaGrafico1 extends javax.swing.JFrame {
      */
     public TelaGrafico1() {
         initComponents();
+        this.setLocationRelativeTo(null);
         setSize(1000, 800);  
         jPanel1.setLayout(new java.awt.BorderLayout()); 
+        carregarMesGrafico();
+        carregarAnoGrafico();
+        
     }
     
+    
+    public void carregarMesGrafico(){
+            //Remover os itens da ComboBox
+            cbMesGrafico.removeAllItems();
+
+            cbMesGrafico.addItem("Selecione um mês");
+
+            String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
+                  "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
+
+            // Adiciona os meses ao JComboBox
+            for (String mes : meses) {
+                cbMesGrafico.addItem(mes);
+
+            }
+        }
+    
+     public void carregarAnoGrafico(){
+            //Remover os itens da ComboBox
+            cbAnoGrafico.removeAllItems();
+
+            cbAnoGrafico.addItem("Selecione um ano");
+
+            String[] anos = {"2024", "2025"};
+
+            // Adiciona os meses ao JComboBox
+            for (String ano : anos) {
+                cbAnoGrafico.addItem(ano);
+
+            }
+     }
     
     
 
@@ -39,16 +74,16 @@ public class TelaGrafico1 extends javax.swing.JFrame {
         lblMesGrafico = new javax.swing.JLabel();
         lblAnoGrafico = new javax.swing.JLabel();
         btnGerarGrafico = new javax.swing.JButton();
-        txtAnoGrafico = new javax.swing.JTextField();
-        txtMesHistorico1 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
+        cbMesGrafico = new javax.swing.JComboBox<>();
+        cbAnoGrafico = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        menuGrafico = new javax.swing.JMenu();
+        btContasGrafico = new javax.swing.JMenuItem();
+        btHistoricoGrafico = new javax.swing.JMenuItem();
+        btGraficos = new javax.swing.JMenuItem();
+        btCategoriasGrafico = new javax.swing.JMenuItem();
+        btSairGrafico = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,24 +109,59 @@ public class TelaGrafico1 extends javax.swing.JFrame {
             .addGap(0, 262, Short.MAX_VALUE)
         );
 
-        jMenu2.setText("Menu");
+        cbMesGrafico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jMenuItem2.setText("Tela Principal");
-        jMenu2.add(jMenuItem2);
+        cbAnoGrafico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jMenuItem1.setText("Contas");
-        jMenu2.add(jMenuItem1);
+        menuGrafico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1485477024-menu_78574.png"))); // NOI18N
+        menuGrafico.setText("Menu");
 
-        jMenuItem3.setText("Graficos");
-        jMenu2.add(jMenuItem3);
+        btContasGrafico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/shoppaymentorderbuy-23_icon-icons.com_73884.png"))); // NOI18N
+        btContasGrafico.setText("Contas");
+        btContasGrafico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btContasGraficoActionPerformed(evt);
+            }
+        });
+        menuGrafico.add(btContasGrafico);
 
-        jMenuItem4.setText("Categorias");
-        jMenu2.add(jMenuItem4);
+        btHistoricoGrafico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Historical_icon-icons.com_54175.png"))); // NOI18N
+        btHistoricoGrafico.setText("Historico");
+        btHistoricoGrafico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btHistoricoGraficoActionPerformed(evt);
+            }
+        });
+        menuGrafico.add(btHistoricoGrafico);
 
-        jMenuItem5.setText("Sair");
-        jMenu2.add(jMenuItem5);
+        btGraficos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1477521928_10_icon-icons.com_74620.png"))); // NOI18N
+        btGraficos.setText("Graficos");
+        btGraficos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGraficosActionPerformed(evt);
+            }
+        });
+        menuGrafico.add(btGraficos);
 
-        jMenuBar1.add(jMenu2);
+        btCategoriasGrafico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1486486297-attribute-category-label-shop-price-price-tag-tag_81213.png"))); // NOI18N
+        btCategoriasGrafico.setText("Categorias");
+        btCategoriasGrafico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCategoriasGraficoActionPerformed(evt);
+            }
+        });
+        menuGrafico.add(btCategoriasGrafico);
+
+        btSairGrafico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/logout256_24927.png"))); // NOI18N
+        btSairGrafico.setText("Sair");
+        btSairGrafico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSairGraficoActionPerformed(evt);
+            }
+        });
+        menuGrafico.add(btSairGrafico);
+
+        jMenuBar1.add(menuGrafico);
 
         setJMenuBar(jMenuBar1);
 
@@ -99,40 +169,45 @@ public class TelaGrafico1 extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnGerarGrafico)
-                .addGap(318, 318, 318))
             .addGroup(layout.createSequentialGroup()
-                .addGap(124, 124, 124)
+                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblAnoGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblMesGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblAnoGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(47, 47, 47)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtMesHistorico1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAnoGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(146, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(cbMesGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbAnoGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(67, 67, 67)
+                                .addComponent(btnGerarGrafico))))
+                    .addComponent(lblMesGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(396, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMesGrafico)
-                    .addComponent(txtMesHistorico1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
-                .addComponent(btnGerarGrafico)
-                .addGap(4, 4, 4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblMesGrafico)
+                            .addComponent(cbMesGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnGerarGrafico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAnoGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAnoGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(87, 87, 87)
+                    .addComponent(cbAnoGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(53, 53, 53)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
 
         pack();
@@ -157,7 +232,7 @@ public class TelaGrafico1 extends javax.swing.JFrame {
                 false // Exibir URLs
             );
             
-            System.out.println("Gráfico gerado");
+            System.out.println("Gráfico gerado"); // print para controle
             
             
             // Adicionar o gráfico ao painel (jPanel1)
@@ -173,10 +248,36 @@ public class TelaGrafico1 extends javax.swing.JFrame {
   
     
     private void btnGerarGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarGraficoActionPerformed
-                                         
-        mostrarGrafico();
-       
+                                  
+        int index1 = cbAnoGrafico.getSelectedIndex();
+        int index2 = cbMesGrafico.getSelectedIndex();
+        
+        if (index1 == 0 || index2 == 0) {
+            JOptionPane.showMessageDialog(null, "Todos os campos devem ser selecionados", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+        } else {
+            mostrarGrafico();
+        }       
     }//GEN-LAST:event_btnGerarGraficoActionPerformed
+
+    private void btContasGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btContasGraficoActionPerformed
+        new TelaContas1().setVisible(true);
+    }//GEN-LAST:event_btContasGraficoActionPerformed
+
+    private void btHistoricoGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHistoricoGraficoActionPerformed
+        new TelaHistorico1().setVisible(true);
+    }//GEN-LAST:event_btHistoricoGraficoActionPerformed
+
+    private void btGraficosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGraficosActionPerformed
+        new TelaGrafico1().setVisible(true);
+    }//GEN-LAST:event_btGraficosActionPerformed
+
+    private void btCategoriasGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCategoriasGraficoActionPerformed
+        new TelaCategoria1().setVisible(true);
+    }//GEN-LAST:event_btCategoriasGraficoActionPerformed
+
+    private void btSairGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairGraficoActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btSairGraficoActionPerformed
 
                     
 
@@ -217,18 +318,18 @@ public class TelaGrafico1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem btCategoriasGrafico;
+    private javax.swing.JMenuItem btContasGrafico;
+    private javax.swing.JMenuItem btGraficos;
+    private javax.swing.JMenuItem btHistoricoGrafico;
+    private javax.swing.JMenuItem btSairGrafico;
     private javax.swing.JButton btnGerarGrafico;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JComboBox<String> cbAnoGrafico;
+    private javax.swing.JComboBox<String> cbMesGrafico;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblAnoGrafico;
     private javax.swing.JLabel lblMesGrafico;
-    private javax.swing.JTextField txtAnoGrafico;
-    private javax.swing.JTextField txtMesHistorico1;
+    private javax.swing.JMenu menuGrafico;
     // End of variables declaration//GEN-END:variables
 }
