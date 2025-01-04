@@ -9,11 +9,4 @@ package classesGerenciador;
  * @author Bruno Eduardo <https://github.com/brnduol>
  */
 public class Carteira {
-
-    class adicionarTransacao {
-
-        public adicionarTransacao() {
-        }
-    }
-    
 }
