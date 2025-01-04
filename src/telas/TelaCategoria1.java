@@ -4,11 +4,17 @@
  */
 package telas;
 
+import classesGerenciador.Categoria;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Bruno Eduardo <https://github.com/brnduol>
  */
 public class TelaCategoria1 extends javax.swing.JFrame {
+    private Categoria categoria;
+    private List<Categoria> categorias = new ArrayList<>();
 
     /**
      * Creates new form TelaCategoria1
@@ -234,6 +240,7 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
@@ -241,7 +248,7 @@ public class TelaCategoria1 extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeActionPerformed
 
     private void bntCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCriarActionPerformed
-       // Obter os valores dos campos
+        // Obter os valores dos campos
         String nome = txtNome.getText();
         String tipo = cmbTipo.getSelectedItem().toString();
 
@@ -251,10 +258,14 @@ public class TelaCategoria1 extends javax.swing.JFrame {
             return;
         }
 
+        // Criar a categoria e adicioná-la à lista
+        Categoria novaCategoria = new Categoria(categorias.size() + 1, nome); // Supondo que o ID é baseado no tamanho da lista
+        categorias.add(novaCategoria);
+
         // Obter o modelo da tabela
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
 
-        // Adicionar os dados na primeira linha da tabela
+        // Inserir os dados no início da tabela (índice 0)
         model.insertRow(0, new Object[]{nome, tipo});
 
         // Limpar os campos de entrada
@@ -262,7 +273,8 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         cmbTipo.setSelectedIndex(0);
 
         // Mensagem de sucesso
-        javax.swing.JOptionPane.showMessageDialog(this, "Dados inseridos com sucesso!");
+        javax.swing.JOptionPane.showMessageDialog(this, "Categoria criada com sucesso!");
+
     }//GEN-LAST:event_bntCriarActionPerformed
 
     private void cmbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoActionPerformed
@@ -274,24 +286,21 @@ public class TelaCategoria1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void bntExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntExcluirActionPerformed
+        int selectedRow = jTable1.getSelectedRow();
     
-    // Obter o índice da linha selecionada
-    int selectedRow = jTable1.getSelectedRow();
+        // Verificar se uma linha foi selecionada
+        if (selectedRow != -1) {
+            // Obter o modelo da tabela
+            javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
 
-    // Verificar se uma linha foi selecionada
-    if (selectedRow != -1) { // -1 significa que nenhuma linha está selecionada
-        // Obter o modelo da tabela
-        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+            // Remover a linha selecionada
+            model.removeRow(selectedRow);
 
-        // Remover a linha selecionada
-        model.removeRow(selectedRow);
-
-        // Mensagem de sucesso
-        javax.swing.JOptionPane.showMessageDialog(this, "Linha excluída com sucesso!");
-    } else {
-        // Nenhuma linha selecionada
-        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, selecione uma linha para excluir.");
-    }
+            // Mensagem de sucesso
+            javax.swing.JOptionPane.showMessageDialog(this, "Categoria excluída com sucesso!");
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, selecione uma categoria para excluir.");
+        }
     }//GEN-LAST:event_bntExcluirActionPerformed
 
     private void jmPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPrincipalActionPerformed
