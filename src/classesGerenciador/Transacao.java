@@ -20,4 +20,8 @@ public abstract class Transacao {
     public abstract void executarTransacao();
 
     public abstract void editarTransacao();
+
+    int getId() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

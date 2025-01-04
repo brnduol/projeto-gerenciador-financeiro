@@ -38,11 +38,11 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jmPrincipal = new javax.swing.JMenuItem();
+        jmContas = new javax.swing.JMenuItem();
+        jmHistorico = new javax.swing.JMenuItem();
+        jmGraficos = new javax.swing.JMenuItem();
+        jmSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,25 +122,25 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1485477024-menu_78574.png"))); // NOI18N
         jMenu2.setText("Menu");
 
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/32officeicons-31_89708.png"))); // NOI18N
-        jMenuItem4.setText("Tela Principal");
-        jMenu2.add(jMenuItem4);
+        jmPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/32officeicons-31_89708.png"))); // NOI18N
+        jmPrincipal.setText("Tela Principal");
+        jMenu2.add(jmPrincipal);
 
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/shoppaymentorderbuy-23_icon-icons.com_73884.png"))); // NOI18N
-        jMenuItem1.setText("Contas");
-        jMenu2.add(jMenuItem1);
+        jmContas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/shoppaymentorderbuy-23_icon-icons.com_73884.png"))); // NOI18N
+        jmContas.setText("Contas");
+        jMenu2.add(jmContas);
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Historical_icon-icons.com_54175.png"))); // NOI18N
-        jMenuItem2.setText("Historico");
-        jMenu2.add(jMenuItem2);
+        jmHistorico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Historical_icon-icons.com_54175.png"))); // NOI18N
+        jmHistorico.setText("Historico");
+        jMenu2.add(jmHistorico);
 
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1477521928_10_icon-icons.com_74620.png"))); // NOI18N
-        jMenuItem3.setText("Graficos");
-        jMenu2.add(jMenuItem3);
+        jmGraficos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1477521928_10_icon-icons.com_74620.png"))); // NOI18N
+        jmGraficos.setText("Graficos");
+        jMenu2.add(jmGraficos);
 
-        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/logout256_24927.png"))); // NOI18N
-        jMenuItem5.setText("Sair");
-        jMenu2.add(jMenuItem5);
+        jmSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/logout256_24927.png"))); // NOI18N
+        jmSair.setText("Sair");
+        jMenu2.add(jmSair);
 
         jMenuBar1.add(jMenu2);
 
@@ -311,14 +311,14 @@ public class TelaCategoria1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JMenuItem jmContas;
+    private javax.swing.JMenuItem jmGraficos;
+    private javax.swing.JMenuItem jmHistorico;
+    private javax.swing.JMenuItem jmPrincipal;
+    private javax.swing.JMenuItem jmSair;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblTipo;
     private javax.swing.JTextField txtNome;

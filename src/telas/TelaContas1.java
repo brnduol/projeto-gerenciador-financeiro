@@ -7,6 +7,8 @@ package telas;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+
+
 /**
  *
  * @author Bruno Eduardo <https://github.com/brnduol>
@@ -42,11 +44,11 @@ public class TelaContas1 extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jmPrincipal = new javax.swing.JMenuItem();
+        jmHistorico = new javax.swing.JMenuItem();
+        jmGraficos = new javax.swing.JMenuItem();
+        jmCategorias = new javax.swing.JMenuItem();
+        jmSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,25 +100,30 @@ public class TelaContas1 extends javax.swing.JFrame {
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1485477024-menu_78574.png"))); // NOI18N
         jMenu2.setText("Menu");
 
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/32officeicons-31_89708.png"))); // NOI18N
-        jMenuItem1.setText("Tela principal");
-        jMenu2.add(jMenuItem1);
+        jmPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/32officeicons-31_89708.png"))); // NOI18N
+        jmPrincipal.setText("Tela principal");
+        jMenu2.add(jmPrincipal);
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Historical_icon-icons.com_54175.png"))); // NOI18N
-        jMenuItem2.setText("Historico");
-        jMenu2.add(jMenuItem2);
+        jmHistorico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Historical_icon-icons.com_54175.png"))); // NOI18N
+        jmHistorico.setText("Historico");
+        jMenu2.add(jmHistorico);
 
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1477521928_10_icon-icons.com_74620.png"))); // NOI18N
-        jMenuItem3.setText("Graficos");
-        jMenu2.add(jMenuItem3);
+        jmGraficos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1477521928_10_icon-icons.com_74620.png"))); // NOI18N
+        jmGraficos.setText("Graficos");
+        jMenu2.add(jmGraficos);
 
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1486486297-attribute-category-label-shop-price-price-tag-tag_81213.png"))); // NOI18N
-        jMenuItem4.setText("Categorias");
-        jMenu2.add(jMenuItem4);
+        jmCategorias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1486486297-attribute-category-label-shop-price-price-tag-tag_81213.png"))); // NOI18N
+        jmCategorias.setText("Categorias");
+        jmCategorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmCategoriasActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmCategorias);
 
-        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/logout256_24927.png"))); // NOI18N
-        jMenuItem5.setText("Sair");
-        jMenu2.add(jMenuItem5);
+        jmSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/logout256_24927.png"))); // NOI18N
+        jmSair.setText("Sair");
+        jMenu2.add(jmSair);
 
         jMenuBar1.add(jMenu2);
 
@@ -227,6 +234,10 @@ public class TelaContas1 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bntExcluirActionPerformed
 
+    private void jmCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCategoriasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmCategoriasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -268,13 +279,13 @@ public class TelaContas1 extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JMenuItem jmCategorias;
+    private javax.swing.JMenuItem jmGraficos;
+    private javax.swing.JMenuItem jmHistorico;
+    private javax.swing.JMenuItem jmPrincipal;
+    private javax.swing.JMenuItem jmSair;
     private javax.swing.JLabel lblConta;
     private javax.swing.JLabel lblSaldo;
     private javax.swing.JLabel lblTipo;
