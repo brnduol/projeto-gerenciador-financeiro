@@ -124,22 +124,47 @@ public class TelaCategoria1 extends javax.swing.JFrame {
 
         jmPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/32officeicons-31_89708.png"))); // NOI18N
         jmPrincipal.setText("Tela Principal");
+        jmPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmPrincipalActionPerformed(evt);
+            }
+        });
         jMenu2.add(jmPrincipal);
 
         jmContas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/shoppaymentorderbuy-23_icon-icons.com_73884.png"))); // NOI18N
         jmContas.setText("Contas");
+        jmContas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmContasActionPerformed(evt);
+            }
+        });
         jMenu2.add(jmContas);
 
         jmHistorico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Historical_icon-icons.com_54175.png"))); // NOI18N
         jmHistorico.setText("Historico");
+        jmHistorico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmHistoricoActionPerformed(evt);
+            }
+        });
         jMenu2.add(jmHistorico);
 
         jmGraficos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1477521928_10_icon-icons.com_74620.png"))); // NOI18N
         jmGraficos.setText("Graficos");
+        jmGraficos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmGraficosActionPerformed(evt);
+            }
+        });
         jMenu2.add(jmGraficos);
 
         jmSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/logout256_24927.png"))); // NOI18N
         jmSair.setText("Sair");
+        jmSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmSairActionPerformed(evt);
+            }
+        });
         jMenu2.add(jmSair);
 
         jMenuBar1.add(jMenu2);
@@ -268,6 +293,41 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         javax.swing.JOptionPane.showMessageDialog(this, "Por favor, selecione uma linha para excluir.");
     }
     }//GEN-LAST:event_bntExcluirActionPerformed
+
+    private void jmPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPrincipalActionPerformed
+        // Abrir a tela principal
+        TelaPrincipal1 telaPrincipal = new TelaPrincipal1();
+        telaPrincipal.setVisible(true);
+        this.dispose(); // Fecha a tela atual
+    }//GEN-LAST:event_jmPrincipalActionPerformed
+
+    private void jmContasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmContasActionPerformed
+        // Abrir a tela principal
+        TelaContas1 telaContas = new TelaContas1();
+        telaContas.setVisible(true);
+        this.dispose(); // Fecha a tela atual
+    }//GEN-LAST:event_jmContasActionPerformed
+
+    private void jmHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmHistoricoActionPerformed
+        // Abrir a tela de histórico
+        TelaHistorico1 telaHistorico = new TelaHistorico1();
+        telaHistorico.setVisible(true);
+        this.dispose(); // Fecha a tela atual
+    }//GEN-LAST:event_jmHistoricoActionPerformed
+
+    private void jmGraficosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmGraficosActionPerformed
+        // Abrir a tela de gráficos
+        TelaGrafico1 telaGrafico = new TelaGrafico1();
+        telaGrafico.setVisible(true);
+        this.dispose(); // Fecha a tela atual
+    }//GEN-LAST:event_jmGraficosActionPerformed
+
+    private void jmSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSairActionPerformed
+        // Voltar para a tela principal ao clicar em "Sair"
+        TelaPrincipal1 telaPrincipal = new TelaPrincipal1();
+        telaPrincipal.setVisible(true);
+        this.dispose(); // Fecha a tela atual
+    }//GEN-LAST:event_jmSairActionPerformed
 
     /**
      * @param args the command line arguments

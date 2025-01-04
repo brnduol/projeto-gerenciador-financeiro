@@ -102,14 +102,29 @@ public class TelaContas1 extends javax.swing.JFrame {
 
         jmPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/32officeicons-31_89708.png"))); // NOI18N
         jmPrincipal.setText("Tela principal");
+        jmPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmPrincipalActionPerformed(evt);
+            }
+        });
         jMenu2.add(jmPrincipal);
 
         jmHistorico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Historical_icon-icons.com_54175.png"))); // NOI18N
         jmHistorico.setText("Historico");
+        jmHistorico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmHistoricoActionPerformed(evt);
+            }
+        });
         jMenu2.add(jmHistorico);
 
         jmGraficos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1477521928_10_icon-icons.com_74620.png"))); // NOI18N
         jmGraficos.setText("Graficos");
+        jmGraficos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmGraficosActionPerformed(evt);
+            }
+        });
         jMenu2.add(jmGraficos);
 
         jmCategorias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1486486297-attribute-category-label-shop-price-price-tag-tag_81213.png"))); // NOI18N
@@ -123,6 +138,11 @@ public class TelaContas1 extends javax.swing.JFrame {
 
         jmSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/logout256_24927.png"))); // NOI18N
         jmSair.setText("Sair");
+        jmSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmSairActionPerformed(evt);
+            }
+        });
         jMenu2.add(jmSair);
 
         jMenuBar1.add(jMenu2);
@@ -235,8 +255,39 @@ public class TelaContas1 extends javax.swing.JFrame {
     }//GEN-LAST:event_bntExcluirActionPerformed
 
     private void jmCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCategoriasActionPerformed
-        // TODO add your handling code here:
+        // Abrir a tela de categorias
+        TelaCategoria1 telaCategoria = new TelaCategoria1();
+        telaCategoria.setVisible(true);
+        this.dispose(); // Fecha a tela atual
     }//GEN-LAST:event_jmCategoriasActionPerformed
+
+    private void jmPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPrincipalActionPerformed
+        // Abrir a tela principal
+        TelaPrincipal1 telaPrincipal = new TelaPrincipal1();
+        telaPrincipal.setVisible(true);
+        this.dispose(); // Fecha a tela atual
+    }//GEN-LAST:event_jmPrincipalActionPerformed
+
+    private void jmHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmHistoricoActionPerformed
+        // Abrir a tela de histórico
+        TelaHistorico1 telaHistorico = new TelaHistorico1();
+        telaHistorico.setVisible(true);
+        this.dispose(); // Fecha a tela atual
+    }//GEN-LAST:event_jmHistoricoActionPerformed
+
+    private void jmGraficosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmGraficosActionPerformed
+        // Abrir a tela de gráficos
+        TelaGrafico1 telaGrafico = new TelaGrafico1();
+        telaGrafico.setVisible(true);
+        this.dispose(); // Fecha a tela atual
+    }//GEN-LAST:event_jmGraficosActionPerformed
+
+    private void jmSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSairActionPerformed
+        // Voltar para a tela principal ao clicar em "Sair"
+        TelaPrincipal1 telaPrincipal = new TelaPrincipal1();
+        telaPrincipal.setVisible(true);
+        this.dispose(); // Fecha a tela atual
+    }//GEN-LAST:event_jmSairActionPerformed
 
     /**
      * @param args the command line arguments
