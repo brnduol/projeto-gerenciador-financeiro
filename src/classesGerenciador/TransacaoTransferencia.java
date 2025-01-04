@@ -9,17 +9,37 @@ import java.time.LocalDate;
  * @author Bruno Eduardo <https://github.com/brnduol>
  */
 public class TransacaoTransferencia extends Transacao {
+    private Carteira conta;
+
+    // Construtor
+    public TransacaoTransferencia(int id, Carteira conta, double valor, LocalDate data, String descricao) {
+        super(id, conta, valor, data, descricao);
+        this.conta = conta;
+    }
+    public void atualizar(Carteira conta){
+        
+    }
     
     @Override
-    public void executarTransacao() {
-        // Lógica para executar transação de transferência
+    public void excluirTransacao() {
+        
     }
 
     @Override
     public void editarTransacao() {
-        // Lógica para editar transação de transferência
+        
     }
+
+    public Carteira getConta() {
+        return conta;
+    }
+
+    public void setConta(Carteira conta) {
+        this.conta = conta;
+    }
+    
+    
 }
 
-// Interface Atualizavel
+
 

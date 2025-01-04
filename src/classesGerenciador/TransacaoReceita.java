@@ -4,6 +4,8 @@
  */
 package classesGerenciador;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author Bruno Eduardo <https://github.com/brnduol>
@@ -11,17 +13,36 @@ package classesGerenciador;
 public class TransacaoReceita extends Transacao {
     private String categoria;
 
-    @Override
-    public void executarTransacao() {
-        // Lógica para executar transação de receita
+    
+    public TransacaoReceita(int id, Carteira conta, double valor, LocalDate data, String descricao, String categoria) {
+        super(id, conta, valor, data, descricao);
+        this.categoria = categoria;
+    }
+
+    public void atualizar(Carteira conta){
+    }
+    
+    public void adicionarCategoria(Categoria categoria){
+        
+    }
+    
+     @Override
+    public void excluirTransacao() {
+        
     }
 
     @Override
     public void editarTransacao() {
-        // Lógica para editar transação de receita
+        
     }
 
-    public void adicionarCategoria(Categoria categoria) {
-        // Lógica para adicionar categoria
+    public String getCategoria() {
+        return categoria;
     }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+    
+    
 }

@@ -16,12 +16,10 @@ public abstract class Transacao {
     protected double valor;
     protected LocalDate data;
     protected String descricao;
-
-    public abstract void executarTransacao();
-
+    
+    public abstract void excluirTransacao();
+        
     public abstract void editarTransacao();
-
-    int getId() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
+    
 }
