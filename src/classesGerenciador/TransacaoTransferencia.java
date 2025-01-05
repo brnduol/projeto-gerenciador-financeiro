@@ -37,6 +37,16 @@ public class TransacaoTransferencia extends Transacao {
     public void setConta(Carteira conta) {
         this.conta = conta;
     }
+    @Override
+    public boolean pertenceCategoria(String categoria) {
+        // Receitas não têm categoria, então sempre retorna falso
+        return false;
+    }
+
+    @Override
+    public boolean pertenceOrigem(String origem) {
+        return false;
+    }
     
     
 }

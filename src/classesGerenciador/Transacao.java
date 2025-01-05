@@ -17,9 +17,24 @@ public abstract class Transacao {
     protected LocalDate data;
     protected String descricao;
     
+    public Transacao(int id, Carteira conta, double valor, LocalDate data, String descricao) {
+        this.id = id;
+        this.conta = conta;
+        this.valor = valor;
+        this.data = data;
+        this.descricao = descricao;
+    }
+    public int getId() {
+        return id;
+    }
+    
     public abstract void excluirTransacao();
         
     public abstract void editarTransacao();
+    
+    public abstract boolean pertenceCategoria(String categoria);
+
+    public abstract boolean pertenceOrigem(String origem);
     
     
 }

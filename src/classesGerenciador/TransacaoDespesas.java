@@ -11,11 +11,11 @@ import java.time.LocalDate;
  * @author Bruno Eduardo <https://github.com/brnduol>
  */
 public class TransacaoDespesas extends Transacao {
-    private Carteira conta;
+    private String categoriaDespesa;
 
-    public TransacaoDespesas(int id, Carteira conta, double valor, LocalDate data, String descricao) {
+    public TransacaoDespesas(int id, Carteira conta, double valor, LocalDate data, String descricao, String categoriaDespesa) {
         super(id, conta, valor, data, descricao);
-        this.conta = conta;
+        this.categoriaDespesa = categoriaDespesa;
     }
 
     public void atualizar(Carteira conta){
@@ -31,15 +31,20 @@ public class TransacaoDespesas extends Transacao {
         
     }
 
-    public Carteira getConta() {
-        return conta;
+    public String getCategoriaDespesa() {
+        return categoriaDespesa;
     }
 
-    public void setConta(Carteira conta) {
-        this.conta = conta;
+    public void setCategoriaDespesa(String categoriaDespesa) {
+        this.categoriaDespesa = categoriaDespesa;
+    }
+    @Override
+    public boolean pertenceCategoria(String categoria) {
+        return this.categoriaDespesa.equals(categoria);
     }
 
-    
-    
-    
+    @Override
+    public boolean pertenceOrigem(String origem) {
+        return false;
+    }
 }

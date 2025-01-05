@@ -33,14 +33,24 @@ public class Balanco {
     public double gerarBalancoPorCategoria(String categoria) {
         double total = 0.0;
         for (Transacao transacao : transacoes) {
-            if (transacao instanceof TransacaoReceita && ((TransacaoReceita) transacao).categoria.equals(categoria)) {
-                total += transacao.valor;
-            } else if (transacao instanceof TransacaoDespesas && ((TransacaoDespesas) transacao).Categoria.equals(categoria)) {
+            if (transacao.pertenceCategoria(categoria)) {
                 total += transacao.valor;
             }
         }
         return total;
     }
+
+    public double gerarBalancoPorOrigemReceita(String origemReceita) {
+        double total = 0.0;
+        for (Transacao transacao : transacoes) {
+            if (transacao.pertenceOrigem(origemReceita)) {
+                total += transacao.valor;
+            }
+        }
+        return total;
+    }
+
+
 
     // Getters
     public int getId() {
@@ -52,8 +62,7 @@ public class Balanco {
     }
 
     public int getAno() {
-        return ano;
-    }
+        return ano;
+    }
        
-   }
-}
+  }

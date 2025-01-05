@@ -11,12 +11,12 @@ import java.time.LocalDate;
  * @author Bruno Eduardo <https://github.com/brnduol>
  */
 public class TransacaoReceita extends Transacao {
-    private String categoria;
+    private String origemReceita;
 
     
-    public TransacaoReceita(int id, Carteira conta, double valor, LocalDate data, String descricao, String categoria) {
+    public TransacaoReceita(int id, Carteira conta, double valor, LocalDate data, String descricao, String origemReceita) {
         super(id, conta, valor, data, descricao);
-        this.categoria = categoria;
+        this.origemReceita = origemReceita;
     }
 
     public void atualizar(Carteira conta){
@@ -36,13 +36,22 @@ public class TransacaoReceita extends Transacao {
         
     }
 
-    public String getCategoria() {
-        return categoria;
+    public String getOrigemReceita() {
+        return origemReceita;
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setOrigemReceita(String categoria) {
+        this.origemReceita = categoria;
     }
     
-    
+    @Override
+    public boolean pertenceCategoria(String categoria) {
+        // Receitas não têm categoria, então sempre retorna falso
+        return false;
+    }
+
+    @Override
+    public boolean pertenceOrigem(String origem) {
+        return this.origemReceita.equals(origem);
+    }
 }
