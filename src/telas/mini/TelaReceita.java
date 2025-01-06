@@ -56,11 +56,11 @@ public class TelaReceita extends javax.swing.JFrame {
 
         jLabel2.setText("Data");
 
-        jTextField3.setText("jTextField1");
+        jTextField3.setText("0");
 
         jLabel3.setText("Valor");
 
-        jTextField4.setText("jTextField1");
+        jTextField4.setText("dd/mm/aaaa");
 
         jLabel4.setText("Categoria");
 
