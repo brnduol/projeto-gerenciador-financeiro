@@ -37,23 +37,12 @@ public class OrigemRenda {
         transacoes.add(transacao);
     }
 
-    // Método para excluir uma transação por ID
+
     public boolean excluirTransacao(int transacaoId) {
         return transacoes.removeIf(transacao -> transacao.getId() == transacaoId);
-        // removeIf remove a transação cujo ID seja igual ao transacaoId fornecido
+
     }
 
-    // Método para editar uma transação
-    public boolean editarTransacao(int transacaoId, Transacao novaTransacao) {
-        Optional<Transacao> transacaoExistente = transacoes.stream()
-                .filter(transacao -> transacao.getId() == transacaoId)
-                .findFirst();
 
-        if (transacaoExistente.isPresent()) {
-            int index = transacoes.indexOf(transacaoExistente.get());
-            transacoes.set(index, novaTransacao);
-            return true; // Retorna true se a transação foi editada com sucesso
-        }
-        return false; // Retorna false caso a transação não tenha sido encontrada
-    }
+    
 }

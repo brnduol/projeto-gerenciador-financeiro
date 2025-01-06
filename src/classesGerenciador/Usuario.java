@@ -11,19 +11,19 @@ import java.util.List;
  * @author Bruno Eduardo <https://github.com/brnduol>
  */
 public class Usuario {
-
-    
+    private static int proximoId = 1;
     private int id;
     private String nome;
     private String email;
     private String senha;
     private double limiteMensal;
     private List<Carteira> carteiras;
-    private List<Balanco> balanco;
+    private List<Balanco> balancos;
     private List<Categoria> categoria;
     private List<OrigemRenda> origemRendas;
     
     public Usuario(String nome, String senha, String email) {
+        this.id = proximoId++;
         this.nome = nome;
         this.senha = senha;
         this.email = email;
@@ -57,7 +57,7 @@ public class Usuario {
     }
 
     public List<Balanco> getBalanco() {
-        return balanco;
+        return balancos;
     }
 
     public void setId(int id) {
@@ -84,9 +84,6 @@ public class Usuario {
         this.carteiras = carteiras;
     }
 
-    public void setBalanco(List<Balanco> balanco) {
-        this.balanco = balanco;
-    }
 
     public List<Categoria> getCategoria() {
         return categoria;
@@ -94,6 +91,18 @@ public class Usuario {
 
     public void setCategoria(List<Categoria> categoria) {
         this.categoria = categoria;
+    }
+    public void criarCarteira(String nome, double saldo){
+        Carteira carteira = new Carteira(nome, saldo);
+        carteiras.add(carteira);
+    }
+    public Balanco solicitarBalanco(int mes, int ano){
+        for (Balanco balanco : balancos) {
+            if (balanco.getMes() == mes && balanco.getAno() == ano){
+                return balanco;
+            }
+        }
+        return null;
     }
     
     public void addCategoria(String nome){
@@ -106,9 +115,7 @@ public class Usuario {
     }
     
     public void adicionarTrasacao(Carteira carteira, Transacao transacao){
-        carteira.
-        
-        
+        carteira.adicionarTransacao(transacao);
     }
 
    
