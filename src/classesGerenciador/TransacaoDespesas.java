@@ -14,13 +14,14 @@ public class TransacaoDespesas extends Transacao {
     private String categoriaDespesa;
 
     public TransacaoDespesas(Carteira conta, double valor, LocalDate data, String descricao, String categoriaDespesa) {
-        super(conta, valor, data, descricao);
+        super(conta, valor*-1, data, descricao);
         this.categoriaDespesa = categoriaDespesa;
     }
     
     
     @Override
-    public void atualizar(Carteira conta){
+    public void atualizar(Carteira carteira){
+        carteira.atualizarSaldo(valor);
     }
     
      @Override

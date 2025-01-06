@@ -20,7 +20,8 @@ public class TransacaoReceita extends Transacao {
     }
 
     @Override
-    public void atualizar(Carteira conta){
+    public void atualizar(Carteira carteira){
+        carteira.atualizarSaldo(valor);
     }
     
     public void adicionarCategoria(Categoria categoria){

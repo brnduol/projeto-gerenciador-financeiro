@@ -57,7 +57,7 @@ public class Carteira {
     }
     
     public void adicionarTransacao(Transacao transacao){
-        transacao.atualizar();
+        transacao.atualizar(this);
         transacoes.add(transacao);
     }
     
@@ -68,6 +68,9 @@ public class Carteira {
                 break;
             }
         }
+    }
+    public void atualizarSaldo(double valor){
+        this.saldo += valor;
     }
     
 }
