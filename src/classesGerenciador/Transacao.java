@@ -19,15 +19,18 @@ public abstract class Transacao {
     protected String descricao;
     
     public Transacao(Carteira conta, double valor, LocalDate data, String descricao) {
-        this.id = proximoId++; 
+        this.id = proximoId++; // Incrementa o valor de proximoId para que a próxima instância receba um identificador único e sequencial
         this.conta = conta;
         this.valor = valor;
         this.data = data;
         this.descricao = descricao;
     }
     public int getId() {
-        return id;
+    return id;
     }
+    
+    // Métodos abstratos 
+    
     public abstract void atualizar(Carteira conta);
     
     public abstract void excluirTransacao();

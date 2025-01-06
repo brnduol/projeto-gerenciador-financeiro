@@ -14,7 +14,7 @@ public class TransacaoDespesas extends Transacao {
     private String categoriaDespesa;
 
     public TransacaoDespesas(Carteira conta, double valor, LocalDate data, String descricao, String categoriaDespesa) {
-        super(conta, valor*-1, data, descricao);
+        super(conta, valor*-1, data, descricao); // valor*-1: as despesas são tratadas como valores negativos no sistema para distinguir receitas (valores positivos) de despesas (valores negativos).
         this.categoriaDespesa = categoriaDespesa;
     }
     
@@ -24,7 +24,7 @@ public class TransacaoDespesas extends Transacao {
         carteira.atualizarSaldo(valor);
     }
     
-     @Override
+    @Override
     public void excluirTransacao() {
         
     }

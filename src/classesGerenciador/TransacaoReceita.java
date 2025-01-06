@@ -24,11 +24,7 @@ public class TransacaoReceita extends Transacao {
         carteira.atualizarSaldo(valor);
     }
     
-    public void adicionarCategoria(Categoria categoria){
-        
-    }
-    
-     @Override
+    @Override
     public void excluirTransacao() {
         
     }
@@ -36,14 +32,6 @@ public class TransacaoReceita extends Transacao {
     @Override
     public void editarTransacao() {
         
-    }
-
-    public String getOrigemReceita() {
-        return origemReceita;
-    }
-
-    public void setOrigemReceita(String categoria) {
-        this.origemReceita = categoria;
     }
     
     @Override
@@ -54,6 +42,18 @@ public class TransacaoReceita extends Transacao {
 
     @Override
     public boolean pertenceOrigem(String origem) {
-        return this.origemReceita.equals(origem);
+        return this.origemReceita.equals(origem); // compara a string armazenada no atributo origemReceita (que pertence ao objeto atual) com a string recebida como parâmetro origem.
+    }
+    
+    public void adicionarCategoria(Categoria categoria){
+        
+    }
+    
+    public String getOrigemReceita() {
+        return origemReceita;
+    }
+
+    public void setOrigemReceita(String categoria) {
+        this.origemReceita = categoria;
     }
 }
