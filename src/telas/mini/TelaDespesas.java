@@ -52,11 +52,11 @@ public class TelaDespesas extends javax.swing.JFrame {
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jTextField3.setText("jTextField1");
+        jTextField3.setText("0");
 
         jLabel3.setText("Valor");
 
-        jTextField4.setText("jTextField1");
+        jTextField4.setText("dd/mm/aaaa");
 
         jLabel4.setText("Categoria");
 
