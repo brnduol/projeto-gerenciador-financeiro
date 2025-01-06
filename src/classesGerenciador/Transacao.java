@@ -11,14 +11,15 @@ import java.time.LocalDate;
  * @author Bruno Eduardo <https://github.com/brnduol>
  */
 public abstract class Transacao {
+    private static int proximoId = 1;
     protected int id;
     protected Carteira conta;
     protected double valor;
     protected LocalDate data;
     protected String descricao;
     
-    public Transacao(int id, Carteira conta, double valor, LocalDate data, String descricao) {
-        this.id = id;
+    public Transacao(Carteira conta, double valor, LocalDate data, String descricao) {
+        this.id = proximoId++; 
         this.conta = conta;
         this.valor = valor;
         this.data = data;
@@ -27,6 +28,7 @@ public abstract class Transacao {
     public int getId() {
         return id;
     }
+    public abstract void atualizar(Carteira conta);
     
     public abstract void excluirTransacao();
         

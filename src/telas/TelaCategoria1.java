@@ -262,8 +262,12 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         }
 
         // Criar a categoria e adicioná-la à lista
-        Categoria novaCategoria = new Categoria(contaAtual.getCategoria().size() + 1, nome); // Supondo que o ID é baseado no tamanho da lista
-        contaAtual.getCategoria().add(novaCategoria);
+        if (tipo.equals("Despesa")){
+            contaAtual.addCategoria(nome);
+        } else{
+            contaAtual.addOrigemRenda(nome);
+        }
+         
 
         // Obter o modelo da tabela
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();

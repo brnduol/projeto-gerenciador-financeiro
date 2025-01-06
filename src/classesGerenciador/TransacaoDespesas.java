@@ -13,11 +13,13 @@ import java.time.LocalDate;
 public class TransacaoDespesas extends Transacao {
     private String categoriaDespesa;
 
-    public TransacaoDespesas(int id, Carteira conta, double valor, LocalDate data, String descricao, String categoriaDespesa) {
-        super(id, conta, valor, data, descricao);
+    public TransacaoDespesas(Carteira conta, double valor, LocalDate data, String descricao, String categoriaDespesa) {
+        super(conta, valor, data, descricao);
         this.categoriaDespesa = categoriaDespesa;
     }
-
+    
+    
+    @Override
     public void atualizar(Carteira conta){
     }
     
@@ -47,4 +49,6 @@ public class TransacaoDespesas extends Transacao {
     public boolean pertenceOrigem(String origem) {
         return false;
     }
+
+    
 }

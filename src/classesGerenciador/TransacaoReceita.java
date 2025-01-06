@@ -14,11 +14,12 @@ public class TransacaoReceita extends Transacao {
     private String origemReceita;
 
     
-    public TransacaoReceita(int id, Carteira conta, double valor, LocalDate data, String descricao, String origemReceita) {
-        super(id, conta, valor, data, descricao);
+    public TransacaoReceita(Carteira conta, double valor, LocalDate data, String descricao, String origemReceita) {
+        super(conta, valor, data, descricao);
         this.origemReceita = origemReceita;
     }
 
+    @Override
     public void atualizar(Carteira conta){
     }
     

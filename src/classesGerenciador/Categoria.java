@@ -13,13 +13,14 @@ import java.util.Optional;
  * @author lucia
  */
 public class Categoria {
+    private static int proximoId = 1; // Variável estática para controlar o próximo ID disponível
     private int id;
     private String nomeCategoria;
     private List<Transacao> transacoes; // Lista de objetos Transacão, vai armazenar todas as transações relacionadas a esta categoria.
 
     // Construtor
-    public Categoria(int id, String nomeCategoria) {
-        this.id = id;
+    public Categoria(String nomeCategoria) {
+        this.id = proximoId++;
         this.nomeCategoria = nomeCategoria;
         this.transacoes = new ArrayList<>(); // Garante que a lista de transações seja criada quando uma nova categoria for criada.
     }
@@ -36,7 +37,9 @@ public class Categoria {
     public List<Transacao> getTransacoes() {
         return transacoes;
     }
-    
+    public void addTransacao(Transacao transacao){
+        transacoes.add(transacao);
+    }
      // Método para excluir uma transação por ID
     public boolean excluirTransacao(int transacaoId) {
         return transacoes.removeIf(transacao -> transacao.getId() == transacaoId); // garante que a lista de transações seja criada quando uma nova categoria for criada.

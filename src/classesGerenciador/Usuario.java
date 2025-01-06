@@ -20,7 +20,8 @@ public class Usuario {
     private double limiteMensal;
     private List<Carteira> carteiras;
     private List<Balanco> balanco;
-    public List<Categoria> categoria;
+    private List<Categoria> categoria;
+    private List<OrigemRenda> origemRendas;
     
     public Usuario(String nome, String senha, String email) {
         this.nome = nome;
@@ -95,7 +96,20 @@ public class Usuario {
         this.categoria = categoria;
     }
     
-    public
+    public void addCategoria(String nome){
+        Categoria novaCategoria = new Categoria(nome);
+        categoria.add(novaCategoria);
+    }
+    public void addOrigemRenda(String nome){
+        OrigemRenda origemRenda = new OrigemRenda(nome);
+        origemRendas.add(origemRenda);
+    }
+    
+    public void adicionarTrasacao(Carteira carteira, Transacao transacao){
+        carteira.
+        
+        
+    }
 
    
     

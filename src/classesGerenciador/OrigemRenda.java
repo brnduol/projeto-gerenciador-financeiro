@@ -15,11 +15,13 @@ import java.util.Optional;
 public class OrigemRenda {
     private static int proximoId = 1; // Variável estática para controlar o próximo ID disponível
     private int id; // ID único para cada OrigemRenda
+    private String nomeOrigemRenda;
     private List<Transacao> transacoes; // Lista de transações relacionadas a esta origem de renda
 
     // Construtor
-    public OrigemRenda() {
+    public OrigemRenda(String nomeOrigemRenda) {
         this.id = proximoId++; // Atribui o próximo ID disponível e incrementa a variável estática
+        this.nomeOrigemRenda = nomeOrigemRenda;
         this.transacoes = new ArrayList<>(); // Inicializa a lista de transações
     }
 
@@ -30,6 +32,9 @@ public class OrigemRenda {
 
     public List<Transacao> getTransacoes() {
         return transacoes;
+    }
+    public void addTransacao(Transacao transacao){
+        transacoes.add(transacao);
     }
 
     // Método para excluir uma transação por ID
