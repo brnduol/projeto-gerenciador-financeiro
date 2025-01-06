@@ -14,11 +14,13 @@ import java.util.Optional;
  */
 public class Categoria {
     private int id;
+    private String nomeCategoria;
     private List<Transacao> transacoes; // Lista de objetos Transacão, vai armazenar todas as transações relacionadas a esta categoria.
 
     // Construtor
-    public Categoria(int id, String descricao) {
+    public Categoria(int id, String nomeCategoria) {
         this.id = id;
+        this.nomeCategoria = nomeCategoria;
         this.transacoes = new ArrayList<>(); // Garante que a lista de transações seja criada quando uma nova categoria for criada.
     }
 

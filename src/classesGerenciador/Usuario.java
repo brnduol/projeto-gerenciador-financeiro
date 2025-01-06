@@ -94,6 +94,8 @@ public class Usuario {
     public void setCategoria(List<Categoria> categoria) {
         this.categoria = categoria;
     }
+    
+    public
 
    
     
