@@ -4,16 +4,21 @@
  */
 package telas;
 
+import classesGerenciador.ContasUsuarios;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Bruno Eduardo <https://github.com/brnduol>
  */
 public class Login1 extends javax.swing.JFrame {
+    private ContasUsuarios contaUsuarios;
 
     /**
      * Creates new form Login1
      */
     public Login1() {
+        contaUsuarios = ContasUsuarios.getInstance();
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -30,9 +35,9 @@ public class Login1 extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
+        email = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        senha = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -47,11 +52,11 @@ public class Login1 extends javax.swing.JFrame {
 
         jLabel2.setText("Email");
 
-        jFormattedTextField2.setText("jFormattedTextField1");
+        email.setText("exemplo@email.com");
 
         jLabel3.setText("Senha");
 
-        jPasswordField1.setText("jPasswordField1");
+        senha.setText("123456789");
 
         jButton1.setText("Entrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -84,8 +89,8 @@ public class Login1 extends javax.swing.JFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jFormattedTextField2)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))))
+                            .addComponent(email)
+                            .addComponent(senha, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
@@ -102,10 +107,10 @@ public class Login1 extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel2))
-                    .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(6, 6, 6)
                 .addComponent(jButton1)
@@ -148,6 +153,17 @@ public class Login1 extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
+        char[] passwordArray = senha.getPassword();
+        String passwordString = new String(passwordArray);
+        if (contaUsuarios.entrarConta(email.getText(), passwordString)){
+            TelaPrincipal1 telaPrincipal1 = new TelaPrincipal1();
+            telaPrincipal1.setVisible(true);
+            dispose();
+        } else{
+            JOptionPane.showMessageDialog(this, "E-mail ou senha incorretos.");
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
@@ -193,14 +209,14 @@ public class Login1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFormattedTextField email;
     private javax.swing.JButton jButton1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField senha;
     // End of variables declaration//GEN-END:variables
 }

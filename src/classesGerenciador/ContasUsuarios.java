@@ -15,6 +15,7 @@ import java.util.List;
 public class ContasUsuarios {
     // Lista para armazenar os usuários
     private List<Usuario> usuarios;
+    private Usuario usuarioAtual;
     
     // Instância única (singleton)
     private static ContasUsuarios instancia;
@@ -22,6 +23,8 @@ public class ContasUsuarios {
     // Construtor privado para evitar instâncias externas
     private ContasUsuarios() {
         usuarios = new ArrayList<>();
+        Usuario usuario = new Usuario("adm", "123", "adm@email.com");
+        usuarios.add(usuario);
     }
 
     // Método para obter a instância única
@@ -33,12 +36,12 @@ public class ContasUsuarios {
     }
 
     // Método para criar uma nova conta
-    public void criarConta(String nome, String senha, String email) {
+    public boolean criarConta(String nome, String senha, String email) {
         // Verifica se o e-mail já está cadastrado
         for (Usuario usuario : usuarios) {
             if (usuario.getEmail().equals(email)) {
                 System.out.println("E-mail já cadastrado!");
-                return;
+                return false;
             }
         }
 
@@ -46,6 +49,7 @@ public class ContasUsuarios {
         Usuario novoUsuario = new Usuario(nome, senha, email);
         usuarios.add(novoUsuario);
         System.out.println("Conta criada com sucesso!");
+        return true;
     }
 
     // Método para autenticar um usuário
@@ -53,11 +57,21 @@ public class ContasUsuarios {
         for (Usuario usuario : usuarios) {
             if (usuario.getEmail().equals(email) && usuario.getSenha().equals(senha)) {
                 System.out.println("Login bem-sucedido!");
+                usuarioAtual = usuario;
+                conta();
                 return true;
             }
         }
         System.out.println("E-mail ou senha incorretos.");
         return false;
+    }
+    
+    public Usuario conta(){
+        return usuarioAtual;
+    }
+    
+    public void sairConta(){
+        usuarioAtual = null;
     }
 
     // Método para listar todos os usuários (opcional, para testes)

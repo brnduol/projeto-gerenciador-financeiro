@@ -4,16 +4,21 @@
  */
 package telas;
 
+import classesGerenciador.ContasUsuarios;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Bruno Eduardo <https://github.com/brnduol>
  */
 public class Cadastro1 extends javax.swing.JFrame {
+    private ContasUsuarios contaUsuarios;
 
     /**
      * Creates new form Cadastro1
      */
     public Cadastro1() {
+        contaUsuarios = ContasUsuarios.getInstance();
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -29,11 +34,11 @@ public class Cadastro1 extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        nome = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
+        email = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        senha = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -47,17 +52,22 @@ public class Cadastro1 extends javax.swing.JFrame {
 
         jLabel1.setText("Nome");
 
-        jFormattedTextField1.setText("jFormattedTextField1");
+        nome.setText("Seu nome");
 
         jLabel2.setText("Email");
 
-        jFormattedTextField2.setText("jFormattedTextField1");
+        email.setText("exemplo@email.com");
 
         jLabel3.setText("Senha");
 
-        jPasswordField1.setText("jPasswordField1");
+        senha.setText("123456789");
 
         jButton1.setText("Criar conta");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("<html><a style='text-decoration:underline; color:blue;'>Clique aqui</a></html> ");
         jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -77,7 +87,7 @@ public class Cadastro1 extends javax.swing.JFrame {
                 .addContainerGap(59, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
@@ -101,15 +111,15 @@ public class Cadastro1 extends javax.swing.JFrame {
                                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jPasswordField1)
-                                .addComponent(jFormattedTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))))
+                                .addComponent(senha)
+                                .addComponent(email, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))))
                     .addContainerGap()))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -124,13 +134,13 @@ public class Cadastro1 extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(3, 3, 3)
                             .addComponent(jLabel2))
-                        .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(6, 6, 6)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(3, 3, 3)
                             .addComponent(jLabel3))
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(6, 6, 6)
                     .addComponent(jButton1)
                     .addContainerGap(37, Short.MAX_VALUE)))
@@ -170,6 +180,18 @@ public class Cadastro1 extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        char[] passwordArray = senha.getPassword();
+        String passwordString = new String(passwordArray);
+        if (contaUsuarios.criarConta(nome.getText(),passwordString, email.getText())){
+            JOptionPane.showMessageDialog(this, "Conta criada com sucesso");
+        }else{
+            JOptionPane.showMessageDialog(this, "Email ja cadastrado"); 
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -206,10 +228,9 @@ public class Cadastro1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFormattedTextField email;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -217,6 +238,7 @@ public class Cadastro1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JFormattedTextField nome;
+    private javax.swing.JPasswordField senha;
     // End of variables declaration//GEN-END:variables
 }

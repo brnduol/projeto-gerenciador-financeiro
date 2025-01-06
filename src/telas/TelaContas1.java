@@ -4,6 +4,8 @@
  */
 package telas;
 
+import classesGerenciador.ContasUsuarios;
+import classesGerenciador.Usuario;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -14,11 +16,15 @@ import javax.swing.table.DefaultTableModel;
  * @author Bruno Eduardo <https://github.com/brnduol>
  */
 public class TelaContas1 extends javax.swing.JFrame {
+    private ContasUsuarios contaUsuarios;
+    private Usuario contaAtual;
 
     /**
      * Creates new form TelaContas1
      */
     public TelaContas1() {
+        contaUsuarios = ContasUsuarios.getInstance();
+        contaAtual = contaUsuarios.conta();
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -284,9 +290,10 @@ public class TelaContas1 extends javax.swing.JFrame {
 
     private void jmSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSairActionPerformed
         // Voltar para a tela principal ao clicar em "Sair"
-        TelaPrincipal1 telaPrincipal = new TelaPrincipal1();
-        telaPrincipal.setVisible(true);
-        this.dispose(); // Fecha a tela atual
+        contaUsuarios.sairConta();
+        Login1 telaLogin1 = new Login1();
+        telaLogin1.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jmSairActionPerformed
 
     /**

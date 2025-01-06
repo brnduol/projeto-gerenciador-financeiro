@@ -23,6 +23,11 @@ public class Usuario {
     public List<Categoria> categoria;
     
     public Usuario(String nome, String senha, String email) {
+        this.nome = nome;
+        this.senha = senha;
+        this.email = email;
+        
+        
         
     }
 
@@ -80,6 +85,14 @@ public class Usuario {
 
     public void setBalanco(List<Balanco> balanco) {
         this.balanco = balanco;
+    }
+
+    public List<Categoria> getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(List<Categoria> categoria) {
+        this.categoria = categoria;
     }
 
    

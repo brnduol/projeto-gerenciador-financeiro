@@ -6,6 +6,8 @@
 package telas;
 
 
+import classesGerenciador.ContasUsuarios;
+import classesGerenciador.Usuario;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,11 +18,15 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TelaHistorico1 extends javax.swing.JFrame {
     private ArrayList<Object[]> listaHistoricos; // Lista genérica para armazenar os dados do histórico
+    private ContasUsuarios contaUsuarios;
+    private Usuario contaAtual;
 
     /**
      * Creates new form TelaHistorico1
      */
     public TelaHistorico1() {
+        contaUsuarios = ContasUsuarios.getInstance();
+        contaAtual = contaUsuarios.conta();
         initComponents();
         this.setLocationRelativeTo(null);
         carregarMesHistorico();  
@@ -114,8 +120,8 @@ public class TelaHistorico1 extends javax.swing.JFrame {
         cbAnoHistorico = new javax.swing.JComboBox<>();
         menuHistorico = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
+        jmPrincipal = new javax.swing.JMenuItem();
         btContasHistorico = new javax.swing.JMenuItem();
-        btHistorico = new javax.swing.JMenuItem();
         btGraficosHistorico = new javax.swing.JMenuItem();
         btCategoriasHistorico = new javax.swing.JMenuItem();
         btSairHistorico = new javax.swing.JMenuItem();
@@ -158,6 +164,15 @@ public class TelaHistorico1 extends javax.swing.JFrame {
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1485477024-menu_78574.png"))); // NOI18N
         jMenu3.setText("Menu");
 
+        jmPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/32officeicons-31_89708.png"))); // NOI18N
+        jmPrincipal.setText("Tela principal");
+        jmPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmPrincipalActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jmPrincipal);
+
         btContasHistorico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/shoppaymentorderbuy-23_icon-icons.com_73884.png"))); // NOI18N
         btContasHistorico.setText("Contas");
         btContasHistorico.addActionListener(new java.awt.event.ActionListener() {
@@ -166,15 +181,6 @@ public class TelaHistorico1 extends javax.swing.JFrame {
             }
         });
         jMenu3.add(btContasHistorico);
-
-        btHistorico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Historical_icon-icons.com_54175.png"))); // NOI18N
-        btHistorico.setText("Historico");
-        btHistorico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btHistoricoActionPerformed(evt);
-            }
-        });
-        jMenu3.add(btHistorico);
 
         btGraficosHistorico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1477521928_10_icon-icons.com_74620.png"))); // NOI18N
         btGraficosHistorico.setText("Graficos");
@@ -275,24 +281,39 @@ public class TelaHistorico1 extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPesquisarHistoricoActionPerformed
 
     private void btSairHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairHistoricoActionPerformed
-        System.exit(0);
+        contaUsuarios.sairConta();
+        Login1 telaLogin1 = new Login1();
+        telaLogin1.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btSairHistoricoActionPerformed
 
     private void btContasHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btContasHistoricoActionPerformed
-        new TelaContas1().setVisible(true);
+        TelaContas1 telaContas1 = new TelaContas1();
+        telaContas1.setVisible(true);
+        dispose();
+        
+        
     }//GEN-LAST:event_btContasHistoricoActionPerformed
 
-    private void btHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHistoricoActionPerformed
-        new TelaHistorico1().setVisible(true);
-    }//GEN-LAST:event_btHistoricoActionPerformed
-
     private void btGraficosHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGraficosHistoricoActionPerformed
-        new TelaGrafico1().setVisible(true);
+        TelaGrafico1 telaGrafico1 = new TelaGrafico1();
+        telaGrafico1.setVisible(true);
+        dispose();
+        
     }//GEN-LAST:event_btGraficosHistoricoActionPerformed
 
     private void btCategoriasHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCategoriasHistoricoActionPerformed
-        new TelaCategoria1().setVisible(true);
+        TelaCategoria1 telaCategoria1 = new TelaCategoria1();
+        telaCategoria1.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btCategoriasHistoricoActionPerformed
+
+    private void jmPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPrincipalActionPerformed
+        // Abrir a tela principal
+        TelaPrincipal1 telaPrincipal = new TelaPrincipal1();
+        telaPrincipal.setVisible(true);
+        this.dispose(); // Fecha a tela atual
+    }//GEN-LAST:event_jmPrincipalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -333,13 +354,13 @@ public class TelaHistorico1 extends javax.swing.JFrame {
     private javax.swing.JMenuItem btCategoriasHistorico;
     private javax.swing.JMenuItem btContasHistorico;
     private javax.swing.JMenuItem btGraficosHistorico;
-    private javax.swing.JMenuItem btHistorico;
     private javax.swing.JMenuItem btSairHistorico;
     private javax.swing.JButton btnPesquisarHistorico;
     private javax.swing.JComboBox<String> cbAnoHistorico;
     private javax.swing.JComboBox<String> cbMesHistorico;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuItem jmPrincipal;
     private javax.swing.JLabel lblAnoHistorico;
     private javax.swing.JLabel lblMesHistorico;
     private javax.swing.JMenuBar menuHistorico;

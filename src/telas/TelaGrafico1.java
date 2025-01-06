@@ -4,6 +4,8 @@
  */
 package telas;
 
+import classesGerenciador.ContasUsuarios;
+import classesGerenciador.Usuario;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -14,11 +16,15 @@ import javax.swing.*;
  * @author Bruno Eduardo <https://github.com/brnduol>
  */
 public class TelaGrafico1 extends javax.swing.JFrame {
+    private ContasUsuarios contaUsuarios;
+    private Usuario contaAtual;
     
     /**
      * Creates new form TelaGrafico1
      */
     public TelaGrafico1() {
+        contaUsuarios = ContasUsuarios.getInstance();
+        contaAtual = contaUsuarios.conta();
         initComponents();
         this.setLocationRelativeTo(null);
         setSize(1000, 800);  
@@ -79,9 +85,9 @@ public class TelaGrafico1 extends javax.swing.JFrame {
         cbAnoGrafico = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuGrafico = new javax.swing.JMenu();
+        jmPrincipal = new javax.swing.JMenuItem();
         btContasGrafico = new javax.swing.JMenuItem();
         btHistoricoGrafico = new javax.swing.JMenuItem();
-        btGraficos = new javax.swing.JMenuItem();
         btCategoriasGrafico = new javax.swing.JMenuItem();
         btSairGrafico = new javax.swing.JMenuItem();
 
@@ -116,6 +122,15 @@ public class TelaGrafico1 extends javax.swing.JFrame {
         menuGrafico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1485477024-menu_78574.png"))); // NOI18N
         menuGrafico.setText("Menu");
 
+        jmPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/32officeicons-31_89708.png"))); // NOI18N
+        jmPrincipal.setText("Tela principal");
+        jmPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmPrincipalActionPerformed(evt);
+            }
+        });
+        menuGrafico.add(jmPrincipal);
+
         btContasGrafico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/shoppaymentorderbuy-23_icon-icons.com_73884.png"))); // NOI18N
         btContasGrafico.setText("Contas");
         btContasGrafico.addActionListener(new java.awt.event.ActionListener() {
@@ -133,15 +148,6 @@ public class TelaGrafico1 extends javax.swing.JFrame {
             }
         });
         menuGrafico.add(btHistoricoGrafico);
-
-        btGraficos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1477521928_10_icon-icons.com_74620.png"))); // NOI18N
-        btGraficos.setText("Graficos");
-        btGraficos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btGraficosActionPerformed(evt);
-            }
-        });
-        menuGrafico.add(btGraficos);
 
         btCategoriasGrafico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1486486297-attribute-category-label-shop-price-price-tag-tag_81213.png"))); // NOI18N
         btCategoriasGrafico.setText("Categorias");
@@ -260,24 +266,38 @@ public class TelaGrafico1 extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGerarGraficoActionPerformed
 
     private void btContasGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btContasGraficoActionPerformed
-        new TelaContas1().setVisible(true);
+        TelaContas1 telaContas1 = new TelaContas1();
+        telaContas1.setVisible(true);
+        dispose();
+        
+        
     }//GEN-LAST:event_btContasGraficoActionPerformed
 
     private void btHistoricoGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHistoricoGraficoActionPerformed
-        new TelaHistorico1().setVisible(true);
+        TelaHistorico1 telaHistorico1 = new TelaHistorico1();
+        telaHistorico1.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btHistoricoGraficoActionPerformed
 
-    private void btGraficosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGraficosActionPerformed
-        new TelaGrafico1().setVisible(true);
-    }//GEN-LAST:event_btGraficosActionPerformed
-
     private void btCategoriasGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCategoriasGraficoActionPerformed
-        new TelaCategoria1().setVisible(true);
+        TelaCategoria1 telaCategoria1 = new TelaCategoria1();
+        telaCategoria1.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btCategoriasGraficoActionPerformed
 
     private void btSairGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairGraficoActionPerformed
-        System.exit(0);
+        contaUsuarios.sairConta();
+        Login1 telaLogin1 = new Login1();
+        telaLogin1.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btSairGraficoActionPerformed
+
+    private void jmPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPrincipalActionPerformed
+        // Abrir a tela principal
+        TelaPrincipal1 telaPrincipal = new TelaPrincipal1();
+        telaPrincipal.setVisible(true);
+        this.dispose(); // Fecha a tela atual
+    }//GEN-LAST:event_jmPrincipalActionPerformed
 
                     
 
@@ -320,7 +340,6 @@ public class TelaGrafico1 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btCategoriasGrafico;
     private javax.swing.JMenuItem btContasGrafico;
-    private javax.swing.JMenuItem btGraficos;
     private javax.swing.JMenuItem btHistoricoGrafico;
     private javax.swing.JMenuItem btSairGrafico;
     private javax.swing.JButton btnGerarGrafico;
@@ -328,6 +347,7 @@ public class TelaGrafico1 extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbMesGrafico;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenuItem jmPrincipal;
     private javax.swing.JLabel lblAnoGrafico;
     private javax.swing.JLabel lblMesGrafico;
     private javax.swing.JMenu menuGrafico;

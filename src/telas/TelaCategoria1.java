@@ -5,6 +5,8 @@
 package telas;
 
 import classesGerenciador.Categoria;
+import classesGerenciador.ContasUsuarios;
+import classesGerenciador.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +15,9 @@ import java.util.List;
  * @author Bruno Eduardo <https://github.com/brnduol>
  */
 public class TelaCategoria1 extends javax.swing.JFrame {
-    private Categoria categoria;
-    private List<Categoria> categorias = new ArrayList<>();
+    private ContasUsuarios contaUsuarios;
+    private Usuario contaAtual;
+    
 
     /**
      * Creates new form TelaCategoria1
@@ -259,8 +262,8 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         }
 
         // Criar a categoria e adicioná-la à lista
-        Categoria novaCategoria = new Categoria(categorias.size() + 1, nome); // Supondo que o ID é baseado no tamanho da lista
-        categorias.add(novaCategoria);
+        Categoria novaCategoria = new Categoria(contaAtual.getCategoria().size() + 1, nome); // Supondo que o ID é baseado no tamanho da lista
+        contaAtual.getCategoria().add(novaCategoria);
 
         // Obter o modelo da tabela
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
@@ -333,9 +336,11 @@ public class TelaCategoria1 extends javax.swing.JFrame {
 
     private void jmSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSairActionPerformed
         // Voltar para a tela principal ao clicar em "Sair"
-        TelaPrincipal1 telaPrincipal = new TelaPrincipal1();
-        telaPrincipal.setVisible(true);
-        this.dispose(); // Fecha a tela atual
+        contaUsuarios.sairConta();
+        Login1 telaLogin1 = new Login1();
+        telaLogin1.setVisible(true);
+        dispose();
+        
     }//GEN-LAST:event_jmSairActionPerformed
 
     /**
