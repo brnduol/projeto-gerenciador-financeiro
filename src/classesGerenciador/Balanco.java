@@ -40,6 +40,7 @@ public class Balanco {
         return total;
     }
 
+    /*
     public double gerarBalancoPorOrigemReceita(String origemReceita) {
         double total = 0.0;
         for (Transacao transacao : transacoes) {
@@ -49,8 +50,7 @@ public class Balanco {
         }
         return total;
     }
-
-
+    */
 
     // Getters
     public int getId() {
@@ -64,5 +64,18 @@ public class Balanco {
     public int getAno() {
         return ano;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setMes(int mes) {
+        this.mes = mes;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
        
+    
   }
