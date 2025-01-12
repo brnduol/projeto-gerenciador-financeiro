@@ -44,7 +44,11 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        bntEditar = new javax.swing.JButton();
+        bntPesquisar = new javax.swing.JButton();
+        lblData = new javax.swing.JLabel();
+        txtData = new javax.swing.JTextField();
+        bntSalvar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jmPrincipal = new javax.swing.JMenuItem();
@@ -59,6 +63,7 @@ public class TelaCategoria1 extends javax.swing.JFrame {
 
         lblTipo.setText("Tipo:");
 
+        txtNome.setToolTipText("Insira o nome da categoria");
         txtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomeActionPerformed(evt);
@@ -66,6 +71,7 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         });
 
         cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Despesa", "Receita" }));
+        cmbTipo.setToolTipText("Selecione o tipo da categoria");
         cmbTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbTipoActionPerformed(evt);
@@ -74,6 +80,7 @@ public class TelaCategoria1 extends javax.swing.JFrame {
 
         bntExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1486564399-close_81512.png"))); // NOI18N
         bntExcluir.setText("Excluir");
+        bntExcluir.setToolTipText("Exclua uma categoria criada");
         bntExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bntExcluirActionPerformed(evt);
@@ -82,6 +89,7 @@ public class TelaCategoria1 extends javax.swing.JFrame {
 
         bntCriar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1486485557-add-create-new-more-plus_81188.png"))); // NOI18N
         bntCriar.setText("Criar");
+        bntCriar.setToolTipText("Clique para criar uma categoria");
         bntCriar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bntCriarActionPerformed(evt);
@@ -96,22 +104,22 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 12, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Nome", "Tipo"
+                "Nome", "Tipo", "Data"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -125,11 +133,40 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setText("Categoria");
+        bntEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/edit_icon-icons.com_52382.png"))); // NOI18N
+        bntEditar.setText("Editar");
+        bntEditar.setToolTipText("Clique para editar uma categoria");
+        bntEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntEditarActionPerformed(evt);
+            }
+        });
+
+        bntPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/xmag_search_find_export_locate_5984.png"))); // NOI18N
+        bntPesquisar.setText("Pesquisar");
+        bntPesquisar.setToolTipText("Pesquise a categoria pela data ");
+        bntPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntPesquisarActionPerformed(evt);
+            }
+        });
+
+        lblData.setText("Data");
+
+        txtData.setToolTipText("Insira a data no formato dd/mm/yyyy");
+
+        bntSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/accept_icon-icons.com_74428.png"))); // NOI18N
+        bntSalvar.setText("Salvar");
+        bntSalvar.setToolTipText("Salve as alterações feita após a edição");
+        bntSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntSalvarActionPerformed(evt);
+            }
+        });
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1485477024-menu_78574.png"))); // NOI18N
         jMenu2.setText("Menu");
+        jMenu2.setToolTipText("Navegue pelo menu para acessar as opções");
 
         jmPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/32officeicons-31_89708.png"))); // NOI18N
         jmPrincipal.setText("Tela Principal");
@@ -185,61 +222,74 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(bntCriar)
-                        .addGap(154, 154, 154)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(274, 274, 274)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(328, 328, 328)
-                .addComponent(bntExcluir)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 717, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(bntCriar)
+                        .addGap(18, 18, 18)
+                        .addComponent(bntEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bntPesquisar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bntExcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bntSalvar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(136, 136, 136)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(33, 33, 33))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNome)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTipo)
                     .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(61, 61, 61)
-                .addComponent(bntCriar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bntExcluir)
-                .addGap(45, 45, 45))
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblData)
+                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bntCriar)
+                    .addComponent(bntEditar)
+                    .addComponent(bntPesquisar)
+                    .addComponent(bntExcluir)
+                    .addComponent(bntSalvar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(66, 66, 66))
         );
 
         pack();
@@ -254,6 +304,7 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         // Obter os valores dos campos
         String nome = txtNome.getText();
         String tipo = cmbTipo.getSelectedItem().toString();
+        String data = txtData.getText();  // Obter a data inserida no campo
 
         // Verificar se o campo nome está vazio
         if (nome.isEmpty()) {
@@ -261,23 +312,28 @@ public class TelaCategoria1 extends javax.swing.JFrame {
             return;
         }
 
-        // Criar a categoria e adicioná-la à lista
-        if (tipo.equals("Despesa")){
-            contaAtual.addCategoria(nome);
-        } else{
-            contaAtual.addOrigemRenda(nome);
+        // Verificar se a data está no formato correto
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+        sdf.setLenient(false); // Impede datas inválidas, como 31/02/2025
+        try {
+            // Tenta converter a data
+            sdf.parse(data);
+        } catch (java.text.ParseException e) {
+            // Se ocorrer um erro, significa que a data está no formato errado
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, insira a data no formato dd/MM/yyyy.");
+            return;
         }
-         
 
         // Obter o modelo da tabela
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
 
-        // Inserir os dados no início da tabela (índice 0)
-        model.insertRow(0, new Object[]{nome, tipo});
+        // Inserir os dados na tabela, incluindo nome, tipo e data
+        model.insertRow(0, new Object[]{nome, tipo, data});
 
         // Limpar os campos de entrada
         txtNome.setText("");
         cmbTipo.setSelectedIndex(0);
+        txtData.setText(""); // Limpar o campo de data
 
         // Mensagem de sucesso
         javax.swing.JOptionPane.showMessageDialog(this, "Categoria criada com sucesso!");
@@ -293,19 +349,20 @@ public class TelaCategoria1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void bntExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntExcluirActionPerformed
+        // Verificar se uma linha foi selecionada na tabela
         int selectedRow = jTable1.getSelectedRow();
-    
-        // Verificar se uma linha foi selecionada
+
         if (selectedRow != -1) {
             // Obter o modelo da tabela
             javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
 
-            // Remover a linha selecionada
+            // Remover a linha da tabela (categoria)
             model.removeRow(selectedRow);
 
             // Mensagem de sucesso
             javax.swing.JOptionPane.showMessageDialog(this, "Categoria excluída com sucesso!");
         } else {
+            // Caso não tenha linha selecionada
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor, selecione uma categoria para excluir.");
         }
     }//GEN-LAST:event_bntExcluirActionPerformed
@@ -347,6 +404,89 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jmSairActionPerformed
 
+    private void bntPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntPesquisarActionPerformed
+        // Obter o valor da pesquisa
+        String nomePesquisa = txtNome.getText().toLowerCase(); // Tornar a busca insensível a maiúsculas/minúsculas
+
+        // Obter o modelo da tabela
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+
+        // Percorrer a lista de categorias (não limpar a tabela, apenas mostrar as que coincidem)
+        boolean encontrou = false; // Variável para verificar se encontrou alguma categoria
+
+        // Percorrer todas as linhas da tabela
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String nomeCategoria = model.getValueAt(i, 0).toString().toLowerCase();  // Obter o nome da categoria
+
+            // Verificar se o nome da categoria contém a pesquisa
+            if (nomeCategoria.contains(nomePesquisa)) {
+                // Tornar a linha visível (por padrão, todas as linhas estarão visíveis)
+                jTable1.setRowSelectionInterval(i, i);  // Seleciona a linha correspondente à pesquisa
+                encontrou = true; // Encontrou ao menos uma categoria
+            }
+        }
+
+        // Se não encontrar nenhuma categoria, mostrar uma mensagem
+        if (!encontrou) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Nenhuma categoria encontrada com esse nome.");
+        }
+    }//GEN-LAST:event_bntPesquisarActionPerformed
+
+    private void bntEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntEditarActionPerformed
+        // Obter os valores dos campos
+        String nome = txtNome.getText();
+        String tipo = cmbTipo.getSelectedItem().toString();
+        String data = txtData.getText();
+
+        // Verificar se a linha está selecionada
+        int linhaSelecionada = jTable1.getSelectedRow();
+        if (linhaSelecionada == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, selecione uma categoria para editar.");
+            return;
+        }
+
+        // Carregar os dados da linha selecionada nos campos de edição
+        txtNome.setText(jTable1.getValueAt(linhaSelecionada, 0).toString());
+        cmbTipo.setSelectedItem(jTable1.getValueAt(linhaSelecionada, 1).toString());
+        txtData.setText(jTable1.getValueAt(linhaSelecionada, 2).toString());
+
+        // Mensagem de confirmação
+        javax.swing.JOptionPane.showMessageDialog(this, "Agora edite os dados e clique em 'Salvar' para aplicar as alterações.");
+
+    }//GEN-LAST:event_bntEditarActionPerformed
+
+    private void bntSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSalvarActionPerformed
+         // Obtém a linha selecionada na tabela.
+        int linhaSelecionada = jTable1.getSelectedRow();
+    
+        if (linhaSelecionada != -1) {  // Se uma linha foi selecionada
+            // Obtém os valores dos campos
+            String nome = txtNome.getText();
+            String tipo = cmbTipo.getSelectedItem().toString();
+            String data = txtData.getText();
+
+        // Verifica se os campos não estão vazios
+        if (!nome.isEmpty() && !data.isEmpty()) {
+            javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+            
+            // Atualiza os dados na tabela, substituindo os valores da linha selecionada
+            model.setValueAt(nome, linhaSelecionada, 0);  // Atualiza a coluna 0 (Nome)
+            model.setValueAt(tipo, linhaSelecionada, 1);  // Atualiza a coluna 1 (Tipo)
+            model.setValueAt(data, linhaSelecionada, 2);  // Atualiza a coluna 2 (Data)
+
+            // Exibe uma mensagem de sucesso
+            javax.swing.JOptionPane.showMessageDialog(this, "Dados atualizados com sucesso!");
+            
+        } else {
+            // Se algum campo estiver vazio, exibe mensagem de erro
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, insira todos os dados para salvar.");
+        }
+    } else {
+        // Se nenhuma linha foi selecionada, exibe mensagem de erro
+        javax.swing.JOptionPane.showMessageDialog(this, "Selecione uma linha para editar para poder salvar.");
+    }
+    }//GEN-LAST:event_bntSalvarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -384,9 +524,11 @@ public class TelaCategoria1 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntCriar;
+    private javax.swing.JButton bntEditar;
     private javax.swing.JButton bntExcluir;
+    private javax.swing.JButton bntPesquisar;
+    private javax.swing.JButton bntSalvar;
     private javax.swing.JComboBox<String> cmbTipo;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
@@ -397,8 +539,10 @@ public class TelaCategoria1 extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmHistorico;
     private javax.swing.JMenuItem jmPrincipal;
     private javax.swing.JMenuItem jmSair;
+    private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblTipo;
+    private javax.swing.JTextField txtData;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }

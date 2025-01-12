@@ -6,8 +6,11 @@ package telas;
 
 import classesGerenciador.ContasUsuarios;
 import classesGerenciador.Usuario;
+import java.text.ParseException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 
@@ -46,6 +49,11 @@ public class TelaContas1 extends javax.swing.JFrame {
         bntExcluir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        bntEditar = new javax.swing.JButton();
+        txtData = new javax.swing.JTextField();
+        lblData = new javax.swing.JLabel();
+        bntSalvar = new javax.swing.JButton();
+        bntPesquisar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jmPrincipal = new javax.swing.JMenuItem();
@@ -60,8 +68,13 @@ public class TelaContas1 extends javax.swing.JFrame {
 
         lblSaldo.setText("Saldo");
 
+        txtConta.setToolTipText("Insira o tipo de Conta a ser cadastrada");
+
+        txtSaldo.setToolTipText("Insira o saldo no formato inteiro");
+
         bntCriar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1486485557-add-create-new-more-plus_81188.png"))); // NOI18N
         bntCriar.setText("Criar");
+        bntCriar.setToolTipText("Crie uma conta");
         bntCriar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bntCriarActionPerformed(evt);
@@ -70,6 +83,7 @@ public class TelaContas1 extends javax.swing.JFrame {
 
         bntExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1486564399-close_81512.png"))); // NOI18N
         bntExcluir.setText("Excluir");
+        bntExcluir.setToolTipText("Exclua uma conta");
         bntExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bntExcluirActionPerformed(evt);
@@ -78,17 +92,17 @@ public class TelaContas1 extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Conta", "Saldo"
+                "Conta", "Saldo", "Data"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -97,8 +111,35 @@ public class TelaContas1 extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        bntEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/edit_icon-icons.com_52382.png"))); // NOI18N
+        bntEditar.setText("Editar");
+        bntEditar.setToolTipText("Edite os dados da conta");
+        bntEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntEditarActionPerformed(evt);
+            }
+        });
+
+        txtData.setToolTipText("Insira a data no formato dd/mm/yyyy");
+
+        lblData.setText("Data");
+
+        bntSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/accept_icon-icons.com_74428.png"))); // NOI18N
+        bntSalvar.setText("Salvar");
+        bntSalvar.setToolTipText("Salve as alterações após editar os dados");
+        bntSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntSalvarActionPerformed(evt);
+            }
+        });
+
+        bntPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/xmag_search_find_export_locate_5984.png"))); // NOI18N
+        bntPesquisar.setText("Pesquisar");
+        bntPesquisar.setToolTipText("Pesquise pelo nome da conta");
+
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1485477024-menu_78574.png"))); // NOI18N
         jMenu2.setText("Menu");
+        jMenu2.setToolTipText("Navegue pelo menus para acessar as opções");
 
         jmPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/32officeicons-31_89708.png"))); // NOI18N
         jmPrincipal.setText("Tela principal");
@@ -154,20 +195,31 @@ public class TelaContas1 extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblConta, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtConta, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblConta, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtConta, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(bntCriar)
+                        .addGap(12, 12, 12)
+                        .addComponent(bntExcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bntEditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bntSalvar)
                         .addGap(18, 18, 18)
-                        .addComponent(bntExcluir))
-                    .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(68, 318, Short.MAX_VALUE))
+                        .addComponent(bntPesquisar)))
+                .addGap(212, 212, Short.MAX_VALUE))
             .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
@@ -181,12 +233,19 @@ public class TelaContas1 extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSaldo)
                     .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblData)
+                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bntCriar)
-                    .addComponent(bntExcluir))
+                    .addComponent(bntExcluir)
+                    .addComponent(bntEditar)
+                    .addComponent(bntSalvar)
+                    .addComponent(bntPesquisar))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
 
@@ -200,22 +259,35 @@ public class TelaContas1 extends javax.swing.JFrame {
         // Obtém os dados dos campos de texto
         String conta = txtConta.getText();
         String saldoText = txtSaldo.getText();
+        String dataText = txtData.getText();
 
         // Verifica se os campos não estão vazios
-        if (!conta.isEmpty() && !saldoText.isEmpty()) {
+        if (!conta.isEmpty() && !saldoText.isEmpty() && !dataText.isEmpty()) {
             try {
                 // Tenta converter o saldo para um número (Double)
                 Double saldo = Double.parseDouble(saldoText);
+                
+                // Valida e converte a data
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                sdf.setLenient(false); // Rejeita datas inválidas como 31/02/2023
+                Date data = sdf.parse(dataText); // Converte a String para Date
 
+                
+               
                 // Insere a nova linha na primeira posição (índice 0)
-                model.insertRow(0, new Object[]{conta, saldo});
+                model.insertRow(0, new Object[]{conta, saldo, sdf.format(data)});
 
                 // Limpa os campos de texto após a inserção
                 txtConta.setText("");
                 txtSaldo.setText("");
+                txtData.setText("");
+                
             } catch (NumberFormatException e) {
                 // Se não for possível converter, exibe uma mensagem de erro
                 JOptionPane.showMessageDialog(this, "Por favor, insira um valor numérico válido para o saldo.");
+            } catch (ParseException e) {
+                // Se a data não estiver no formato correto, exibe um erro
+                JOptionPane.showMessageDialog(this, "Por favor, insira uma data válida no formato dd/mm/yyyy. Exemplo: 25/12/2025.");
             }
         } else {
             // Exibe uma mensagem se algum dos campos estiver vazio
@@ -275,6 +347,43 @@ public class TelaContas1 extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jmSairActionPerformed
 
+    private void bntEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntEditarActionPerformed
+        int selectedRow = jTable1.getSelectedRow();  // Obtém a linha selecionada na tabela.
+
+        if (selectedRow != -1) {  // Verifica se há uma linha selecionada.
+            txtConta.setText(jTable1.getValueAt(selectedRow, 0).toString());  // Preenche o campo de conta.
+            txtSaldo.setText(jTable1.getValueAt(selectedRow, 1).toString());  // Preenche o campo de saldo.
+            txtData.setText(jTable1.getValueAt(selectedRow, 2).toString());  // Preenche o campo de data.
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione uma linha para editar.");  // Exibe erro se nenhuma linha for selecionada.
+        }
+    }//GEN-LAST:event_bntEditarActionPerformed
+
+    private void bntSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSalvarActionPerformed
+        int linhaSelecionada = jTable1.getSelectedRow();  // Obtém a linha selecionada na tabela.
+
+        if (linhaSelecionada != -1) {  // Verifica se uma linha foi selecionada.
+            String conta = txtConta.getText();  // Obtém o valor de "Conta".
+            String saldo = txtSaldo.getText();  // Obtém o valor de "Saldo".
+            String data = txtData.getText();  // Obtém o valor de "Data".
+
+            if (!conta.isEmpty() && !saldo.isEmpty() && !data.isEmpty()) {  // Verifica se os campos não estão vazios.
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();  // Obtém o modelo da tabela.
+
+                // Atualiza os dados na tabela, especificando as colunas corretas.
+                model.setValueAt(conta, linhaSelecionada, 0);  // Atualiza a coluna "Conta" (coluna 0).
+                model.setValueAt(saldo, linhaSelecionada, 1);  // Atualiza a coluna "Saldo" (coluna 1).
+                model.setValueAt(data, linhaSelecionada, 2);   // Atualiza a coluna "Data" (coluna 2).
+
+                JOptionPane.showMessageDialog(this, "Dados atualizados com sucesso.");  // Informa que os dados foram salvos.
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor, insira todos os dados para salvar.");  // Verifica se os campos não estão vazios.
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione uma linha para editar para poder salvar.");  // Caso nenhuma linha tenha sido selecionada.
+        }
+    }//GEN-LAST:event_bntSalvarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -312,7 +421,10 @@ public class TelaContas1 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntCriar;
+    private javax.swing.JButton bntEditar;
     private javax.swing.JButton bntExcluir;
+    private javax.swing.JButton bntPesquisar;
+    private javax.swing.JButton bntSalvar;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -323,8 +435,10 @@ public class TelaContas1 extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmPrincipal;
     private javax.swing.JMenuItem jmSair;
     private javax.swing.JLabel lblConta;
+    private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblSaldo;
     private javax.swing.JTextField txtConta;
+    private javax.swing.JTextField txtData;
     private javax.swing.JTextField txtSaldo;
     // End of variables declaration//GEN-END:variables
 }
