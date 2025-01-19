@@ -11,12 +11,13 @@ import java.time.LocalDate;
  * @author Bruno Eduardo <https://github.com/brnduol>
  */
 public class TransacaoReceita extends Transacao {
-    private String origemReceita;
+    private OrigemRenda origemRenda;
+    private Usuario usuarioAtual = ContasUsuarios.getInstance().conta(); //Intancia do usuario atual, para conseguir manipular suas informações.
 
     
-    public TransacaoReceita(Carteira conta, double valor, LocalDate data, String descricao, String origemReceita) {
+    public TransacaoReceita(Carteira conta, double valor, LocalDate data, String descricao, OrigemRenda origemReceita) {
         super(conta, valor, data, descricao);
-        this.origemReceita = origemReceita;
+        this.origemRenda = origemReceita;
     }
 
     @Override
@@ -42,18 +43,20 @@ public class TransacaoReceita extends Transacao {
 
     @Override
     public boolean pertenceOrigem(String origem) {
-        return this.origemReceita.equals(origem); // compara a string armazenada no atributo origemReceita (que pertence ao objeto atual) com a string recebida como parâmetro origem.
+        return this.origemRenda.getNomeOrigemRenda().equals(origem); // compara a string armazenada no atributo origemReceita (que pertence ao objeto atual) com a string recebida como parâmetro origem.
     }
     
     public void adicionarCategoria(Categoria categoria){
         
     }
     
-    public String getOrigemReceita() {
-        return origemReceita;
+    public OrigemRenda getOrigemReceita() {
+        return origemRenda;
     }
 
-    public void setOrigemReceita(String categoria) {
-        this.origemReceita = categoria;
+    @Override
+    public void adicionarTransacao(){
+        usuarioAtual.getTransacoes().add(this);      
     }
+    
 }

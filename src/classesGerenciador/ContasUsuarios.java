@@ -20,18 +20,30 @@ public class ContasUsuarios {
     private static ContasUsuarios instancia;
 
 
-    private ContasUsuarios() {
+     private ContasUsuarios() {
         usuarios = new ArrayList<>();
-        Usuario usuario = new Usuario("adm", "123", "adm@email.com");
-        usuarios.add(usuario);
+        // O usuário "admin" será criado depois, em um método separado
+        
     }
 
 
+    // Método Singleton para obter a instância de ContasUsuarios
     public static ContasUsuarios getInstance() {
         if (instancia == null) {
             instancia = new ContasUsuarios();
+
         }
         return instancia;
+    }
+    
+    // Método para criar o usuário admin
+    private void criarUsuarioAdmin() {
+        if (usuarios.isEmpty()) {  // Cria o admin apenas uma vez
+            Usuario usuario = new Usuario("adm", "123", "adm@email.com");
+            usuarios.add(usuario);  // Adiciona o usuário admin à lista de usuários
+            usuarioAtual = usuario; // Define o usuário atual como admin
+            System.out.println("Usuário admin criado com sucesso.");
+        }
     }
 
 

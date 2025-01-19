@@ -4,6 +4,11 @@
  */
 package telas.mini;
 
+import classesGerenciador.Carteira;
+import classesGerenciador.Categoria;
+import classesGerenciador.ContasUsuarios;
+import classesGerenciador.OrigemRenda;
+import classesGerenciador.Usuario;
 import javax.swing.JFrame;
 
 /**
@@ -11,12 +16,23 @@ import javax.swing.JFrame;
  * @author Bruno Eduardo <https://github.com/brnduol>
  */
 public class TelaReceita extends javax.swing.JFrame {
-
+    private Usuario usuarioAtual; //Intancia do usuario atual, para conseguir manipular suas informações.
     /**
      * Creates new form TelaReceita
      */
     public TelaReceita() {
+        usuarioAtual = ContasUsuarios.getInstance().conta();
+        
         initComponents();
+         System.out.println(usuarioAtual);
+        
+        for (OrigemRenda cat: usuarioAtual.getOrigemRendas()){
+            jComboBox1.addItem(cat.getId() + " - " + cat.getNomeOrigemRenda());
+        }
+        for (Carteira ori: usuarioAtual.getCarteiras()){
+            jComboBox2.addItem(ori.getId() + " - " + ori.getNome());
+        }
+        
         this.setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
@@ -30,6 +46,7 @@ public class TelaReceita extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDesktopPane1 = new javax.swing.JDesktopPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
@@ -43,6 +60,17 @@ public class TelaReceita extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
+
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,10 +98,6 @@ public class TelaReceita extends javax.swing.JFrame {
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Descrição");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -178,6 +202,7 @@ public class TelaReceita extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

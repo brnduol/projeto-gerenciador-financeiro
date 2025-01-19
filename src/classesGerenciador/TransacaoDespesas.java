@@ -51,5 +51,10 @@ public class TransacaoDespesas extends Transacao {
         return false;
     }
 
+    @Override
+    public void adicionarTransacao() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     
 }

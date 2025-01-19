@@ -19,15 +19,22 @@ public class Categoria {
     private List<Transacao> transacoes; // Lista de objetos Transacão, vai armazenar todas as transações relacionadas a esta categoria.
 
     // Construtor
-    public Categoria(String nomeCategoria) {
+    public Categoria() {
+         // Garante que a lista de transações seja criada quando uma nova categoria for criada.
+    }
+    public Categoria(String nome) {
         this.id = proximoId++;
-        this.nomeCategoria = nomeCategoria;
-        this.transacoes = new ArrayList<>(); // Garante que a lista de transações seja criada quando uma nova categoria for criada.
+        this.nomeCategoria = nome;
+        this.transacoes = new ArrayList<>();
+         // Garante que a lista de transações seja criada quando uma nova categoria for criada.
     }
 
     // Getters e Setters
     public int getId() {
         return id;
+    }
+    public String getNomeCategoria(){
+        return nomeCategoria;
     }
 
     public void setId(int id) {
@@ -63,4 +70,7 @@ public class Categoria {
         }
          return false; // e false caso a transação não tenha sido encontrada.
     }
+    
+    // Criar a categoria, verificando antes se ela ja não existe.
+    
 }

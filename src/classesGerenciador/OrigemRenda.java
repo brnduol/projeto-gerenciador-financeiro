@@ -19,11 +19,12 @@ public class OrigemRenda {
     private List<Transacao> transacoes; // Lista de transações relacionadas a esta origem de renda
 
     // Construtor
-    public OrigemRenda(String nomeOrigemRenda) {
-        this.id = proximoId++; // Atribui o próximo ID disponível e incrementa a variável estática
-        this.nomeOrigemRenda = nomeOrigemRenda;
-        this.transacoes = new ArrayList<>(); // Inicializa a lista de transações
+    public OrigemRenda(String nome){
+        this.id = proximoId++;
+        this.nomeOrigemRenda = nome;
+        this.transacoes = new ArrayList<>();
     }
+    
 
     // Getters e Setters
     public int getId() {
@@ -42,6 +43,12 @@ public class OrigemRenda {
         return transacoes.removeIf(transacao -> transacao.getId() == transacaoId);
 
     }
+    
+    public String getNomeOrigemRenda(){
+        return nomeOrigemRenda;
+    }
+    
+    
 
 
     

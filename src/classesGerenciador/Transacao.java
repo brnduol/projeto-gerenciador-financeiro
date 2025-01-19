@@ -33,6 +33,8 @@ public abstract class Transacao {
     
     public abstract void atualizar(Carteira conta);
     
+    public abstract void adicionarTransacao();
+    
     public abstract void excluirTransacao();
         
     public abstract void editarTransacao();
