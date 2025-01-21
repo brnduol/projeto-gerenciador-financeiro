@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import projeto.gerenciador.financeiro.ControleTelas;
  
 /**
  *
@@ -25,11 +26,17 @@ public class TelaHistorico1 extends javax.swing.JFrame {
     private ArrayList<Object[]> listaHistoricos; // Lista genérica para armazenar os dados do histórico
     private ContasUsuarios contaUsuarios;
     private Usuario contaAtual;
+    private ControleTelas controleTelas;
 
     /**
      * Creates new form TelaHistorico1
      */
     public TelaHistorico1() {
+        contaUsuarios = ContasUsuarios.getInstance();
+        contaAtual = contaUsuarios.conta();
+        controleTelas = ControleTelas.getInstance();
+        
+        
         listaHistoricos = new ArrayList<>();
         contaUsuarios = ContasUsuarios.getInstance();
         contaAtual = contaUsuarios.conta();
@@ -436,36 +443,31 @@ public class TelaHistorico1 extends javax.swing.JFrame {
 
     private void btSairHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairHistoricoActionPerformed
         contaUsuarios.sairConta();
-        Login1 telaLogin1 = new Login1();
-        telaLogin1.setVisible(true);
+        controleTelas.getTelaLogin().setVisible(true);
         dispose();
     }//GEN-LAST:event_btSairHistoricoActionPerformed
 
     private void btContasHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btContasHistoricoActionPerformed
-        TelaContas1 telaContas1 = new TelaContas1();
-        telaContas1.setVisible(true);
+        controleTelas.getTelaContas().setVisible(true);
         dispose();
         
         
     }//GEN-LAST:event_btContasHistoricoActionPerformed
 
     private void btGraficosHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGraficosHistoricoActionPerformed
-        TelaGrafico1 telaGrafico1 = new TelaGrafico1();
-        telaGrafico1.setVisible(true);
+        controleTelas.getTelaGrafico().setVisible(true);
         dispose();
         
     }//GEN-LAST:event_btGraficosHistoricoActionPerformed
 
     private void btCategoriasHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCategoriasHistoricoActionPerformed
-        TelaCategoria1 telaCategoria1 = new TelaCategoria1();
-        telaCategoria1.setVisible(true);
+        controleTelas.getTelaCategoria().setVisible(true);
         dispose();
     }//GEN-LAST:event_btCategoriasHistoricoActionPerformed
 
     private void jmPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPrincipalActionPerformed
         // Abrir a tela principal
-        TelaPrincipal1 telaPrincipal = new TelaPrincipal1();
-        telaPrincipal.setVisible(true);
+        controleTelas.getTelaPrincipal().setVisible(true);
         this.dispose(); // Fecha a tela atual
     }//GEN-LAST:event_jmPrincipalActionPerformed
 

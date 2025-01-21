@@ -11,6 +11,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 import javax.swing.*;
+import projeto.gerenciador.financeiro.ControleTelas;
 /**
  *
  * @author Bruno Eduardo <https://github.com/brnduol>
@@ -18,6 +19,7 @@ import javax.swing.*;
 public class TelaGrafico1 extends javax.swing.JFrame {
     private ContasUsuarios contaUsuarios;
     private Usuario contaAtual;
+    private ControleTelas controleTelas;
     
     /**
      * Creates new form TelaGrafico1
@@ -266,36 +268,33 @@ public class TelaGrafico1 extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGerarGraficoActionPerformed
 
     private void btContasGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btContasGraficoActionPerformed
-        TelaContas1 telaContas1 = new TelaContas1();
-        telaContas1.setVisible(true);
-        dispose();
+        // Abrir a tela principal
+        controleTelas.getTelaContas().setVisible(true);
+        this.dispose(); // Fecha a tela atual
         
         
     }//GEN-LAST:event_btContasGraficoActionPerformed
 
     private void btHistoricoGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHistoricoGraficoActionPerformed
-        TelaHistorico1 telaHistorico1 = new TelaHistorico1();
-        telaHistorico1.setVisible(true);
-        dispose();
+        // Abrir a tela de histórico
+        controleTelas.getTelaHistorico().setVisible(true);
+        this.dispose(); // Fecha a tela atual
     }//GEN-LAST:event_btHistoricoGraficoActionPerformed
 
     private void btCategoriasGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCategoriasGraficoActionPerformed
-        TelaCategoria1 telaCategoria1 = new TelaCategoria1();
-        telaCategoria1.setVisible(true);
+        controleTelas.getTelaCategoria().setVisible(true);
         dispose();
     }//GEN-LAST:event_btCategoriasGraficoActionPerformed
 
     private void btSairGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairGraficoActionPerformed
         contaUsuarios.sairConta();
-        Login1 telaLogin1 = new Login1();
-        telaLogin1.setVisible(true);
+        controleTelas.getTelaLogin().setVisible(true);
         dispose();
     }//GEN-LAST:event_btSairGraficoActionPerformed
 
     private void jmPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPrincipalActionPerformed
         // Abrir a tela principal
-        TelaPrincipal1 telaPrincipal = new TelaPrincipal1();
-        telaPrincipal.setVisible(true);
+        controleTelas.getTelaPrincipal().setVisible(true);
         this.dispose(); // Fecha a tela atual
     }//GEN-LAST:event_jmPrincipalActionPerformed
 

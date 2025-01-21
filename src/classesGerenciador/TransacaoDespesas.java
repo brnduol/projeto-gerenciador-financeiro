@@ -38,7 +38,11 @@ public class TransacaoDespesas extends Transacao {
         return categoriaDespesa;
     }
 
- 
+    @Override
+    public String getTipo(){
+        return "Despesa";
+    }
+    
     @Override
     public boolean pertenceCategoria(String categoria) {
         return this.categoriaDespesa.equals(categoria);

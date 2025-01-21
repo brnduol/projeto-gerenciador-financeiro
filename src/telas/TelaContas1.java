@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import projeto.gerenciador.financeiro.ControleTelas;
 
 
 
@@ -21,6 +22,7 @@ import java.util.Date;
 public class TelaContas1 extends javax.swing.JFrame {
     private ContasUsuarios contaUsuarios;
     private Usuario contaAtual;
+    private ControleTelas controleTelas;
 
     /**
      * Creates new form TelaContas1
@@ -313,37 +315,32 @@ public class TelaContas1 extends javax.swing.JFrame {
 
     private void jmCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCategoriasActionPerformed
         // Abrir a tela de categorias
-        TelaCategoria1 telaCategoria = new TelaCategoria1();
-        telaCategoria.setVisible(true);
+        controleTelas.getTelaCategoria().setVisible(true);
         this.dispose(); // Fecha a tela atual
     }//GEN-LAST:event_jmCategoriasActionPerformed
 
     private void jmPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPrincipalActionPerformed
         // Abrir a tela principal
-        TelaPrincipal1 telaPrincipal = new TelaPrincipal1();
-        telaPrincipal.setVisible(true);
+        controleTelas.getTelaPrincipal().setVisible(true);
         this.dispose(); // Fecha a tela atual
     }//GEN-LAST:event_jmPrincipalActionPerformed
 
     private void jmHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmHistoricoActionPerformed
         // Abrir a tela de histórico
-        TelaHistorico1 telaHistorico = new TelaHistorico1();
-        telaHistorico.setVisible(true);
+        controleTelas.getTelaHistorico().setVisible(true);
         this.dispose(); // Fecha a tela atual
     }//GEN-LAST:event_jmHistoricoActionPerformed
 
     private void jmGraficosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmGraficosActionPerformed
         // Abrir a tela de gráficos
-        TelaGrafico1 telaGrafico = new TelaGrafico1();
-        telaGrafico.setVisible(true);
+        controleTelas.getTelaGrafico().setVisible(true);
         this.dispose(); // Fecha a tela atual
     }//GEN-LAST:event_jmGraficosActionPerformed
 
     private void jmSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSairActionPerformed
         // Voltar para a tela principal ao clicar em "Sair"
         contaUsuarios.sairConta();
-        Login1 telaLogin1 = new Login1();
-        telaLogin1.setVisible(true);
+        controleTelas.getTelaLogin().setVisible(true);
         dispose();
     }//GEN-LAST:event_jmSairActionPerformed
 

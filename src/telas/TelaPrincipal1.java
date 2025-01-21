@@ -52,11 +52,10 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
         for (Transacao x : contaAtual.getTransacoes()) {
             // Define o formato desejado: dd/MM/yyyy
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            System.out.println(x);
             // Converte o LocalDate para uma string no formato desejado
             String dataFormatada = x.getData().format(formatter);
 
-            model.addRow(new Object[]{x.getId(), x.getConta().getNome(), dataFormatada,x.getValor(),x.getNome()});
+            model.addRow(new Object[]{x.getId(), x.getConta().getNome(), dataFormatada,x.getValor(),x.getNome(), x.getTipo()});
         }
     }
     
@@ -93,17 +92,17 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "id", "Conta", "Data", "Valor", "Categoria"
+                "id", "Conta", "Data", "Valor", "Categoria", "Tipo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
