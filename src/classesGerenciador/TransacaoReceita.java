@@ -12,10 +12,11 @@ import java.time.LocalDate;
  */
 public class TransacaoReceita extends Transacao {
     private OrigemRenda origemRenda;
-    private Usuario usuarioAtual = ContasUsuarios.getInstance().conta(); //Intancia do usuario atual, para conseguir manipular suas informações.
+    private Usuario usuarioAtual; //Intancia do usuario atual, para conseguir manipular suas informações.
 
     
     public TransacaoReceita(Carteira conta, double valor, LocalDate data, String descricao, OrigemRenda origemReceita) {
+        usuarioAtual = ContasUsuarios.getInstance().conta();
         super(conta, valor, data, descricao);
         this.origemRenda = origemReceita;
     }
@@ -56,7 +57,11 @@ public class TransacaoReceita extends Transacao {
 
     @Override
     public void adicionarTransacao(){
-        usuarioAtual.getTransacoes().add(this);      
+        origemRenda.addTransacao(this);
+        usuarioAtual.getTransacoes().add(this);
     }
-    
+    @Override
+    public String getNome(){
+        return origemRenda.getNomeOrigemRenda();
+    }
 }

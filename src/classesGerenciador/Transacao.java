@@ -28,8 +28,29 @@ public abstract class Transacao {
     public int getId() {
     return id;
     }
+
+    public static int getProximoId() {
+        return proximoId;
+    }
+
+    public Carteira getConta() {
+        return conta;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
     
     // Métodos abstratos 
+    public abstract String getNome();
     
     public abstract void atualizar(Carteira conta);
     

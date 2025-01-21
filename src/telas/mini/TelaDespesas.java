@@ -4,6 +4,10 @@
  */
 package telas.mini;
 
+import classesGerenciador.Carteira;
+import classesGerenciador.Categoria;
+import classesGerenciador.ContasUsuarios;
+import classesGerenciador.Usuario;
 import javax.swing.JFrame;
 
 /**
@@ -11,12 +15,22 @@ import javax.swing.JFrame;
  * @author Bruno Eduardo <https://github.com/brnduol>
  */
 public class TelaDespesas extends javax.swing.JFrame {
+    private Usuario usuarioAtual; //Intancia do usuario atual, para conseguir manipular suas informações.
 
     /**
      * Creates new form TelaDespesas
      */
     public TelaDespesas() {
+        usuarioAtual = ContasUsuarios.getInstance().conta();
         initComponents();
+        
+        for (Categoria cat: usuarioAtual.getCategorias()){
+            jComboBox1.addItem(cat.getId() + " - " + cat.getNomeCategoria());
+        }
+        for (Carteira ori: usuarioAtual.getCarteiras()){
+            jComboBox2.addItem(ori.getId() + " - " + ori.getNome());
+        }
+        
         this.setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
@@ -47,10 +61,6 @@ public class TelaDespesas extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel2.setText("Data");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jTextField3.setText("0");
 

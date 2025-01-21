@@ -16,8 +16,9 @@ public class ProjetoGerenciadorFinanceiro {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Login1 login1 = new Login1();
-        login1.setVisible(true);
+        ControleTelas controleTelas = ControleTelas.getInstance();
+        
+        controleTelas.getTelaLogin().setVisible(true);
         // TODO code application logic here
     }
     

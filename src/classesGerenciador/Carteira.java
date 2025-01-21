@@ -4,6 +4,7 @@
  */
 package classesGerenciador;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +23,7 @@ public class Carteira {
         this.id = proximoId++; 
         this.nome = nome;
         this.saldo = saldo;
+        this.transacoes = new ArrayList<Transacao>();
     }
 
     public static int getProximoId() {

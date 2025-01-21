@@ -6,6 +6,7 @@ package telas;
 
 import classesGerenciador.ContasUsuarios;
 import javax.swing.JOptionPane;
+import projeto.gerenciador.financeiro.ControleTelas;
 
 /**
  *
@@ -13,11 +14,13 @@ import javax.swing.JOptionPane;
  */
 public class Login1 extends javax.swing.JFrame {
     private ContasUsuarios contaUsuarios;
+    private ControleTelas controleTelas;
 
     /**
      * Creates new form Login1
      */
     public Login1() {
+        controleTelas = ControleTelas.getInstance();
         contaUsuarios = ContasUsuarios.getInstance();
         initComponents();
         this.setLocationRelativeTo(null);
@@ -157,8 +160,7 @@ public class Login1 extends javax.swing.JFrame {
         char[] passwordArray = senha.getPassword();
         String passwordString = new String(passwordArray);
         if (contaUsuarios.entrarConta(email.getText(), passwordString)){
-            TelaPrincipal1 telaPrincipal1 = new TelaPrincipal1();
-            telaPrincipal1.setVisible(true);
+            controleTelas.getTelaPrincipal().setVisible(true);
             dispose();
         } else{
             JOptionPane.showMessageDialog(this, "E-mail ou senha incorretos.");
@@ -168,8 +170,7 @@ public class Login1 extends javax.swing.JFrame {
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // TODO add your handling code here:
-        Cadastro1 telaCadastro1 = new Cadastro1();
-        telaCadastro1.setVisible(true);
+        controleTelas.getTelaCadastro().setVisible(true);
         dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
 

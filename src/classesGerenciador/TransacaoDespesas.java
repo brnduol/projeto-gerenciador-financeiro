@@ -11,9 +11,9 @@ import java.time.LocalDate;
  * @author Bruno Eduardo <https://github.com/brnduol>
  */
 public class TransacaoDespesas extends Transacao {
-    private String categoriaDespesa;
+    private Categoria categoriaDespesa;
 
-    public TransacaoDespesas(Carteira conta, double valor, LocalDate data, String descricao, String categoriaDespesa) {
+    public TransacaoDespesas(Carteira conta, double valor, LocalDate data, String descricao, Categoria categoriaDespesa) {
         super(conta, valor*-1, data, descricao); // valor*-1: as despesas são tratadas como valores negativos no sistema para distinguir receitas (valores positivos) de despesas (valores negativos).
         this.categoriaDespesa = categoriaDespesa;
     }
@@ -34,13 +34,11 @@ public class TransacaoDespesas extends Transacao {
         
     }
 
-    public String getCategoriaDespesa() {
+    public Categoria getCategoriaDespesa() {
         return categoriaDespesa;
     }
 
-    public void setCategoriaDespesa(String categoriaDespesa) {
-        this.categoriaDespesa = categoriaDespesa;
-    }
+ 
     @Override
     public boolean pertenceCategoria(String categoria) {
         return this.categoriaDespesa.equals(categoria);
@@ -55,6 +53,9 @@ public class TransacaoDespesas extends Transacao {
     public void adicionarTransacao() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
     
+    @Override
+    public String getNome(){
+        return categoriaDespesa.getNomeCategoria();
+    }
 }
