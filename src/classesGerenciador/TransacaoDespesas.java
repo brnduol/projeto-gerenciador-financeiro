@@ -12,8 +12,10 @@ import java.time.LocalDate;
  */
 public class TransacaoDespesas extends Transacao {
     private Categoria categoriaDespesa;
+    private Usuario usuarioAtual; //Intancia do usuario atual, para conseguir manipular suas informações.
 
-    public TransacaoDespesas(Carteira conta, double valor, LocalDate data, String descricao, Categoria categoriaDespesa) {
+    public TransacaoDespesas(Carteira conta, int valor, LocalDate data, String descricao, Categoria categoriaDespesa) {
+        usuarioAtual = ContasUsuarios.getInstance().conta();
         super(conta, valor*-1, data, descricao); // valor*-1: as despesas são tratadas como valores negativos no sistema para distinguir receitas (valores positivos) de despesas (valores negativos).
         this.categoriaDespesa = categoriaDespesa;
     }
@@ -26,6 +28,8 @@ public class TransacaoDespesas extends Transacao {
     
     @Override
     public void excluirTransacao() {
+        categoriaDespesa.getTransacoes().remove(this);
+        usuarioAtual.getTransacoes().remove(this);
         
     }
 
@@ -55,7 +59,9 @@ public class TransacaoDespesas extends Transacao {
 
     @Override
     public void adicionarTransacao() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        categoriaDespesa.getTransacoes().add(this);
+        usuarioAtual.getTransacoes().add(this);
+    
     }
     
     @Override

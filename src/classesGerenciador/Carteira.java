@@ -15,11 +15,11 @@ public class Carteira {
     private static int proximoId = 1; // Variável estática para controlar o próximo ID disponível
     private int id; // ID único para cada OrigemRenda
     private String nome;
-    private double saldo;
+    private int saldo;
     private List<Transacao> transacoes;
 
     
-    public Carteira(String nome, double saldo) {
+    public Carteira(String nome, int saldo) {
         this.id = proximoId++; 
         this.nome = nome;
         this.saldo = saldo;
@@ -50,11 +50,11 @@ public class Carteira {
         this.nome = nome;
     }
 
-    public double getSaldo() {
+    public int getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(double saldo) {
+    public void setSaldo(int saldo) {
         this.saldo = saldo;
     }
     

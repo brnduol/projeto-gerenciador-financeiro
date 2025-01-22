@@ -38,7 +38,7 @@ public class Usuario {
         this.transacoes = new ArrayList<>();
         
         // Criando e adicionando a carteira fixa para o usuário
-        Carteira carteiraFixa = new Carteira("Carteira Padrão", 0.0); // Criando uma carteira padrão com saldo 0
+        Carteira carteiraFixa = new Carteira("Carteira Padrão", 0); // Criando uma carteira padrão com saldo 0
         this.carteiras.add(carteiraFixa); // Adiciona a carteira à lista de carteiras
         
         // Criando 4 categorias padrão 
@@ -122,7 +122,7 @@ public class Usuario {
         return transacoes;
     }
 
-    public void criarCarteira(String nome, double saldo){
+    public void criarCarteira(String nome, int saldo){
         Carteira carteira = new Carteira(nome, saldo);
         carteiras.add(carteira);
     }

@@ -11,6 +11,7 @@ import telas.TelaContas1;
 import telas.TelaGrafico1;
 import telas.TelaHistorico1;
 import telas.TelaPrincipal1;
+import telas.mini.TelaDetalhar;
 
 /**
  *
@@ -26,6 +27,7 @@ public class ControleTelas {
     private TelaGrafico1 telaGrafico;
     private TelaHistorico1 telaHistorico;
     private TelaPrincipal1 telaPrincipal;
+    private TelaDetalhar telaDetalhar;
 
     // Construtor privado para evitar instâncias externas
     private ControleTelas() {}
@@ -86,6 +88,12 @@ public class ControleTelas {
             telaPrincipal = new TelaPrincipal1();
         }
         return telaPrincipal;
+    }
+    public TelaDetalhar getTelaDetalhar() {
+        if (telaDetalhar == null) {
+            telaDetalhar = new TelaDetalhar();
+        }
+        return telaDetalhar;
     }
 }
 

@@ -8,6 +8,7 @@ import classesGerenciador.ContasUsuarios;
 import classesGerenciador.Transacao;
 import classesGerenciador.Usuario;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import projeto.gerenciador.financeiro.ControleTelas;
 import telas.mini.TelaDespesas;
@@ -384,6 +385,22 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        int linhaSelecionada = jTable1.getSelectedRow();
+        if (linhaSelecionada != -1) { // Verifica se há uma linha selecionada
+            Object primeiroValor = jTable1.getValueAt(linhaSelecionada, 0);
+            Transacao transacao;
+            for (Transacao x: contaAtual.getTransacoes()){
+                if (x.getId() == Integer.parseInt(primeiroValor.toString())) {
+                    transacao = x;
+                    controleTelas.getTelaDetalhar().setTransacao(transacao);
+                    controleTelas.getTelaDetalhar().setVisible(true);
+                    break;
+                }
+            }
+        } else{
+            JOptionPane.showMessageDialog(this, "Selecione uma linha que deseja ver os detalhes.");
+        }
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed

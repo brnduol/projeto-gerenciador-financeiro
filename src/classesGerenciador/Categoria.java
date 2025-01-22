@@ -44,9 +44,6 @@ public class Categoria {
     public List<Transacao> getTransacoes() {
         return transacoes;
     }
-    public void addTransacao(Transacao transacao){
-        transacoes.add(transacao);
-    }
      // Método para excluir uma transação por ID
     public boolean excluirTransacao(int transacaoId) {
         return transacoes.removeIf(transacao -> transacao.getId() == transacaoId); // garante que a lista de transações seja criada quando uma nova categoria for criada.

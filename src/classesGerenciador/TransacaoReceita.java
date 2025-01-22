@@ -28,6 +28,8 @@ public class TransacaoReceita extends Transacao {
     
     @Override
     public void excluirTransacao() {
+        origemRenda.getTransacoes().remove(this);
+        usuarioAtual.getTransacoes().remove(this);
         
     }
 
@@ -57,11 +59,16 @@ public class TransacaoReceita extends Transacao {
 
     @Override
     public void adicionarTransacao(){
-        origemRenda.addTransacao(this);
+        origemRenda.getTransacoes().add(this);
         usuarioAtual.getTransacoes().add(this);
     }
     @Override
     public String getNome(){
         return origemRenda.getNomeOrigemRenda();
+    }
+    
+    @Override
+    public String getTipo(){
+        return "Receita";
     }
 }

@@ -48,7 +48,7 @@ public abstract class Transacao {
     public String getDescricao() {
         return descricao;
     }
-    
+    public abstract String getTipo();
     // Métodos abstratos 
     public abstract String getNome();
     
