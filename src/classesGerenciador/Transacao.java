@@ -14,11 +14,11 @@ public abstract class Transacao {
     private static int proximoId = 1;
     protected int id;
     protected Carteira conta;
-    protected double valor;
+    protected int valor;
     protected LocalDate data;
     protected String descricao;
     
-    public Transacao(Carteira conta, double valor, LocalDate data, String descricao) {
+    public Transacao(Carteira conta, int valor, LocalDate data, String descricao) {
         this.id = proximoId++; // Incrementa o valor de proximoId para que a próxima instância receba um identificador único e sequencial
         this.conta = conta;
         this.valor = valor;
