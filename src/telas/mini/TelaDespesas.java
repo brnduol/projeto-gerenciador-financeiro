@@ -7,8 +7,18 @@ package telas.mini;
 import classesGerenciador.Carteira;
 import classesGerenciador.Categoria;
 import classesGerenciador.ContasUsuarios;
+import classesGerenciador.OrigemRenda;
+import classesGerenciador.Transacao;
+import classesGerenciador.TransacaoDespesas;
+import classesGerenciador.TransacaoReceita;
 import classesGerenciador.Usuario;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import projeto.gerenciador.financeiro.ControleTelas;
 
 /**
  *
@@ -25,14 +35,25 @@ public class TelaDespesas extends javax.swing.JFrame {
         initComponents();
         
         for (Categoria cat: usuarioAtual.getCategorias()){
-            jComboBox1.addItem(cat.getId() + " - " + cat.getNomeCategoria());
+            categoria.addItem(cat.getId() + " - " + cat.getNomeCategoria());
         }
         for (Carteira ori: usuarioAtual.getCarteiras()){
-            jComboBox2.addItem(ori.getId() + " - " + ori.getNome());
+            carteira.addItem(ori.getId() + " - " + ori.getNome());
         }
         
         this.setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+    private LocalDate validarEConverterData(String dataString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu")
+                                                       .withResolverStyle(ResolverStyle.STRICT);
+        try {
+            // Faz o parse diretamente
+            return LocalDate.parse(dataString, formatter);
+        } catch (DateTimeParseException e) {
+            System.out.println("Data inválida: " + dataString);
+            return null; // Retorna null se inválida
+        }
     }
 
     /**
@@ -45,15 +66,15 @@ public class TelaDespesas extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jTextField3 = new javax.swing.JTextField();
+        categoria = new javax.swing.JComboBox<>();
+        carteira = new javax.swing.JComboBox<>();
+        valor = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        data = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        descricao = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -62,19 +83,24 @@ public class TelaDespesas extends javax.swing.JFrame {
 
         jLabel2.setText("Data");
 
-        jTextField3.setText("0");
+        valor.setText("0");
 
         jLabel3.setText("Valor");
 
-        jTextField4.setText("dd/mm/aaaa");
+        data.setText("dd/mm/aaaa");
 
         jLabel4.setText("Categoria");
 
         jButton1.setText("Adicionar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        descricao.setColumns(20);
+        descricao.setRows(5);
+        jScrollPane1.setViewportView(descricao);
 
         jLabel5.setText("Conta");
 
@@ -100,13 +126,13 @@ public class TelaDespesas extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(valor, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(carteira, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(categoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -124,19 +150,19 @@ public class TelaDespesas extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(valor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(carteira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -148,6 +174,62 @@ public class TelaDespesas extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if (!data.getText().isEmpty() && !valor.getText().isEmpty() && !descricao.getText().isEmpty()) {
+            // Validar e converter a data
+            LocalDate dataConvertida = validarEConverterData(data.getText());
+            if (dataConvertida != null) {
+                // Pegar o valor como double
+                int valor1 = Integer.parseInt(valor.getText());
+                Categoria categoria1 = null;
+                Carteira carteira1 = null;
+                String descricao1 = descricao.getText();
+
+                // Buscar a OrigemRenda selecionada
+                for (Categoria ori : usuarioAtual.getCategorias()) {
+                    if (ori.getId() == Integer.parseInt(((String)categoria.getSelectedItem()).split(" - ")[0])) {
+                        categoria1 = ori;
+                        break;
+                    }
+                }
+
+                // Buscar a Carteira selecionada
+                for (Carteira cat : usuarioAtual.getCarteiras()) {
+                    if (cat.getId() == Integer.parseInt(((String)carteira.getSelectedItem()).split(" - ")[0])) {
+                        carteira1 = cat;
+                        break;
+                    }
+                }
+                System.out.println(categoria);
+                System.out.println(carteira1);
+                // Criar e adicionar a transação
+                if (categoria != null && carteira1 != null) {
+                    Transacao transacao = new TransacaoDespesas(carteira1, valor1, dataConvertida, descricao1, categoria1);
+                    transacao.adicionarTransacao();
+                    carteira1.adicionarTransacao(transacao);
+                    
+                    // Atualizar a tabela da TelaPrincipal
+                    ControleTelas.getInstance().getTelaPrincipal().atualizarTabela();
+                    
+
+                    // Fechar a janela atual
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Origem de Renda ou Carteira não encontrada.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Data inválida.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos.");
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -185,9 +267,11 @@ public class TelaDespesas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> carteira;
+    private javax.swing.JComboBox<String> categoria;
+    private javax.swing.JTextField data;
+    private javax.swing.JTextArea descricao;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -195,8 +279,6 @@ public class TelaDespesas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField valor;
     // End of variables declaration//GEN-END:variables
 }

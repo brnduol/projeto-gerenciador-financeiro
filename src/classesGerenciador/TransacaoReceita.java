@@ -15,7 +15,7 @@ public class TransacaoReceita extends Transacao {
     private Usuario usuarioAtual; //Intancia do usuario atual, para conseguir manipular suas informações.
 
     
-    public TransacaoReceita(Carteira conta, double valor, LocalDate data, String descricao, OrigemRenda origemReceita) {
+    public TransacaoReceita(Carteira conta, int valor, LocalDate data, String descricao, OrigemRenda origemReceita) {
         usuarioAtual = ContasUsuarios.getInstance().conta();
         super(conta, valor, data, descricao);
         this.origemRenda = origemReceita;
@@ -34,8 +34,10 @@ public class TransacaoReceita extends Transacao {
     }
 
     @Override
-    public void editarTransacao() {
-        
+    public void editarTransacao(LocalDate data, int valor, String descricao) {
+        this.valor = valor;
+        this.data = data;
+        this.descricao = descricao;
     }
     
     @Override

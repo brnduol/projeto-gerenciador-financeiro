@@ -37,7 +37,7 @@ public abstract class Transacao {
         return conta;
     }
 
-    public double getValor() {
+    public int getValor() {
         return valor;
     }
 
@@ -58,7 +58,7 @@ public abstract class Transacao {
     
     public abstract void excluirTransacao();
         
-    public abstract void editarTransacao();
+    public abstract void editarTransacao(LocalDate data, int valor, String descricao);
     
     public abstract boolean pertenceCategoria(String categoria);
 

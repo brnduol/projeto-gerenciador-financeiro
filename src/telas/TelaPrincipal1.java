@@ -7,6 +7,7 @@ package telas;
 import classesGerenciador.ContasUsuarios;
 import classesGerenciador.Transacao;
 import classesGerenciador.Usuario;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -49,14 +50,95 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
     public void atualizarTabela(){
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
-        System.out.println("oie");
-        for (Transacao x : contaAtual.getTransacoes()) {
-            // Define o formato desejado: dd/MM/yyyy
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            // Converte o LocalDate para uma string no formato desejado
-            String dataFormatada = x.getData().format(formatter);
+        LocalDate mesAtual = LocalDate.now(); // Obtém a data atual
 
-            model.addRow(new Object[]{x.getId(), x.getConta().getNome(), dataFormatada,x.getValor(),x.getNome(), x.getTipo()});
+        for (Transacao x : contaAtual.getTransacoes()) {
+            // Verifica se a transação pertence ao mês atual
+            if (x.getData().getMonth() == mesAtual.getMonth()) {
+                // Define o formato desejado: dd/MM/yyyy
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                // Converte o LocalDate para uma string no formato desejado
+                String dataFormatada = x.getData().format(formatter);
+
+                // Adiciona os dados da transação na tabela
+                model.addRow(new Object[]{
+                    x.getId(), 
+                    x.getConta().getNome(), 
+                    dataFormatada,
+                    x.getValor(), 
+                    x.getNome(), 
+                    x.getTipo()
+                });
+            }
+        }
+    }
+    
+    public void atualizarTabelaFiltro(){
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        
+        String mesSelecionado = (String) jComboBox1.getSelectedItem();
+        int numeroMes;
+        switch (mesSelecionado) {
+            case "Janeiro":
+                numeroMes = 1;
+                break;
+            case "Fevereiro":
+                numeroMes = 2;
+                break;
+            case "Março":
+                numeroMes = 3;
+                break;
+            case "Abril":
+                numeroMes = 4;
+                break;
+            case "Maio":
+                numeroMes = 5;
+                break;
+            case "Junho":
+                numeroMes = 6;
+                break;
+            case "Julho":
+                numeroMes = 7;
+                break;
+            case "Agosto":
+                numeroMes = 8;
+                break;
+            case "Setembro":
+                numeroMes = 9;
+                break;
+            case "Outubro":
+                numeroMes = 10;
+                break;
+            case "Novembro":
+                numeroMes = 11;
+                break;
+            case "Dezembro":
+                numeroMes = 12;
+                break;
+            default:
+                System.out.println("Mês inválido selecionado.");
+                return; // Sai da função se o mês for inválido
+        }
+        
+        // Filtrar as transações que correspondem ao mês selecionado
+        for (Transacao x : contaAtual.getTransacoes()) {
+            // Verifica se o mês da transação coincide com o mês selecionado
+            if (x.getData().getMonthValue() == numeroMes) {
+                // Formata a data para exibição
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                String dataFormatada = x.getData().format(formatter);
+
+                // Adiciona os dados da transação na tabela
+                model.addRow(new Object[]{
+                    x.getId(),
+                    x.getConta().getNome(),
+                    dataFormatada,
+                    x.getValor(),
+                    x.getNome(),
+                    x.getTipo()
+                });
+            }
         }
     }
     
@@ -81,6 +163,8 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jButton3 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -229,6 +313,15 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel9.setText("jLabel9");
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
+
+        jButton3.setText("Atualizar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1485477024-menu_78574.png"))); // NOI18N
         jMenu2.setText("Menu");
 
@@ -317,12 +410,17 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
                         .addContainerGap())))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4)
-                .addGap(19, 19, 19))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton4)
+                        .addGap(19, 19, 19))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,7 +460,10 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
-                .addComponent(jButton4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
                 .addContainerGap())
         );
 
@@ -435,6 +536,11 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        atualizarTabelaFiltro();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -473,7 +579,9 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

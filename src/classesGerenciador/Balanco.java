@@ -4,6 +4,7 @@
  */
 package classesGerenciador;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Balanco {
@@ -21,12 +22,31 @@ public class Balanco {
     }
 
     // Método para gerar o balanço total (soma de todas as transações)
-    public double gerarBalanco() {
-        double total = 0.0;
+    public List<Integer> gerarBalanco(int mes) {
+        int entrada = 0; // Soma de receitas
+        int saida = 0;   // Soma de despesas (mantendo negativo)
+        int balanco = 0; // Resultado final (entrada + saída)
+
         for (Transacao transacao : transacoes) {
-            total += transacao.valor; // Receita positiva, despesa negativa
+        // Verifica se o mês da transação é igual ao mês fornecido
+        if (transacao.getData().getMonthValue() == mes) {
+            if (transacao.getValor() > 0) {
+                entrada += transacao.getValor(); // Somar receitas
+            } else {
+                saida += transacao.getValor(); // Somar despesas (mantendo o valor negativo)
+            }
         }
-        return total;
+    }
+
+        balanco = entrada + saida; // Calcula o balanço final
+
+        // Retorna uma lista com entrada, saída e balanço
+        List<Integer> resultado = new ArrayList<>();
+        resultado.add(entrada);
+        resultado.add(saida);
+        resultado.add(balanco);
+
+        return resultado;
     }
 
     // Método para gerar o balanço por categoria
@@ -39,18 +59,6 @@ public class Balanco {
         }
         return total;
     }
-
-    /*
-    public double gerarBalancoPorOrigemReceita(String origemReceita) {
-        double total = 0.0;
-        for (Transacao transacao : transacoes) {
-            if (transacao.pertenceOrigem(origemReceita)) {
-                total += transacao.valor;
-            }
-        }
-        return total;
-    }
-    */
 
     // Getters
     public int getId() {

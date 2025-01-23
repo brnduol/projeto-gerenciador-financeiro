@@ -34,8 +34,10 @@ public class TransacaoDespesas extends Transacao {
     }
 
     @Override
-    public void editarTransacao() {
-        
+    public void editarTransacao(LocalDate data, int valor, String descricao) {
+        this.valor = valor;
+        this.data = data;
+        this.descricao = descricao;
     }
 
     public Categoria getCategoriaDespesa() {

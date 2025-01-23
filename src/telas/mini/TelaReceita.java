@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import projeto.gerenciador.financeiro.ControleTelas;
 import telas.TelaPrincipal1;
 
@@ -199,7 +200,7 @@ public class TelaReceita extends javax.swing.JFrame {
             LocalDate dataConvertida = validarEConverterData(data.getText());
             if (dataConvertida != null) {
                 // Pegar o valor como double
-                double valor1 = Double.valueOf(valor.getText());
+                int valor1 = Integer.parseInt(valor.getText());
                 OrigemRenda origemRenda = null;
                 Carteira carteira1 = null;
                 String descricao1 = descricao.getText();
@@ -234,13 +235,13 @@ public class TelaReceita extends javax.swing.JFrame {
                     // Fechar a janela atual
                     this.dispose();
                 } else {
-                    System.out.println("Origem de Renda ou Carteira não encontrada.");
+                    JOptionPane.showMessageDialog(this, "Origem de Renda ou Carteira não encontrada.");
                 }
             } else {
-                System.out.println("Data inválida.");
+                JOptionPane.showMessageDialog(this, "Data inválida.");
             }
         } else {
-            System.out.println("Por favor, preencha todos os campos.");
+            JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos.");
         }
         
         
