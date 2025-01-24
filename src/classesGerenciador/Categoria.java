@@ -18,15 +18,19 @@ public class Categoria {
     private String nomeCategoria;
     private List<Transacao> transacoes; // Lista de objetos Transacão, vai armazenar todas as transações relacionadas a esta categoria.
 
+     // Lista estática para armazenar todas as categorias criadas
+    private static List<Categoria> listaCategorias = new ArrayList<>();
+    
     // Construtor
     public Categoria() {
+        this.transacoes = new ArrayList<>();
          // Garante que a lista de transações seja criada quando uma nova categoria for criada.
     }
     public Categoria(String nome) {
         this.id = proximoId++;
         this.nomeCategoria = nome;
         this.transacoes = new ArrayList<>();
-         // Garante que a lista de transações seja criada quando uma nova categoria for criada.
+    
     }
 
     // Getters e Setters
@@ -67,7 +71,29 @@ public class Categoria {
         }
          return false; // e false caso a transação não tenha sido encontrada.
     }
+   
+        //Método para adicionar uma transação a categoria
+        public void adicionarTransacao(Transacao transacao) {
+            this.transacoes.add(transacao);
+        }
     
-    // Criar a categoria, verificando antes se ela ja não existe.
-    
+        
+        // Método para criar uma nova categoria
+        public static Categoria criarCategoria(String nome) {
+            // Verifica se uma categoria com o mesmo nome já existe
+            Optional<Categoria> categoriaExistente = listaCategorias.stream()
+                    .filter(categoria -> categoria.getNomeCategoria().equalsIgnoreCase(nome))
+                    .findFirst();
+
+            if (categoriaExistente.isPresent()) {
+                System.out.println("Categoria já existe: " + nome);
+                return null; // Retorna nulo caso já exista
+            }
+
+            // Cria e adiciona a nova categoria à lista
+            Categoria novaCategoria = new Categoria(nome);
+            listaCategorias.add(novaCategoria);
+            System.out.println("Categoria criada com sucesso: " + nome);
+            return novaCategoria;
+        }
 }
