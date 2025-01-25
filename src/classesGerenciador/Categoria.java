@@ -6,31 +6,29 @@ package classesGerenciador;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author lucia
  */
 public class Categoria {
     private static int proximoId = 1; // Variável estática para controlar o próximo ID disponível
     private int id;
     private String nomeCategoria;
-    private List<Transacao> transacoes; // Lista de objetos Transacão, vai armazenar todas as transações relacionadas a esta categoria.
+    private List<Transacao> transacoes; // Armazena todas as transações relacionadas a categoria.
 
-     // Lista estática para armazenar todas as categorias criadas
+    //Lista para armazenar todas as categorias criadas
     private static List<Categoria> listaCategorias = new ArrayList<>();
     
-    // Construtor
+    //Construtor
     public Categoria() {
         this.transacoes = new ArrayList<>();
-         // Garante que a lista de transações seja criada quando uma nova categoria for criada.
     }
+    
     public Categoria(String nome) {
         this.id = proximoId++;
         this.nomeCategoria = nome;
         this.transacoes = new ArrayList<>();
-    
     }
 
     // Getters e Setters
@@ -48,52 +46,56 @@ public class Categoria {
     public List<Transacao> getTransacoes() {
         return transacoes;
     }
-     // Método para excluir uma transação por ID
-    public boolean excluirTransacao(int transacaoId) {
-        return transacoes.removeIf(transacao -> transacao.getId() == transacaoId); // garante que a lista de transações seja criada quando uma nova categoria for criada.
-        //removeIf vai remover a transação cujo id seja igual ao transacaoId fornecido.
-    }
 
-     // Método para editar uma transação
-    public boolean editarTransacao(int transacaoId, Transacao novaTransacao) {
-        // Esse método edita uma transação existente na lista, 
-        // buscando-a pelo ID.
-        Optional<Transacao> transacaoExistente = transacoes.stream()
-                .filter(transacao -> transacao.getId() == transacaoId)
-                .findFirst();
-        
-        // Se a transação for encontrada, 
-        if (transacaoExistente.isPresent()) {
-            // ela é substituída pela nova transação fornecida.
-            int index = transacoes.indexOf(transacaoExistente.get());
-            transacoes.set(index, novaTransacao);
-            return true; // Retorna true se a transação foi editada com sucesso, 
-        }
-         return false; // e false caso a transação não tenha sido encontrada.
+    public static List<Categoria> getListaCategorias() {
+        return listaCategorias;
     }
-   
-        //Método para adicionar uma transação a categoria
-        public void adicionarTransacao(Transacao transacao) {
-            this.transacoes.add(transacao);
-        }
-    
         
-        // Método para criar uma nova categoria
-        public static Categoria criarCategoria(String nome) {
-            // Verifica se uma categoria com o mesmo nome já existe
-            Optional<Categoria> categoriaExistente = listaCategorias.stream()
-                    .filter(categoria -> categoria.getNomeCategoria().equalsIgnoreCase(nome))
-                    .findFirst();
-
-            if (categoriaExistente.isPresent()) {
-                System.out.println("Categoria já existe: " + nome);
-                return null; // Retorna nulo caso já exista
+    //Método para criar uma nova categoria
+    public static Categoria criarCategoria(String nome) {
+        for (Categoria categoria : listaCategorias) {
+            if (categoria.getNomeCategoria().equalsIgnoreCase(nome)) {
+                 JOptionPane.showMessageDialog(null, "A categoria já existe: " + nome, "Erro", JOptionPane.ERROR_MESSAGE);
+                 return null;
             }
-
-            // Cria e adiciona a nova categoria à lista
-            Categoria novaCategoria = new Categoria(nome);
-            listaCategorias.add(novaCategoria);
-            System.out.println("Categoria criada com sucesso: " + nome);
-            return novaCategoria;
         }
+        
+        //Adiciona e cria a nova categoria a lista
+        Categoria novaCategoria = new Categoria(nome);
+        listaCategorias.add(novaCategoria);
+        
+        //Mensagem de sucesso ao criar categoria
+        JOptionPane.showMessageDialog(null, "Categoria criada com sucesso: " + nome, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        return novaCategoria;
+    }     
+        
+    //Método para excluir categoria 
+    public static void excluirCategoria(String nomeCategoria) {
+        // Encontra a categoria pelo nome
+        Categoria categoriaParaRemover = null;
+        for (Categoria categoria : listaCategorias) {
+            if (categoria.getNomeCategoria().equalsIgnoreCase(nomeCategoria)) {
+                categoriaParaRemover = categoria;
+                break;
+            }
+        }
+ 
+        // Verifica se a categoria foi encontrada
+        if (categoriaParaRemover == null) {
+            JOptionPane.showMessageDialog(null, "Categoria não encontrada: " + nomeCategoria, "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        
+        // Exclui todas as transações associadas à categoria
+        for (Transacao transacao : categoriaParaRemover.getTransacoes()) {
+            transacao.excluirTransacao(); // Chama o método de exclusão na transação
+        }
+
+        // Remove a categoria da lista de categorias
+        listaCategorias.remove(categoriaParaRemover);
+
+        // Mensagem de sucesso
+        JOptionPane.showMessageDialog(null, "Categoria excluída com sucesso: " + nomeCategoria, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+    }
 }
