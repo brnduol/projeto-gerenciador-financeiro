@@ -7,16 +7,9 @@ package telas;
 import classesGerenciador.Categoria;
 import classesGerenciador.ContasUsuarios;
 import classesGerenciador.Usuario;
-import classesGerenciador.OrigemRenda;
-import classesGerenciador.Transacao;
-import projeto.gerenciador.financeiro.ControleTelas;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JOptionPane;
-
-
-
+import projeto.gerenciador.financeiro.ControleTelas;
 
 /**
  *
@@ -28,10 +21,6 @@ public class TelaCategoria1 extends javax.swing.JFrame {
     private ControleTelas controleTelas;
     
 
-    public Usuario getContaAtual() {
-        return contaAtual;
-    }
-
     /**
      * Creates new form TelaCategoria1
      */
@@ -39,14 +28,7 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         contaUsuarios = ContasUsuarios.getInstance();
         contaAtual = contaUsuarios.conta();
         controleTelas = ControleTelas.getInstance();
-
         initComponents();
-        
-        // Criação do modelo de tabela
-        DefaultTableModel model = new DefaultTableModel(
-            new String[]{"ID", "Nome", "Tipo", "Data"}, 0 // 0 linhas inicialmente
-        );
-        jTable1.setModel(model); // Associa o modelo à tabela
     }
 
     /**
@@ -277,8 +259,8 @@ public class TelaCategoria1 extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(bntCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addComponent(bntCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)
                                 .addComponent(bntPesquisar)
                                 .addGap(42, 42, 42)
                                 .addComponent(bntEditar)
@@ -328,13 +310,10 @@ public class TelaCategoria1 extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeActionPerformed
 
     private void bntCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCriarActionPerformed
-                                                                              
-                                          
-                                        
-
+        // Obter os valores dos campos
         String nome = txtNome.getText();
         String tipo = cmbTipo.getSelectedItem().toString();
-        String data = txtData.getText();  
+        String data = txtData.getText();  // Obter a data inserida no campo
 
         // Verificar se o campo nome está vazio
         if (nome.isEmpty()) {
@@ -354,52 +333,19 @@ public class TelaCategoria1 extends javax.swing.JFrame {
             return;
         }
 
-        // Obter o tipo selecionado
-        tipo = tipo.toLowerCase(); // 'despesa' ou 'receita'
-
-        // Verificar se a categoria já existe em contaAtual
-        for (Categoria categoria : contaAtual.getCategorias()) {
-            if (categoria.getNomeCategoria().equalsIgnoreCase(nome)) {
-                JOptionPane.showMessageDialog(null, "A categoria já existe.", "Aviso", JOptionPane.WARNING_MESSAGE);
-                return; // Retorna, pois a categoria já existe
-            }
-        }
-
-        // Criar e adicionar a nova categoria ou origem de renda
-        if (tipo.equals("receita")) {
-            OrigemRenda novaOrigemRenda = new OrigemRenda(nome);  // Usando o construtor de OrigemRenda
-            if (novaOrigemRenda != null) {
-                contaAtual.getOrigemRendas().add(novaOrigemRenda);  // Adiciona à lista de OrigemRendas
-                JOptionPane.showMessageDialog(null, "Origem de renda adicionada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } else if (tipo.equals("despesa")) {
-            // Usando o método estático da classe Categoria para criar a categoria
-            Categoria novaCategoria = Categoria.criarCategoria(nome); // Chamando o método estático
-      
-            if (novaCategoria != null) {
-                contaAtual.getCategorias().add(novaCategoria);  // Adiciona à lista de Categorias
-                JOptionPane.showMessageDialog(null, "Categoria de despesa adicionada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } else {
-            // Se o tipo não for nem "receita" nem "despesa", exibe um erro
-            JOptionPane.showMessageDialog(null, "Tipo inválido. Por favor, selecione entre 'despesa' ou 'receita'.", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Adicionar a categoria/origem de renda na tabela
+        // Obter o modelo da tabela
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
-        model.insertRow(0, new Object[]{nome, tipo, data}); // Adiciona a linha com o nome, tipo e data
+
+        // Inserir os dados na tabela, incluindo nome, tipo e data
+        model.insertRow(0, new Object[]{nome, tipo, data});
 
         // Limpar os campos de entrada
         txtNome.setText("");
         cmbTipo.setSelectedIndex(0);
-        txtData.setText(""); 
+        txtData.setText(""); // Limpar o campo de data
 
         // Mensagem de sucesso
-        javax.swing.JOptionPane.showMessageDialog(this, "Categoria/Origem de Renda criada com sucesso!");
-    }
-
-
+        javax.swing.JOptionPane.showMessageDialog(this, "Categoria criada com sucesso!");
 
     }//GEN-LAST:event_bntCriarActionPerformed
 
@@ -419,21 +365,15 @@ public class TelaCategoria1 extends javax.swing.JFrame {
             // Obter o modelo da tabela
             javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
 
-            // Obter o nome da categoria selecionada
-            String nomeCategoria = (String) model.getValueAt(selectedRow, 1);
-
-            // Remover a categoria da lista de categorias
-            Categoria.excluirCategoria(nomeCategoria);
-
-            // Remover a linha da tabela
+            // Remover a linha da tabela (categoria)
             model.removeRow(selectedRow);
 
             // Mensagem de sucesso
             javax.swing.JOptionPane.showMessageDialog(this, "Categoria excluída com sucesso!");
         } else {
+            // Caso não tenha linha selecionada
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor, selecione uma categoria para excluir.");
-        }                       
-       
+        }
     }//GEN-LAST:event_bntExcluirActionPerformed
 
     private void jmPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPrincipalActionPerformed
@@ -494,7 +434,6 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         if (!encontrou) {
             javax.swing.JOptionPane.showMessageDialog(this, "Nenhuma categoria encontrada com esse nome.");
         }
-
     }//GEN-LAST:event_bntPesquisarActionPerformed
 
     private void bntEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntEditarActionPerformed
@@ -613,4 +552,4 @@ public class TelaCategoria1 extends javax.swing.JFrame {
     private javax.swing.JTextField txtData;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
-
+}
