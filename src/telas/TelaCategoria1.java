@@ -9,6 +9,7 @@ import classesGerenciador.ContasUsuarios;
 import classesGerenciador.Usuario;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import projeto.gerenciador.financeiro.ControleTelas;
 
 /**
@@ -29,6 +30,12 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         contaAtual = contaUsuarios.conta();
         controleTelas = ControleTelas.getInstance();
         initComponents();
+        
+        // Criação do modelo de tabela
+        DefaultTableModel model = new DefaultTableModel(
+            new String[]{"ID", "Nome", "Tipo", "Data"}, 0 // 0 linhas inicialmente
+        );
+        jTable1.setModel(model); // Associa o modelo à tabela
     }
 
     /**
@@ -259,8 +266,8 @@ public class TelaCategoria1 extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(bntCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
+                                .addComponent(bntCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(bntPesquisar)
                                 .addGap(42, 42, 42)
                                 .addComponent(bntEditar)
@@ -332,12 +339,16 @@ public class TelaCategoria1 extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor, insira a data no formato dd/MM/yyyy.");
             return;
         }
+        
+        // Criar a nova categoria no modelo
+        Categoria novaCategoria = Categoria.criarCategoria(nome);
+        if (novaCategoria == null) {
+            return; // Se a categoria já existir, o método exibe a mensagem e retorna
+        }
 
-        // Obter o modelo da tabela
+        // Adicionar a categoria na tabela
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
-
-        // Inserir os dados na tabela, incluindo nome, tipo e data
-        model.insertRow(0, new Object[]{nome, tipo, data});
+        model.insertRow(0, new Object[]{novaCategoria.getId(), nome, tipo, data});
 
         // Limpar os campos de entrada
         txtNome.setText("");
@@ -346,6 +357,7 @@ public class TelaCategoria1 extends javax.swing.JFrame {
 
         // Mensagem de sucesso
         javax.swing.JOptionPane.showMessageDialog(this, "Categoria criada com sucesso!");
+
 
     }//GEN-LAST:event_bntCriarActionPerformed
 
@@ -365,15 +377,21 @@ public class TelaCategoria1 extends javax.swing.JFrame {
             // Obter o modelo da tabela
             javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
 
-            // Remover a linha da tabela (categoria)
+            // Obter o nome da categoria selecionada
+            String nomeCategoria = (String) model.getValueAt(selectedRow, 1);
+
+            // Remover a categoria da lista de categorias
+            Categoria.excluirCategoria(nomeCategoria);
+
+            // Remover a linha da tabela
             model.removeRow(selectedRow);
 
             // Mensagem de sucesso
             javax.swing.JOptionPane.showMessageDialog(this, "Categoria excluída com sucesso!");
         } else {
-            // Caso não tenha linha selecionada
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor, selecione uma categoria para excluir.");
-        }
+        }                       
+        
     }//GEN-LAST:event_bntExcluirActionPerformed
 
     private void jmPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPrincipalActionPerformed

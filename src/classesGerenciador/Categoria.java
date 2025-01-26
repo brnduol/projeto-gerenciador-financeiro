@@ -60,15 +60,15 @@ public class Categoria {
             }
         }
         
-        //Adiciona e cria a nova categoria a lista
+        //Adiciona e cria a nova categoria a lista se não encontrou nenhuma com o mesmo nome
         Categoria novaCategoria = new Categoria(nome);
         listaCategorias.add(novaCategoria);
-        
+
         //Mensagem de sucesso ao criar categoria
         JOptionPane.showMessageDialog(null, "Categoria criada com sucesso: " + nome, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         return novaCategoria;
-    }     
-        
+            
+    }
     //Método para excluir categoria 
     public static void excluirCategoria(String nomeCategoria) {
         // Encontra a categoria pelo nome
