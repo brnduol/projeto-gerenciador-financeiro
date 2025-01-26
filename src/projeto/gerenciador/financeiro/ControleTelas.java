@@ -95,5 +95,8 @@ public class ControleTelas {
         }
         return telaDetalhar;
     }
+
+  
+    
 }
 

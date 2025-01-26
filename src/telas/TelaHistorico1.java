@@ -40,10 +40,7 @@ public class TelaHistorico1 extends javax.swing.JFrame {
         listaHistoricos = new ArrayList<>();
         contaUsuarios = ContasUsuarios.getInstance();
         contaAtual = contaUsuarios.conta();
-        // Dados de exemplo
-        listaHistoricos.add(new Object[]{"Conta 1", "10/01/2025", 100.0, "Entrada", "Categoria A"});
-        listaHistoricos.add(new Object[]{"Conta 2", "15/01/2025", 200.0, "Saída", "Categoria B"});
-        listaHistoricos.add(new Object[]{"Conta 3", "20/03/2025", 150.0, "Entrada", "Categoria C"});
+        
         initComponents();
         this.setLocationRelativeTo(null);
         carregarMesHistorico();

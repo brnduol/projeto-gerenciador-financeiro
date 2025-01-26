@@ -4,7 +4,10 @@
  */
 package telas;
 
+import classesGerenciador.Categoria;
 import classesGerenciador.ContasUsuarios;
+import classesGerenciador.OrigemRenda;
+import classesGerenciador.Transacao;
 import classesGerenciador.Usuario;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -27,10 +30,13 @@ public class TelaGrafico1 extends javax.swing.JFrame {
     public TelaGrafico1() {
         contaUsuarios = ContasUsuarios.getInstance();
         contaAtual = contaUsuarios.conta();
+        controleTelas = ControleTelas.getInstance(); 
         initComponents();
+        
         this.setLocationRelativeTo(null);
         setSize(1000, 800);  
         jPanel1.setLayout(new java.awt.BorderLayout()); 
+        
         carregarMesGrafico();
         carregarAnoGrafico();
         
@@ -81,10 +87,11 @@ public class TelaGrafico1 extends javax.swing.JFrame {
 
         lblMesGrafico = new javax.swing.JLabel();
         lblAnoGrafico = new javax.swing.JLabel();
-        btnGerarGrafico = new javax.swing.JButton();
+        btnGerarGraficoOrigemRenda = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         cbMesGrafico = new javax.swing.JComboBox<>();
         cbAnoGrafico = new javax.swing.JComboBox<>();
+        btnGerarGraficoCategoria = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuGrafico = new javax.swing.JMenu();
         jmPrincipal = new javax.swing.JMenuItem();
@@ -99,10 +106,10 @@ public class TelaGrafico1 extends javax.swing.JFrame {
 
         lblAnoGrafico.setText("Ano");
 
-        btnGerarGrafico.setText("Gerar");
-        btnGerarGrafico.addActionListener(new java.awt.event.ActionListener() {
+        btnGerarGraficoOrigemRenda.setText("Gerar gráfico Origem Renda ");
+        btnGerarGraficoOrigemRenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGerarGraficoActionPerformed(evt);
+                btnGerarGraficoOrigemRendaActionPerformed(evt);
             }
         });
 
@@ -120,6 +127,13 @@ public class TelaGrafico1 extends javax.swing.JFrame {
         cbMesGrafico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         cbAnoGrafico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnGerarGraficoCategoria.setText("Gerar gráfico por Categoria");
+        btnGerarGraficoCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGerarGraficoCategoriaActionPerformed(evt);
+            }
+        });
 
         menuGrafico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1485477024-menu_78574.png"))); // NOI18N
         menuGrafico.setText("Menu");
@@ -178,41 +192,39 @@ public class TelaGrafico1 extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblAnoGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblAnoGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(cbMesGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cbAnoGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(67, 67, 67)
-                                .addComponent(btnGerarGrafico))))
-                    .addComponent(lblMesGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(396, Short.MAX_VALUE))
+                                .addGap(80, 80, 80)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnGerarGraficoOrigemRenda)
+                                    .addComponent(btnGerarGraficoCategoria)))
+                            .addComponent(lblMesGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(451, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblMesGrafico)
-                            .addComponent(cbMesGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnGerarGrafico)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMesGrafico)
+                    .addComponent(cbMesGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGerarGraficoCategoria))
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAnoGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbAnoGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbAnoGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGerarGraficoOrigemRenda))
                 .addGap(53, 53, 53)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(141, Short.MAX_VALUE))
@@ -222,50 +234,98 @@ public class TelaGrafico1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
                         
 
-        private void mostrarGrafico() {
-            // Criar o dataset do gráfico de pizza
-            DefaultPieDataset dataset = new DefaultPieDataset();
+    private void mostrarGrafico(DefaultPieDataset dataset) {
+        // Criar o gráfico de pizza
+        JFreeChart chart = ChartFactory.createPieChart(
+            "Gráfico", // Título do gráfico
+            dataset, // Dataset com os dados
+            true, // Exibir legenda
+            true, // Exibir tooltip
+            false // Exibir URLs
+        );
 
-            // Adicionar valores de exemplo
-            dataset.setValue("Categoria 1", 50);
-            dataset.setValue("Categoria 2", 30);
-            dataset.setValue("Categoria 3", 20);
+        System.out.println("Gráfico gerado"); // Print para controle
 
-            // Criar o gráfico de pizza
-            JFreeChart chart = ChartFactory.createPieChart(
-                "Gráfico", // Título do gráfico
-                dataset, // Dataset com os dados
-                true, // Exibir legenda
-                true, // Exibir tooltip
-                false // Exibir URLs
-            );
-            
-            System.out.println("Gráfico gerado"); // print para controle
-            
-            
-            // Adicionar o gráfico ao painel (jPanel1)
-            ChartPanel chartPanel = new ChartPanel(chart);
-            chartPanel.setPreferredSize(new java.awt.Dimension(600, 400));
+        // Adicionar o gráfico ao painel (jPanel1)
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new java.awt.Dimension(600, 400));
 
-            // Limpar o painel antes de adicionar um novo gráfico
-            jPanel1.removeAll();
-            jPanel1.add(chartPanel, java.awt.BorderLayout.CENTER);
-            jPanel1.revalidate();
-            jPanel1.repaint();
-    }   
+        // Limpar o painel antes de adicionar um novo gráfico
+        jPanel1.removeAll();
+        jPanel1.add(chartPanel, java.awt.BorderLayout.CENTER);
+        jPanel1.revalidate();
+        jPanel1.repaint();
+    }
+
   
     
-    private void btnGerarGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarGraficoActionPerformed
-                                  
-        int index1 = cbAnoGrafico.getSelectedIndex();
-        int index2 = cbMesGrafico.getSelectedIndex();
-        
-        if (index1 == 0 || index2 == 0) {
+    private void btnGerarGraficoOrigemRendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarGraficoOrigemRendaActionPerformed
+                                                
+
+        // Obter os índices selecionados nos ComboBoxes
+        int selectedAnoIndex = cbAnoGrafico.getSelectedIndex();
+        int selectedMesIndex = cbMesGrafico.getSelectedIndex();
+
+        // Validar se o usuário selecionou ano e mês
+        if (selectedAnoIndex == 0 || selectedMesIndex == 0) {
             JOptionPane.showMessageDialog(null, "Todos os campos devem ser selecionados", "Mensagem", JOptionPane.PLAIN_MESSAGE);
-        } else {
-            mostrarGrafico();
-        }       
-    }//GEN-LAST:event_btnGerarGraficoActionPerformed
+            return;
+        }
+
+        // Obter o ano e o mês selecionados
+        int anoSelecionado = Integer.parseInt(cbAnoGrafico.getSelectedItem().toString());
+        int mesSelecionado = selectedMesIndex; // O índice do JComboBox corresponde ao número do mês
+
+        // Criar o dataset do gráfico
+        DefaultPieDataset dataset = new DefaultPieDataset();
+
+        // Iterar pelas origens de renda do usuário atual
+        for (OrigemRenda origem : contaAtual.getOrigemRendas()) {
+            double somaReceitas = 0;
+            double somaDespesas = 0;
+
+            // Iterar pelas transações para calcular os valores associados à origem
+            for (Transacao transacao : contaAtual.getTransacoes()) {
+                int anoTransacao = transacao.getData().getYear();
+                int mesTransacao = transacao.getData().getMonthValue();
+
+                // Verificar se a transação corresponde ao mês, ano e origem selecionados
+                if (anoTransacao == anoSelecionado && mesTransacao == mesSelecionado &&
+                    transacao.pertenceOrigem(origem.getNomeOrigemRenda())) {
+
+                    // Separar receitas e despesas
+                    if (transacao.getValor() > 0) {
+                        somaReceitas += transacao.getValor();
+                    } else {
+                        somaDespesas += Math.abs(transacao.getValor());
+                    }
+                }
+            }
+
+            // Adicionar receitas e despesas ao dataset
+            if (somaReceitas > 0) {
+                dataset.setValue(origem.getNomeOrigemRenda() + " (Receitas)", somaReceitas);
+            }
+            if (somaDespesas > 0) {
+                dataset.setValue(origem.getNomeOrigemRenda() + " (Despesas)", somaDespesas);
+            }
+        }
+
+        // Verificar se há dados no dataset antes de gerar o gráfico
+        if (dataset.getItemCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Não há transações para o período selecionado.", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+            
+        }
+        
+        else {
+            mostrarGrafico(dataset);
+        }
+
+        
+
+
+     
+    }//GEN-LAST:event_btnGerarGraficoOrigemRendaActionPerformed
 
     private void btContasGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btContasGraficoActionPerformed
         // Abrir a tela principal
@@ -297,6 +357,63 @@ public class TelaGrafico1 extends javax.swing.JFrame {
         controleTelas.getTelaPrincipal().setVisible(true);
         this.dispose(); // Fecha a tela atual
     }//GEN-LAST:event_jmPrincipalActionPerformed
+
+    private void btnGerarGraficoCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarGraficoCategoriaActionPerformed
+                                                  
+
+        // Obter os índices selecionados nos ComboBoxes
+        int selectedAnoIndex = cbAnoGrafico.getSelectedIndex();
+        int selectedMesIndex = cbMesGrafico.getSelectedIndex();
+
+        // Validar se o usuário selecionou ano e mês
+        if (selectedAnoIndex == 0 || selectedMesIndex == 0) {
+            JOptionPane.showMessageDialog(null, "Todos os campos devem ser selecionados", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+            return;
+        }
+
+        // Obter o ano e o mês selecionados
+        int anoSelecionado = Integer.parseInt(cbAnoGrafico.getSelectedItem().toString());
+        int mesSelecionado = selectedMesIndex; // O índice do JComboBox corresponde ao número do mês
+
+        // Criar o dataset do gráfico
+        DefaultPieDataset dataset = new DefaultPieDataset();
+
+        // Iterar pelas categorias de transações
+        for (Categoria categoria : contaAtual.getCategorias()) {
+            double somaTransacoes = 0;
+
+            // Iterar pelas transações para somar os valores que pertencem à categoria atual
+            for (Transacao transacao : contaAtual.getTransacoes()) {
+                int anoTransacao = transacao.getData().getYear();
+                int mesTransacao = transacao.getData().getMonthValue();
+
+                // Verificar se a transação corresponde ao mês, ano e categoria selecionados
+                if (anoTransacao == anoSelecionado && mesTransacao == mesSelecionado &&
+                    transacao.pertenceCategoria(categoria.getNomeCategoria())) {
+                    somaTransacoes += transacao.getValor();
+                }
+            }
+
+            // Adicionar ao dataset se houver transações nessa categoria
+            if (somaTransacoes != 0) {
+                dataset.setValue(categoria.getNomeCategoria(), somaTransacoes);
+            }
+        }
+
+        // Verificar se há dados no dataset antes de gerar o gráfico
+        if (dataset.getItemCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Não há transações para o período selecionado.", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+            
+        }
+        else {
+            mostrarGrafico(dataset);
+        }
+        
+
+
+
+
+    }//GEN-LAST:event_btnGerarGraficoCategoriaActionPerformed
 
                     
 
@@ -341,7 +458,8 @@ public class TelaGrafico1 extends javax.swing.JFrame {
     private javax.swing.JMenuItem btContasGrafico;
     private javax.swing.JMenuItem btHistoricoGrafico;
     private javax.swing.JMenuItem btSairGrafico;
-    private javax.swing.JButton btnGerarGrafico;
+    private javax.swing.JButton btnGerarGraficoCategoria;
+    private javax.swing.JButton btnGerarGraficoOrigemRenda;
     private javax.swing.JComboBox<String> cbAnoGrafico;
     private javax.swing.JComboBox<String> cbMesGrafico;
     private javax.swing.JMenuBar jMenuBar1;

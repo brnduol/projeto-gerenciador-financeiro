@@ -14,7 +14,6 @@ import javax.swing.JOptionPane;
 public class Categoria {
     private static int proximoId = 1; // Variável estática para controlar o próximo ID disponível
     private int id;
-    private String nomeCategoria;
     private List<Transacao> transacoes; // Armazena todas as transações relacionadas a categoria.
 
     //Lista para armazenar todas as categorias criadas

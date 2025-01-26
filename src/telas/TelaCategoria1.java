@@ -7,10 +7,16 @@ package telas;
 import classesGerenciador.Categoria;
 import classesGerenciador.ContasUsuarios;
 import classesGerenciador.Usuario;
+import classesGerenciador.OrigemRenda;
+import classesGerenciador.Transacao;
+import projeto.gerenciador.financeiro.ControleTelas;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import projeto.gerenciador.financeiro.ControleTelas;
+import javax.swing.JOptionPane;
+
+
+
 
 /**
  *
@@ -20,6 +26,7 @@ public class TelaCategoria1 extends javax.swing.JFrame {
     private ContasUsuarios contaUsuarios;
     private Usuario contaAtual;
     private ControleTelas controleTelas;
+    
 
     public Usuario getContaAtual() {
         return contaAtual;
@@ -32,6 +39,7 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         contaUsuarios = ContasUsuarios.getInstance();
         contaAtual = contaUsuarios.conta();
         controleTelas = ControleTelas.getInstance();
+
         initComponents();
         
         // Criação do modelo de tabela
@@ -320,10 +328,13 @@ public class TelaCategoria1 extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeActionPerformed
 
     private void bntCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCriarActionPerformed
-        // Obter os valores dos campos
+                                                                              
+                                          
+                                        
+
         String nome = txtNome.getText();
         String tipo = cmbTipo.getSelectedItem().toString();
-        String data = txtData.getText();  // Obter a data inserida no campo
+        String data = txtData.getText();  
 
         // Verificar se o campo nome está vazio
         if (nome.isEmpty()) {
@@ -342,27 +353,52 @@ public class TelaCategoria1 extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor, insira a data no formato dd/MM/yyyy.");
             return;
         }
-        
-        // Criar a nova categoria no modelo
-        Categoria novaCategoria = Categoria.criarCategoria(nome);
-        if (novaCategoria == null) {
-            return; // Se a categoria já existir, o método exibe a mensagem e retorna
+
+        // Obter o tipo selecionado
+        tipo = tipo.toLowerCase(); // 'despesa' ou 'receita'
+
+        // Verificar se a categoria já existe em contaAtual
+        for (Categoria categoria : contaAtual.getCategorias()) {
+            if (categoria.getNomeCategoria().equalsIgnoreCase(nome)) {
+                JOptionPane.showMessageDialog(null, "A categoria já existe.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                return; // Retorna, pois a categoria já existe
+            }
         }
-        
-        // Adicionar a categoria à lista
-        Categoria.getListaCategorias().add(novaCategoria);
-        
-        // Adicionar a categoria na tabela
+
+        // Criar e adicionar a nova categoria ou origem de renda
+        if (tipo.equals("receita")) {
+            OrigemRenda novaOrigemRenda = new OrigemRenda(nome);  // Usando o construtor de OrigemRenda
+            if (novaOrigemRenda != null) {
+                contaAtual.getOrigemRendas().add(novaOrigemRenda);  // Adiciona à lista de OrigemRendas
+                JOptionPane.showMessageDialog(null, "Origem de renda adicionada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else if (tipo.equals("despesa")) {
+            // Usando o método estático da classe Categoria para criar a categoria
+            Categoria novaCategoria = Categoria.criarCategoria(nome); // Chamando o método estático
+      
+            if (novaCategoria != null) {
+                contaAtual.getCategorias().add(novaCategoria);  // Adiciona à lista de Categorias
+                JOptionPane.showMessageDialog(null, "Categoria de despesa adicionada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            // Se o tipo não for nem "receita" nem "despesa", exibe um erro
+            JOptionPane.showMessageDialog(null, "Tipo inválido. Por favor, selecione entre 'despesa' ou 'receita'.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Adicionar a categoria/origem de renda na tabela
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
-        model.insertRow(0, new Object[]{novaCategoria.getId(), nome, tipo, data});
+        model.insertRow(0, new Object[]{nome, tipo, data}); // Adiciona a linha com o nome, tipo e data
 
         // Limpar os campos de entrada
         txtNome.setText("");
         cmbTipo.setSelectedIndex(0);
-        txtData.setText(""); // Limpar o campo de data
+        txtData.setText(""); 
 
         // Mensagem de sucesso
-        javax.swing.JOptionPane.showMessageDialog(this, "Categoria criada com sucesso!");
+        javax.swing.JOptionPane.showMessageDialog(this, "Categoria/Origem de Renda criada com sucesso!");
+    }
+
 
 
     }//GEN-LAST:event_bntCriarActionPerformed
@@ -397,7 +433,7 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         } else {
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor, selecione uma categoria para excluir.");
         }                       
-        
+       
     }//GEN-LAST:event_bntExcluirActionPerformed
 
     private void jmPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPrincipalActionPerformed
@@ -458,6 +494,7 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         if (!encontrou) {
             javax.swing.JOptionPane.showMessageDialog(this, "Nenhuma categoria encontrada com esse nome.");
         }
+
     }//GEN-LAST:event_bntPesquisarActionPerformed
 
     private void bntEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntEditarActionPerformed
@@ -576,4 +613,4 @@ public class TelaCategoria1 extends javax.swing.JFrame {
     private javax.swing.JTextField txtData;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
-}
+
