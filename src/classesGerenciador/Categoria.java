@@ -35,6 +35,12 @@ public class Categoria {
         this.id = id;
     }
 
+    public void setNomeCategoria(String nomeCategoria) {
+        this.nomeCategoria = nomeCategoria;
+    }
+    
+    
+
     // Método para criar uma nova categoria em uma instância de Usuario (contaAtual)
     public static Categoria criarCategoria(String nome, Usuario contaAtual) {
         for (Categoria categoria : contaAtual.getCategorias()) {

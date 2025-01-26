@@ -6,9 +6,11 @@ package telas;
 
 import classesGerenciador.Categoria;
 import classesGerenciador.ContasUsuarios;
+import classesGerenciador.OrigemRenda;
 import classesGerenciador.Usuario;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import projeto.gerenciador.financeiro.ControleTelas;
 
 /**
@@ -332,21 +334,65 @@ public class TelaCategoria1 extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor, insira a data no formato dd/MM/yyyy.");
             return;
         }
-
-        // Obter o modelo da tabela
-        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
-
-        // Inserir os dados na tabela, incluindo nome, tipo e data
-        model.insertRow(0, new Object[]{nome, tipo, data});
-
-        // Limpar os campos de entrada
-        txtNome.setText("");
-        cmbTipo.setSelectedIndex(0);
-        txtData.setText(""); // Limpar o campo de data
-
-        // Mensagem de sucesso
-        javax.swing.JOptionPane.showMessageDialog(this, "Categoria criada com sucesso!");
-
+        
+        
+        // Verificar se o tipo de categoria é "receita" ou "despesa"
+    if (tipo.equalsIgnoreCase("receita")) {
+        // Verificar se a receita já existe
+        if (contaAtual != null && contaAtual.getOrigemRendas() != null) {
+            for (OrigemRenda origem : contaAtual.getOrigemRendas()) {
+                if (origem.getNomeOrigemRenda().equalsIgnoreCase(nome)) {
+                    javax.swing.JOptionPane.showMessageDialog(this, "A origem de renda já existe.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }
+        }
+        
+        // Criar e adicionar a nova origem de renda
+        OrigemRenda novaOrigemRenda = new OrigemRenda(nome);
+        if (novaOrigemRenda != null) {
+            contaAtual.getOrigemRendas().add(novaOrigemRenda);
+            // Inserir na tabela
+            javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+            model.insertRow(0,new Object[]{nome, tipo, data});
+            // Limpar os campos
+            txtNome.setText("");
+            cmbTipo.setSelectedIndex(0);
+            txtData.setText("");
+            // Mensagem de sucesso
+            javax.swing.JOptionPane.showMessageDialog(this, "Origem de renda adicionada com sucesso!");
+        }
+       
+      } else if (tipo.equalsIgnoreCase("despesa")) {
+        // Verificar se a categoria já existe
+        if (contaAtual != null && contaAtual.getCategorias() != null) {
+            for (Categoria categoria : contaAtual.getCategorias()) {
+                if (categoria.getNomeCategoria().equalsIgnoreCase(nome)) {
+                    javax.swing.JOptionPane.showMessageDialog(this, "A categoria de despesa já existe.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }
+        }
+        
+        // Criar a nova categoria de despesa
+        Categoria novaCategoria = new Categoria(nome);
+        if (novaCategoria != null) {
+            contaAtual.getCategorias().add(novaCategoria);
+            // Inserir na tabela
+            javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+            model.insertRow(0,new Object[]{nome, tipo, data});
+            // Limpar os campos
+            txtNome.setText("");
+            cmbTipo.setSelectedIndex(0);
+            txtData.setText("");
+            // Mensagem de sucesso
+            javax.swing.JOptionPane.showMessageDialog(this, "Categoria de despesa adicionada com sucesso!");
+        }
+        
+     } else {
+        // Se o tipo não for nem "receita" nem "despesa", exibe um erro
+        javax.swing.JOptionPane.showMessageDialog(this, "Tipo inválido. Por favor, selecione entre 'despesa' ou 'receita'.", "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_bntCriarActionPerformed
 
     private void cmbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoActionPerformed
@@ -359,21 +405,36 @@ public class TelaCategoria1 extends javax.swing.JFrame {
 
     private void bntExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntExcluirActionPerformed
         // Verificar se uma linha foi selecionada na tabela
-        int selectedRow = jTable1.getSelectedRow();
+    int selectedRow = jTable1.getSelectedRow();
 
-        if (selectedRow != -1) {
-            // Obter o modelo da tabela
-            javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+    if (selectedRow != -1) {
+        // Obter o modelo da tabela
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
 
-            // Remover a linha da tabela (categoria)
-            model.removeRow(selectedRow);
+        // Obter o nome da categoria da primeira coluna da linha selecionada
+        String nomeCategoria = (String) model.getValueAt(selectedRow, 0);
 
-            // Mensagem de sucesso
-            javax.swing.JOptionPane.showMessageDialog(this, "Categoria excluída com sucesso!");
-        } else {
-            // Caso não tenha linha selecionada
-            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, selecione uma categoria para excluir.");
+        // Remover a linha da tabela
+        model.removeRow(selectedRow);
+
+        // Remover a categoria da lista de categorias de contaAtual
+        if (contaAtual != null && contaAtual.getCategorias() != null) {
+            // Procurar e remover a categoria com o nome correspondente
+            for (Categoria categoria : contaAtual.getCategorias()) {
+                if (categoria.getNomeCategoria().equalsIgnoreCase(nomeCategoria)) {
+                    contaAtual.getCategorias().remove(categoria);
+                    break; // Interromper o loop após remover a categoria
+                }
+            }
         }
+
+        // Mensagem de sucesso
+        javax.swing.JOptionPane.showMessageDialog(this, "Categoria excluída com sucesso!");
+    } else {
+        // Caso não tenha linha selecionada
+        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, selecione uma categoria para excluir.");
+    }
+
     }//GEN-LAST:event_bntExcluirActionPerformed
 
     private void jmPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPrincipalActionPerformed
@@ -460,17 +521,18 @@ public class TelaCategoria1 extends javax.swing.JFrame {
     }//GEN-LAST:event_bntEditarActionPerformed
 
     private void bntSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSalvarActionPerformed
-         // Obtém a linha selecionada na tabela.
-        int linhaSelecionada = jTable1.getSelectedRow();
-    
-        if (linhaSelecionada != -1) {  // Se uma linha foi selecionada
-            // Obtém os valores dos campos
-            String nome = txtNome.getText();
-            String tipo = cmbTipo.getSelectedItem().toString();
-            String data = txtData.getText();
+     // Obtém a linha selecionada na tabela.
+    int linhaSelecionada = jTable1.getSelectedRow();
+
+    if (linhaSelecionada != -1) {  // Se uma linha foi selecionada
+        // Obtém os valores dos campos
+        String nome = txtNome.getText();
+        String tipo = cmbTipo.getSelectedItem().toString();
+        String data = txtData.getText();
 
         // Verifica se os campos não estão vazios
         if (!nome.isEmpty() && !data.isEmpty()) {
+            // Obtém o modelo da tabela
             javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
             
             // Atualiza os dados na tabela, substituindo os valores da linha selecionada
@@ -478,9 +540,19 @@ public class TelaCategoria1 extends javax.swing.JFrame {
             model.setValueAt(tipo, linhaSelecionada, 1);  // Atualiza a coluna 1 (Tipo)
             model.setValueAt(data, linhaSelecionada, 2);  // Atualiza a coluna 2 (Data)
 
+            // Agora, vamos também atualizar a instância da categoria em contaAtual
+            String nomeCategoriaAntiga = (String) model.getValueAt(linhaSelecionada, 0);  // Nome antigo
+            for (Categoria categoria : contaAtual.getCategorias()) {
+                if (categoria.getNomeCategoria().equalsIgnoreCase(nomeCategoriaAntiga)) {
+                    // Atualiza a categoria diretamente na instância de contaAtual
+                    categoria.setNomeCategoria(nome); // Atualiza o nome da categoria
+                    break; // Interrompe o loop após encontrar e atualizar
+                }
+            }
+
             // Exibe uma mensagem de sucesso
             javax.swing.JOptionPane.showMessageDialog(this, "Dados atualizados com sucesso!");
-            
+
         } else {
             // Se algum campo estiver vazio, exibe mensagem de erro
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor, insira todos os dados para salvar.");
