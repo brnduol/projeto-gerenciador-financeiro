@@ -521,7 +521,7 @@ public class TelaCategoria1 extends javax.swing.JFrame {
     }//GEN-LAST:event_bntEditarActionPerformed
 
     private void bntSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSalvarActionPerformed
-     // Obtém a linha selecionada na tabela.
+    // Obtém a linha selecionada na tabela
     int linhaSelecionada = jTable1.getSelectedRow();
 
     if (linhaSelecionada != -1) {  // Se uma linha foi selecionada
@@ -540,13 +540,25 @@ public class TelaCategoria1 extends javax.swing.JFrame {
             model.setValueAt(tipo, linhaSelecionada, 1);  // Atualiza a coluna 1 (Tipo)
             model.setValueAt(data, linhaSelecionada, 2);  // Atualiza a coluna 2 (Data)
 
-            // Agora, vamos também atualizar a instância da categoria em contaAtual
+            // Agora, vamos atualizar a instância da categoria em contaAtual
             String nomeCategoriaAntiga = (String) model.getValueAt(linhaSelecionada, 0);  // Nome antigo
-            for (Categoria categoria : contaAtual.getCategorias()) {
-                if (categoria.getNomeCategoria().equalsIgnoreCase(nomeCategoriaAntiga)) {
-                    // Atualiza a categoria diretamente na instância de contaAtual
-                    categoria.setNomeCategoria(nome); // Atualiza o nome da categoria
-                    break; // Interrompe o loop após encontrar e atualizar
+            if (tipo.equals("receita")) {
+                // Se for receita, atualiza na lista de origem de rendas
+                for (OrigemRenda origemRenda : contaAtual.getOrigemRendas()) {
+                    if (origemRenda.getNomeOrigemRenda().equalsIgnoreCase(nomeCategoriaAntiga)) {
+                        // Atualiza o nome da origem de renda
+                        origemRenda.setNomeOrigemRenda(nome);
+                        break; // Interrompe o loop após encontrar e atualizar
+                    }
+                }
+            } else if (tipo.equals("despesa")) {
+                // Se for despesa, atualiza na lista de categorias
+                for (Categoria categoria : contaAtual.getCategorias()) {
+                    if (categoria.getNomeCategoria().equalsIgnoreCase(nomeCategoriaAntiga)) {
+                        // Atualiza o nome da categoria de despesa
+                        categoria.setNomeCategoria(nome);
+                        break; // Interrompe o loop após encontrar e atualizar
+                    }
                 }
             }
 

@@ -47,6 +47,11 @@ public class OrigemRenda {
     public String getNomeOrigemRenda(){
         return nomeOrigemRenda;
     }
+
+    public void setNomeOrigemRenda(String nomeOrigemRenda) {
+        this.nomeOrigemRenda = nomeOrigemRenda;
+    }
+    
     
     
 
