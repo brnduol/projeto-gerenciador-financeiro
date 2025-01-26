@@ -16,7 +16,7 @@ public class ContasUsuarios {
     private List<Usuario> usuarios;
     private Usuario usuarioAtual;
     
- 
+    
     private static ContasUsuarios instancia;
 
 
@@ -25,8 +25,7 @@ public class ContasUsuarios {
         // O usuário "admin" será criado depois, em um método separado
         
     }
-
-
+     
     // Método Singleton para obter a instância de ContasUsuarios
     public static ContasUsuarios getInstance() {
         if (instancia == null) {

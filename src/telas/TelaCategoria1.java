@@ -20,7 +20,10 @@ public class TelaCategoria1 extends javax.swing.JFrame {
     private ContasUsuarios contaUsuarios;
     private Usuario contaAtual;
     private ControleTelas controleTelas;
-    
+
+    public Usuario getContaAtual() {
+        return contaAtual;
+    }
 
     /**
      * Creates new form TelaCategoria1
@@ -345,7 +348,10 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         if (novaCategoria == null) {
             return; // Se a categoria já existir, o método exibe a mensagem e retorna
         }
-
+        
+        // Adicionar a categoria à lista
+        Categoria.getListaCategorias().add(novaCategoria);
+        
         // Adicionar a categoria na tabela
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
         model.insertRow(0, new Object[]{novaCategoria.getId(), nome, tipo, data});

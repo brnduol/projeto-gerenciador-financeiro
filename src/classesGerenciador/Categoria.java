@@ -50,6 +50,8 @@ public class Categoria {
     public static List<Categoria> getListaCategorias() {
         return listaCategorias;
     }
+    
+    
         
     //Método para criar uma nova categoria
     public static Categoria criarCategoria(String nome) {

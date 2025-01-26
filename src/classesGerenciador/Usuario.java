@@ -89,7 +89,7 @@ public class Usuario {
     public List<Balanco> getBalanco() {
         return balancos;
     }
-
+    
     public void setId(int id) {
         this.id = id;
     }
