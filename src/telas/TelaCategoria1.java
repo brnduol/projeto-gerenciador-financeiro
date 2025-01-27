@@ -532,9 +532,8 @@ public class TelaCategoria1 extends javax.swing.JFrame {
 
         // Verifica se os campos não estão vazios
         if (!nome.isEmpty() && !data.isEmpty()) {
-            // Obtém o modelo da tabela
             javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
-            
+
             // Atualiza os dados na tabela, substituindo os valores da linha selecionada
             model.setValueAt(nome, linhaSelecionada, 0);  // Atualiza a coluna 0 (Nome)
             model.setValueAt(tipo, linhaSelecionada, 1);  // Atualiza a coluna 1 (Tipo)
@@ -542,13 +541,14 @@ public class TelaCategoria1 extends javax.swing.JFrame {
 
             // Agora, vamos atualizar a instância da categoria em contaAtual
             String nomeCategoriaAntiga = (String) model.getValueAt(linhaSelecionada, 0);  // Nome antigo
+
             if (tipo.equals("receita")) {
                 // Se for receita, atualiza na lista de origem de rendas
                 for (OrigemRenda origemRenda : contaAtual.getOrigemRendas()) {
                     if (origemRenda.getNomeOrigemRenda().equalsIgnoreCase(nomeCategoriaAntiga)) {
                         // Atualiza o nome da origem de renda
-                        origemRenda.setNomeOrigemRenda(nome);
-                        break; // Interrompe o loop após encontrar e atualizar
+                        origemRenda.setNomeOrigemRenda(nome);  // Modifica a instância
+                        break;  // Interrompe o loop após encontrar e atualizar
                     }
                 }
             } else if (tipo.equals("despesa")) {
@@ -556,8 +556,8 @@ public class TelaCategoria1 extends javax.swing.JFrame {
                 for (Categoria categoria : contaAtual.getCategorias()) {
                     if (categoria.getNomeCategoria().equalsIgnoreCase(nomeCategoriaAntiga)) {
                         // Atualiza o nome da categoria de despesa
-                        categoria.setNomeCategoria(nome);
-                        break; // Interrompe o loop após encontrar e atualizar
+                        categoria.setNomeCategoria(nome);  // Modifica a instância
+                        break;  // Interrompe o loop após encontrar e atualizar
                     }
                 }
             }
