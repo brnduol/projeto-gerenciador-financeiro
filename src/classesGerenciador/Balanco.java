@@ -50,8 +50,8 @@ public class Balanco {
     }
 
     // Método para gerar o balanço por categoria
-    public double gerarBalancoPorCategoria(String categoria) {
-        double total = 0.0;
+    public int gerarBalancoPorCategoria(String categoria) {
+        int total = 0;
         for (Transacao transacao : transacoes) {
             if (transacao.pertenceCategoria(categoria)) {
                 total += transacao.valor;
