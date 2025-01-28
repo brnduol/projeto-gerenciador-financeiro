@@ -164,12 +164,12 @@
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
-                                              <Component id="bntPesquisar" min="-2" pref="142" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+                                              <Component id="bntExcluir" min="-2" pref="100" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="170" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="1" attributes="0">
-                                              <Component id="bntExcluir" min="-2" pref="85" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="185" max="-2" attributes="0"/>
+                                              <Component id="bntPesquisar" min="-2" pref="142" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -219,9 +219,9 @@
                           <Component id="bntSalvar" min="-2" max="-2" attributes="0"/>
                           <Component id="bntExcluir" min="-2" pref="36" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="bntPesquisar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>

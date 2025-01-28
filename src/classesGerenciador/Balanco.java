@@ -49,6 +49,7 @@ public class Balanco {
         return resultado;
     }
 
+    // Método para gerar o balanço por categoria (baseado em mês e ano)
     public int gerarBalancoPorCategoria(String categoria, int mes, int ano) {
         int total = 0;
         for (Transacao transacao : transacoes) {
