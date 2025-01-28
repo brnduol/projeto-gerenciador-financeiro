@@ -2,6 +2,10 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
+    </Component>
+    <Component class="javax.swing.JSeparator" name="jSeparator4">
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenu2">
@@ -16,7 +20,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jmPrincipal">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Imagens/32officeicons-31_89708.png"/>
+                  <Image iconType="3" name="/Imagens/3643769-building-home-house-main-menu-start_113416 (1).png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Tela principal"/>
               </Properties>
@@ -27,7 +31,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jmHistorico">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Imagens/Historical_icon-icons.com_54175.png"/>
+                  <Image iconType="3" name="/Imagens/historical_3107.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Historico"/>
               </Properties>
@@ -38,7 +42,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jmGraficos">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Imagens/1477521928_10_icon-icons.com_74620.png"/>
+                  <Image iconType="3" name="/Imagens/graph_progress_chart_charts_analytics_bars_icon_124175.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Graficos"/>
               </Properties>
@@ -49,7 +53,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jmCategorias">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Imagens/1486486297-attribute-category-label-shop-price-price-tag-tag_81213.png"/>
+                  <Image iconType="3" name="/Imagens/category_icon_176162.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Categorias"/>
               </Properties>
@@ -60,7 +64,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jmSair">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Imagens/logout256_24927.png"/>
+                  <Image iconType="3" name="/Imagens/4115235-exit-logout-sign-out_114030.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Sair"/>
               </Properties>
@@ -96,80 +100,101 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblConta" min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="lblSaldo" min="-2" pref="37" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="lblData" min="-2" pref="37" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtConta" min="-2" pref="325" max="-2" attributes="0"/>
-                          <Component id="txtSaldo" min="-2" pref="71" max="-2" attributes="0"/>
-                          <Component id="txtData" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
-                      </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lblConta" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="lblSaldo" min="-2" pref="37" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" alignment="0" min="-2" pref="755" max="-2" attributes="0"/>
+                  <Component id="lblData" min="-2" pref="37" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="txtSaldo" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
+                  <Component id="txtData" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
+                  <Component id="txtConta" alignment="0" min="-2" pref="325" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-              <Component id="bntCriar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="bntExcluir" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-              <Component id="bntEditar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-              <Component id="bntSalvar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-              <Component id="bntPesquisar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="801" max="-2" attributes="0"/>
+                      <Component id="jSeparator2" pref="1" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="jSeparator5" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="bntCriar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+                      <Component id="bntEditar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                      <Component id="bntExcluir" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="241" max="-2" attributes="0"/>
+                              <Component id="jSeparator1" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                              <Component id="bntSalvar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="bntPesquisar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <Component id="jSeparator6" alignment="0" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblConta" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtConta" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblSaldo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtSaldo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblData" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtData" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jSeparator6" min="-2" pref="11" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace pref="26" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="bntEditar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="bntSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="bntExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="bntCriar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="328" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jSeparator1" min="-2" pref="0" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="bntPesquisar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="1" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="bntExcluir" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                          <Component id="bntEditar" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                          <Component id="bntCriar" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                          <Component id="bntSalvar" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                          <Component id="bntPesquisar" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jSeparator5" min="-2" pref="17" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" pref="395" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -198,7 +223,7 @@
     <Component class="javax.swing.JButton" name="bntCriar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagens/1486485557-add-create-new-more-plus_81188.png"/>
+          <Image iconType="3" name="/Imagens/hand_cursor-48_44849.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Criar"/>
         <Property name="toolTipText" type="java.lang.String" value="Crie uma conta"/>
@@ -210,7 +235,7 @@
     <Component class="javax.swing.JButton" name="bntExcluir">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagens/1486564399-close_81512.png"/>
+          <Image iconType="3" name="/Imagens/trash-48_45241.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Excluir"/>
         <Property name="toolTipText" type="java.lang.String" value="Exclua uma conta"/>
@@ -264,7 +289,7 @@
     <Component class="javax.swing.JButton" name="bntEditar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagens/edit_icon-icons.com_52382.png"/>
+          <Image iconType="3" name="/Imagens/account_edit_outline_icon_140057 (1).png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Editar"/>
         <Property name="toolTipText" type="java.lang.String" value="Edite os dados da conta"/>
@@ -286,7 +311,7 @@
     <Component class="javax.swing.JButton" name="bntSalvar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagens/accept_icon-icons.com_74428.png"/>
+          <Image iconType="3" name="/Imagens/object_select_icon_180887.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Salvar"/>
         <Property name="toolTipText" type="java.lang.String" value="Salve as altera&#xe7;&#xf5;es ap&#xf3;s editar os dados"/>
@@ -298,7 +323,7 @@
     <Component class="javax.swing.JButton" name="bntPesquisar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagens/xmag_search_find_export_locate_5984.png"/>
+          <Image iconType="3" name="/Imagens/feature_search_outline_icon_139039 (1).png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Pesquisar"/>
         <Property name="toolTipText" type="java.lang.String" value="Pesquise pelo nome da conta"/>
@@ -306,6 +331,14 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bntPesquisarActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JSeparator" name="jSeparator1">
+    </Component>
+    <Component class="javax.swing.JSeparator" name="jSeparator2">
+    </Component>
+    <Component class="javax.swing.JSeparator" name="jSeparator5">
+    </Component>
+    <Component class="javax.swing.JSeparator" name="jSeparator6">
     </Component>
   </SubComponents>
 </Form>
