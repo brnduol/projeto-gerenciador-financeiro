@@ -39,7 +39,14 @@ public class Categoria {
         this.nomeCategoria = nomeCategoria;
     }
     
-    
+    // Método para adicionar uma transação à categoria
+    public void adicionarTransacao(Transacao transacao) {
+        // Adiciona a transação à lista de transações da categoria
+        transacoes.add(transacao);
+
+        // Mensagem de sucesso
+        JOptionPane.showMessageDialog(null, "Transação adicionada com sucesso à categoria: " + nomeCategoria, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+    }
 
     // Método para criar uma nova categoria em uma instância de Usuario (contaAtual)
     public static Categoria criarCategoria(String nome, Usuario contaAtual) {

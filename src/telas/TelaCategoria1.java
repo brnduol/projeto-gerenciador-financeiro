@@ -470,31 +470,40 @@ public class TelaCategoria1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jmSairActionPerformed
 
     private void bntPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntPesquisarActionPerformed
-        // Obter o valor da pesquisa
-        String nomePesquisa = txtNome.getText().toLowerCase(); // Tornar a busca insensível a maiúsculas/minúsculas
+    // Obter a data da pesquisa do campo de texto
+    String dataPesquisa = txtData.getText().trim();
 
-        // Obter o modelo da tabela
-        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+    // Verificar se o campo de data está vazio
+    if (dataPesquisa.isEmpty()) {
+        // Exibir uma mensagem informando ao usuário para inserir uma data
+        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, insira uma data para pesquisar.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
+        return; // Interrompe a execução do método, impedindo a pesquisa
+    }
 
-        // Percorrer a lista de categorias (não limpar a tabela, apenas mostrar as que coincidem)
-        boolean encontrou = false; // Variável para verificar se encontrou alguma categoria
+    // Obter o modelo da tabela
+    javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
 
-        // Percorrer todas as linhas da tabela
-        for (int i = 0; i < model.getRowCount(); i++) {
-            String nomeCategoria = model.getValueAt(i, 0).toString().toLowerCase();  // Obter o nome da categoria
+    // Variável para verificar se encontrou algum registro
+    boolean encontrou = false;
 
-            // Verificar se o nome da categoria contém a pesquisa
-            if (nomeCategoria.contains(nomePesquisa)) {
-                // Tornar a linha visível (por padrão, todas as linhas estarão visíveis)
-                jTable1.setRowSelectionInterval(i, i);  // Seleciona a linha correspondente à pesquisa
-                encontrou = true; // Encontrou ao menos uma categoria
-            }
+    // Percorrer todas as linhas da tabela
+    for (int i = 0; i < model.getRowCount(); i++) {
+        // Obter a data da tabela (ajustar o índice da coluna conforme necessário)
+        String dataTabela = model.getValueAt(i, 2).toString().trim(); // Supondo que a data está na 3ª coluna (índice 2)
+
+        // Verificar se a data na tabela corresponde à pesquisa
+        if (dataTabela.equals(dataPesquisa)) {
+            // Selecionar a linha correspondente
+            jTable1.setRowSelectionInterval(i, i);
+            encontrou = true;
+            break; // Encerra o loop assim que encontrar a correspondência
         }
+    }
 
-        // Se não encontrar nenhuma categoria, mostrar uma mensagem
-        if (!encontrou) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Nenhuma categoria encontrada com esse nome.");
-        }
+    // Se não encontrar nenhum registro, mostrar uma mensagem
+    if (!encontrou) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Nenhuma transação encontrada com essa data.");
+    }
     }//GEN-LAST:event_bntPesquisarActionPerformed
 
     private void bntEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntEditarActionPerformed
@@ -514,6 +523,14 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         txtNome.setText(jTable1.getValueAt(linhaSelecionada, 0).toString());
         cmbTipo.setSelectedItem(jTable1.getValueAt(linhaSelecionada, 1).toString());
         txtData.setText(jTable1.getValueAt(linhaSelecionada, 2).toString());
+        
+        // Desabilitar os campos que não podem ser editados
+        cmbTipo.setEnabled(false);  // Desabilitar o campo de tipo (cmbTipo)
+        txtData.setEnabled(false);  // Desabilitar o campo de data (txtData)
+
+        // Habilitar apenas o campo de nome para edição
+        txtNome.setEnabled(true);
+
 
         // Mensagem de confirmação
         javax.swing.JOptionPane.showMessageDialog(this, "Agora edite os dados e clique em 'Salvar' para aplicar as alterações.");
@@ -521,57 +538,84 @@ public class TelaCategoria1 extends javax.swing.JFrame {
     }//GEN-LAST:event_bntEditarActionPerformed
 
     private void bntSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSalvarActionPerformed
-    // Obtém a linha selecionada na tabela
+    // Obter os valores dos campos
+    String nome = txtNome.getText().trim();  // Remover espaços extras
+    String tipo = cmbTipo.getSelectedItem().toString().trim();  // Remover espaços extras
+    String data = txtData.getText().trim();  // Remover espaços extras
+
+    // Verificar se a linha está selecionada
     int linhaSelecionada = jTable1.getSelectedRow();
+    if (linhaSelecionada == -1) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, selecione uma categoria ou origem de renda para editar.");
+        return;
+    }
 
-    if (linhaSelecionada != -1) {  // Se uma linha foi selecionada
-        // Obtém os valores dos campos
-        String nome = txtNome.getText();
-        String tipo = cmbTipo.getSelectedItem().toString();
-        String data = txtData.getText();
+    // Obter a instância do usuário atual (contaAtual)
+    Usuario contaAtual = ContasUsuarios.getInstance().conta();
 
-        // Verifica se os campos não estão vazios
-        if (!nome.isEmpty() && !data.isEmpty()) {
-            javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+    boolean atualizado = false; // Flag para verificar se a atualização foi realizada
 
-            // Atualiza os dados na tabela, substituindo os valores da linha selecionada
-            model.setValueAt(nome, linhaSelecionada, 0);  // Atualiza a coluna 0 (Nome)
-            model.setValueAt(tipo, linhaSelecionada, 1);  // Atualiza a coluna 1 (Tipo)
-            model.setValueAt(data, linhaSelecionada, 2);  // Atualiza a coluna 2 (Data)
+    // Lógica para "Receita" (Origem de Renda)
+    if (tipo.equalsIgnoreCase("receita")) {
+        // Percorrer as origens de renda e tentar encontrar a origem de renda com o nome atual da linha da tabela
+        for (OrigemRenda origem : contaAtual.getOrigemRendas()) {
+            // Comparando o nome da origem de renda selecionada com o nome na lista de origem de rendas
+            if (origem.getNomeOrigemRenda().equalsIgnoreCase(jTable1.getValueAt(linhaSelecionada, 0).toString())) {
+                origem.setNomeOrigemRenda(nome); // Atualiza o nome da origem de renda
 
-            // Agora, vamos atualizar a instância da categoria em contaAtual
-            String nomeCategoriaAntiga = (String) model.getValueAt(linhaSelecionada, 0);  // Nome antigo
-
-            if (tipo.equals("receita")) {
-                // Se for receita, atualiza na lista de origem de rendas
-                for (OrigemRenda origemRenda : contaAtual.getOrigemRendas()) {
-                    if (origemRenda.getNomeOrigemRenda().equalsIgnoreCase(nomeCategoriaAntiga)) {
-                        // Atualiza o nome da origem de renda
-                        origemRenda.setNomeOrigemRenda(nome);  // Modifica a instância
-                        break;  // Interrompe o loop após encontrar e atualizar
-                    }
-                }
-            } else if (tipo.equals("despesa")) {
-                // Se for despesa, atualiza na lista de categorias
-                for (Categoria categoria : contaAtual.getCategorias()) {
-                    if (categoria.getNomeCategoria().equalsIgnoreCase(nomeCategoriaAntiga)) {
-                        // Atualiza o nome da categoria de despesa
-                        categoria.setNomeCategoria(nome);  // Modifica a instância
-                        break;  // Interrompe o loop após encontrar e atualizar
-                    }
-                }
+                // Atualiza a tabela
+                javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+                model.setValueAt(nome, linhaSelecionada, 0); // Atualiza o nome na tabela
+                model.setValueAt(tipo, linhaSelecionada, 1); // Atualiza o tipo na tabela
+                model.setValueAt(data, linhaSelecionada, 2); // Atualiza a data na tabela
+                atualizado = true; // Marca como atualizado
+                break;
             }
-
-            // Exibe uma mensagem de sucesso
-            javax.swing.JOptionPane.showMessageDialog(this, "Dados atualizados com sucesso!");
-
-        } else {
-            // Se algum campo estiver vazio, exibe mensagem de erro
-            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, insira todos os dados para salvar.");
         }
-    } else {
-        // Se nenhuma linha foi selecionada, exibe mensagem de erro
-        javax.swing.JOptionPane.showMessageDialog(this, "Selecione uma linha para editar para poder salvar.");
+
+        // Se a origem de renda não foi encontrada
+        if (!atualizado) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Origem de Renda não encontrada para edição.");
+        }
+    } 
+    
+    // Lógica para "Despesa" (Categoria)
+    else if (tipo.equalsIgnoreCase("despesa")) {
+        // Percorrer as categorias e tentar encontrar a categoria com o nome atual da linha da tabela
+        for (Categoria categoria : contaAtual.getCategorias()) {
+            // Comparando o nome da categoria selecionada com o nome na lista de categorias
+            if (categoria.getNomeCategoria().equalsIgnoreCase(jTable1.getValueAt(linhaSelecionada, 0).toString())) {
+                categoria.setNomeCategoria(nome); // Atualiza o nome da categoria
+
+                // Atualiza a tabela
+                javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+                model.setValueAt(nome, linhaSelecionada, 0); // Atualiza o nome na tabela
+                model.setValueAt(tipo, linhaSelecionada, 1); // Atualiza o tipo na tabela
+                model.setValueAt(data, linhaSelecionada, 2); // Atualiza a data na tabela
+                atualizado = true; // Marca como atualizado
+                break;
+            }
+        }
+
+        // Se a categoria não foi encontrada
+        if (!atualizado) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Categoria não encontrada para edição.");
+        }
+    }
+
+    // Verificar se a atualização foi realizada
+    if (atualizado) {
+        // Mensagem de sucesso
+        javax.swing.JOptionPane.showMessageDialog(this, "Dados atualizados com sucesso!");
+
+        // Limpar os campos após salvar
+        txtNome.setText("");
+        cmbTipo.setSelectedIndex(0);
+        txtData.setText("");
+
+        // Reabilitar os campos após salvar
+        cmbTipo.setEnabled(true);
+        txtData.setEnabled(true);
     }
     }//GEN-LAST:event_bntSalvarActionPerformed
 

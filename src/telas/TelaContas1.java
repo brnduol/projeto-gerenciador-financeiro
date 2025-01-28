@@ -138,6 +138,11 @@ public class TelaContas1 extends javax.swing.JFrame {
         bntPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/xmag_search_find_export_locate_5984.png"))); // NOI18N
         bntPesquisar.setText("Pesquisar");
         bntPesquisar.setToolTipText("Pesquise pelo nome da conta");
+        bntPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntPesquisarActionPerformed(evt);
+            }
+        });
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1485477024-menu_78574.png"))); // NOI18N
         jMenu2.setText("Menu");
@@ -213,17 +218,17 @@ public class TelaContas1 extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 755, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(17, 17, 17)
                 .addComponent(bntCriar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bntExcluir)
-                .addGap(41, 41, 41)
+                .addGap(37, 37, 37)
                 .addComponent(bntEditar)
-                .addGap(48, 48, 48)
+                .addGap(37, 37, 37)
                 .addComponent(bntSalvar)
-                .addGap(70, 70, 70)
+                .addGap(37, 37, 37)
                 .addComponent(bntPesquisar)
-                .addGap(60, 60, 60))
+                .addGap(97, 97, 97))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,17 +247,18 @@ public class TelaContas1 extends javax.swing.JFrame {
                     .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bntEditar)
+                            .addComponent(bntSalvar)
+                            .addComponent(bntExcluir)
+                            .addComponent(bntCriar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bntPesquisar)
-                            .addComponent(bntSalvar)
-                            .addComponent(bntEditar)
-                            .addComponent(bntExcluir)
-                            .addComponent(bntCriar))
+                        .addComponent(bntPesquisar)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -385,6 +391,43 @@ public class TelaContas1 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Selecione uma linha para editar para poder salvar.");  // Caso nenhuma linha tenha sido selecionada.
         }
     }//GEN-LAST:event_bntSalvarActionPerformed
+
+    private void bntPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntPesquisarActionPerformed
+     // Obtém o texto digitado no campo de pesquisa 'txtConta'
+    String contaPesquisada = txtConta.getText(); // O texto é mantido como foi digitado
+
+    // Verifica se o campo de pesquisa não está vazio
+    if (contaPesquisada.isEmpty()) {
+        // Exibe uma mensagem informando ao usuário para inserir uma conta para pesquisar
+        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, insira o nome da conta para pesquisar.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
+        return; // Interrompe a execução do método, impedindo a pesquisa
+    }
+
+    // Obtém o modelo da tabela
+    javax.swing.table.DefaultTableModel modeloTabela = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+
+    // Variável para verificar se encontrou algum registro
+    boolean encontrou = false;
+
+    // Percorre todas as linhas da tabela
+    for (int i = 0; i < modeloTabela.getRowCount(); i++) {
+        // Obtém o nome da conta na tabela (ajustar o índice da coluna conforme necessário)
+        String nomeContaTabela = modeloTabela.getValueAt(i, 0).toString().trim(); // Supondo que o nome da conta está na 1ª coluna (índice 0)
+
+        // Verifica se o nome da conta na tabela corresponde à pesquisa
+        if (nomeContaTabela.equalsIgnoreCase(contaPesquisada)) {
+            // Seleciona a linha correspondente
+            jTable1.setRowSelectionInterval(i, i);
+            encontrou = true;
+            break; // Encerra o loop assim que encontrar a correspondência
+        }
+    }
+
+    // Se não encontrar nenhum registro, mostrar uma mensagem
+    if (!encontrou) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Nenhuma conta encontrada com esse nome.");
+    }
+    }//GEN-LAST:event_bntPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
