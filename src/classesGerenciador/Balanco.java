@@ -28,15 +28,15 @@ public class Balanco {
         int balanco = 0; // Resultado final (entrada + saída)
 
         for (Transacao transacao : transacoes) {
-        // Verifica se o mês da transação é igual ao mês fornecido
-        if (transacao.getData().getMonthValue() == mes) {
-            if (transacao.getValor() > 0) {
-                entrada += transacao.getValor(); // Somar receitas
-            } else {
-                saida += transacao.getValor(); // Somar despesas (mantendo o valor negativo)
+            // Verifica se o mês da transação é igual ao mês fornecido
+            if (transacao.getData().getMonthValue() == mes) {
+                if (transacao.getValor() > 0) {
+                    entrada += transacao.getValor(); // Somar receitas
+                } else {
+                    saida += transacao.getValor(); // Somar despesas (mantendo o valor negativo)
+                }
             }
         }
-    }
 
         balanco = entrada + saida; // Calcula o balanço final
 
@@ -49,16 +49,19 @@ public class Balanco {
         return resultado;
     }
 
-    // Método para gerar o balanço por categoria
-    public int gerarBalancoPorCategoria(String categoria) {
+    public int gerarBalancoPorCategoria(String categoria, int mes, int ano) {
         int total = 0;
         for (Transacao transacao : transacoes) {
-            if (transacao.pertenceCategoria(categoria)) {
-                total += transacao.valor;
+            // Verifica se a transação pertence à categoria e se o mês/ano correspondem
+            if (transacao.pertenceCategoria(categoria) && 
+                transacao.getData().getMonthValue() == mes && 
+                transacao.getData().getYear() == ano) {
+                total += transacao.getValor();
             }
         }
         return total;
     }
+
 
     // Getters
     public int getId() {
