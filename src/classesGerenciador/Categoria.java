@@ -30,6 +30,10 @@ public class Categoria {
     public List<Transacao> getTransacoes() {
         return transacoes;
     }
+    
+    public void addTransacao(Transacao transacao){
+        transacoes.add(transacao);
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -39,14 +43,7 @@ public class Categoria {
         this.nomeCategoria = nomeCategoria;
     }
     
-    // Método para adicionar uma transação à categoria
-    public void adicionarTransacao(Transacao transacao) {
-        // Adiciona a transação à lista de transações da categoria
-        transacoes.add(transacao);
-
-        // Mensagem de sucesso
-        JOptionPane.showMessageDialog(null, "Transação adicionada com sucesso à categoria: " + nomeCategoria, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-    }
+    
 
     // Método para criar uma nova categoria em uma instância de Usuario (contaAtual)
     public static Categoria criarCategoria(String nome, Usuario contaAtual) {
@@ -93,4 +90,24 @@ public class Categoria {
         // Mensagem de sucesso
         JOptionPane.showMessageDialog(null, "Categoria excluída com sucesso: " + nomeCategoria, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
     }
+    
+    public void imprimirTransacoes() {
+    // Verifica se a categoria possui transações
+    if (transacoes.isEmpty()) {
+        System.out.println("Não há transações para a categoria " + nomeCategoria);
+    } else {
+        System.out.println("Transações da categoria: " + nomeCategoria);
+        
+        // Itera sobre a lista de transações e imprime os detalhes de cada uma
+        for (Transacao transacao : transacoes) {
+            System.out.println("ID: " + transacao.getId());
+            System.out.println("Data: " + transacao.getData());
+            System.out.println("Valor: " + transacao.getValor());
+            System.out.println("Descrição: " + transacao.getDescricao());
+            System.out.println("Tipo: " + transacao.getTipo()); // Caso o tipo seja necessário
+            System.out.println("----------------------------");
+        }
+    }
+}
+
 }

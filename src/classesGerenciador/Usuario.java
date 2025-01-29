@@ -16,7 +16,7 @@ public class Usuario {
     private int id;
     private String nome;
     private String email;
-    private String senha;
+        private String senha;
     private List<Carteira> carteiras;
     private List<Balanco> balancos;
     private List<Categoria> categorias;
