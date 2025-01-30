@@ -77,7 +77,7 @@ public class TelaContas1 extends javax.swing.JFrame {
 
         lblSaldo.setText("Saldo");
 
-        txtConta.setToolTipText("Insira o tipo de Conta a ser cadastrada");
+        txtConta.setToolTipText("Insira o tipo de Conta a ser cadastrada, por exemplo, \"Inter\"");
 
         txtSaldo.setToolTipText("Insira o saldo no formato inteiro");
 
@@ -130,6 +130,11 @@ public class TelaContas1 extends javax.swing.JFrame {
         });
 
         txtData.setToolTipText("Insira a data no formato dd/mm/yyyy");
+        txtData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDataActionPerformed(evt);
+            }
+        });
 
         lblData.setText("Data");
 
@@ -414,6 +419,10 @@ public class TelaContas1 extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Selecione uma linha para editar para poder salvar.");  // Caso nenhuma linha tenha sido selecionada.
         }
+        // Limpa os campos de texto após a inserção
+        txtConta.setText("");
+        txtSaldo.setText("");
+        txtData.setText("");
     }//GEN-LAST:event_bntSalvarActionPerformed
 
     private void bntPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntPesquisarActionPerformed
@@ -450,8 +459,16 @@ public class TelaContas1 extends javax.swing.JFrame {
     // Se não encontrar nenhum registro, mostrar uma mensagem
     if (!encontrou) {
         javax.swing.JOptionPane.showMessageDialog(this, "Nenhuma conta encontrada com esse nome.");
-    }
+    } 
+    // Limpa os campos de texto após a pesquisa
+    txtConta.setText("");
+    txtSaldo.setText("");
+    txtData.setText("");
     }//GEN-LAST:event_bntPesquisarActionPerformed
+
+    private void txtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDataActionPerformed
 
     /**
      * @param args the command line arguments

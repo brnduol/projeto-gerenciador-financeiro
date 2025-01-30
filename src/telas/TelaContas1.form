@@ -212,7 +212,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtConta">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="Insira o tipo de Conta a ser cadastrada"/>
+        <Property name="toolTipText" type="java.lang.String" value="Insira o tipo de Conta a ser cadastrada, por exemplo, &quot;Inter&quot;"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtSaldo">
@@ -302,6 +302,9 @@
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Insira a data no formato dd/mm/yyyy"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDataActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblData">
       <Properties>
