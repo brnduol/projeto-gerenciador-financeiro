@@ -8,28 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Balanco {
-    private int id;
-    private int mes; // Representa o mês do balanço
-    private int ano; // Representa o ano do balanço
-    private List<Transacao> transacoes; // Lista de transações associadas ao balanço
-
-    // Construtor
-    public Balanco(int id, int mes, int ano, List<Transacao> transacoes) {
-        this.id = id;
-        this.mes = mes;
-        this.ano = ano;
-        this.transacoes = transacoes; // Recebe a lista de transações da classe que gerencia isso
-    }
 
     // Método para gerar o balanço total (soma de todas as transações)
-    public List<Integer> gerarBalanco(int mes) {
+    public static  List<Integer> gerarBalanco(int mes, int ano, List<Transacao> transacoes) {
         int entrada = 0; // Soma de receitas
         int saida = 0;   // Soma de despesas (mantendo negativo)
         int balanco = 0; // Resultado final (entrada + saída)
 
         for (Transacao transacao : transacoes) {
             // Verifica se o mês da transação é igual ao mês fornecido
-            if (transacao.getData().getMonthValue() == mes) {
+            if ((transacao.getData().getMonthValue() == mes) && transacao.getData().getYear() == ano) {
                 if (transacao.getValor() > 0) {
                     entrada += transacao.getValor(); // Somar receitas
                 } else {
@@ -50,7 +38,7 @@ public class Balanco {
     }
 
     // Método para gerar o balanço por categoria (baseado em mês e ano)
-    public int gerarBalancoPorCategoria(String categoria, int mes, int ano) {
+    public static  int gerarBalancoPorCategoria(String categoria, int mes, int ano, List<Transacao> transacoes) {
         int total = 0;
         for (Transacao transacao : transacoes) {
             // Verifica se a transação pertence à categoria e se o mês/ano correspondem
@@ -63,31 +51,4 @@ public class Balanco {
         return total;
     }
 
-
-    // Getters
-    public int getId() {
-        return id;
-    }
-
-    public int getMes() {
-        return mes;
-    }
-
-    public int getAno() {
-        return ano;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setMes(int mes) {
-        this.mes = mes;
-    }
-
-    public void setAno(int ano) {
-        this.ano = ano;
-    }
-       
-    
   }

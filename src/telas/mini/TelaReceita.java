@@ -229,7 +229,7 @@ public class TelaReceita extends javax.swing.JFrame {
                     carteira1.adicionarTransacao(transacao);
                     
                     // Atualizar a tabela da TelaPrincipal
-                    ControleTelas.getInstance().getTelaPrincipal().atualizarTabela();
+                    ControleTelas.getInstance().getTelaPrincipal().atualizarTabelaFiltro(dataConvertida.getMonthValue(), dataConvertida.getYear());
                     
 
                     // Fechar a janela atual

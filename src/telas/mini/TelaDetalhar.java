@@ -202,7 +202,7 @@ public class TelaDetalhar extends javax.swing.JFrame {
             LocalDate dataConvertida = validarEConverterData(data.getText());
             if (dataConvertida != null) {
                 transacaoAtual.editarTransacao(dataConvertida, Integer.parseInt(valor.getText()), descricao.getText());
-                ControleTelas.getInstance().getTelaPrincipal().atualizarTabela();
+                ControleTelas.getInstance().getTelaPrincipal().atualizarTabelaFiltro(dataConvertida.getMonthValue(), dataConvertida.getYear());
                 this.dispose();
                 
             }

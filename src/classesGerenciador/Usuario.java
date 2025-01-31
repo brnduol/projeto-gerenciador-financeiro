@@ -18,7 +18,6 @@ public class Usuario {
     private String email;
         private String senha;
     private List<Carteira> carteiras;
-    private List<Balanco> balancos;
     private List<Categoria> categorias;
     private List<OrigemRenda> origemRendas;
     private List<Transacao> transacoes;
@@ -32,7 +31,6 @@ public class Usuario {
         
          // Inicializando as listas
         this.carteiras = new ArrayList<>();
-        this.balancos = new ArrayList<>();
         this.categorias = new ArrayList<>();
         this.origemRendas = new ArrayList<>();
         this.transacoes = new ArrayList<>();
@@ -86,10 +84,6 @@ public class Usuario {
         return carteiras;
     }
 
-    public List<Balanco> getBalanco() {
-        return balancos;
-    }
-    
     public void setId(int id) {
         this.id = id;
     }
@@ -125,14 +119,6 @@ public class Usuario {
     public void criarCarteira(String nome, int saldo){
         Carteira carteira = new Carteira(nome, saldo);
         carteiras.add(carteira);
-    }
-    public Balanco solicitarBalanco(int mes, int ano){
-        for (Balanco balanco : balancos) {
-            if (balanco.getMes() == mes && balanco.getAno() == ano){
-                return balanco;
-            }
-        }
-        return null;
     }
     
     public void adicionarTrasacao(Carteira carteira, Transacao transacao){

@@ -4,11 +4,16 @@
  */
 package telas;
 
+import classesGerenciador.Balanco;
 import classesGerenciador.ContasUsuarios;
 import classesGerenciador.Transacao;
 import classesGerenciador.Usuario;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
+import java.util.List;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import projeto.gerenciador.financeiro.ControleTelas;
@@ -35,7 +40,13 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
         
         initComponents();
         jLabel9.setText(contaAtual.getNome());
-        atualizarTabela();
+        
+        // Obtém o mês e o ano atual, para atualizar a tabela
+        LocalDate dataAtual = LocalDate.now();
+        int mesAtual = dataAtual.getMonthValue(); // Retorna um número de 1 a 12
+        int anoAtual = dataAtual.getYear();       // Retorna o ano atual
+        
+        atualizarTabelaFiltro(mesAtual, anoAtual);
         this.setLocationRelativeTo(null);
         
     }
@@ -47,87 +58,30 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
      */
     
     
-    public void atualizarTabela(){
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
-        LocalDate mesAtual = LocalDate.now(); // Obtém a data atual
-
-        for (Transacao x : contaAtual.getTransacoes()) {
-            // Verifica se a transação pertence ao mês atual
-            if (x.getData().getMonth() == mesAtual.getMonth()) {
-                // Define o formato desejado: dd/MM/yyyy
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                // Converte o LocalDate para uma string no formato desejado
-                String dataFormatada = x.getData().format(formatter);
-
-                // Adiciona os dados da transação na tabela
-                model.addRow(new Object[]{
-                    x.getId(), 
-                    x.getConta().getNome(), 
-                    dataFormatada,
-                    x.getValor(), 
-                    x.getNome(), 
-                    x.getTipo()
-                });
-            }
-        }
-    }
-    
-    public void atualizarTabelaFiltro(){
+    public void atualizarTabelaFiltro(int mes, int ano){
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
         
-        String mesSelecionado = (String) jComboBox1.getSelectedItem();
-        int numeroMes;
-        switch (mesSelecionado) {
-            case "Janeiro":
-                numeroMes = 1;
-                break;
-            case "Fevereiro":
-                numeroMes = 2;
-                break;
-            case "Março":
-                numeroMes = 3;
-                break;
-            case "Abril":
-                numeroMes = 4;
-                break;
-            case "Maio":
-                numeroMes = 5;
-                break;
-            case "Junho":
-                numeroMes = 6;
-                break;
-            case "Julho":
-                numeroMes = 7;
-                break;
-            case "Agosto":
-                numeroMes = 8;
-                break;
-            case "Setembro":
-                numeroMes = 9;
-                break;
-            case "Outubro":
-                numeroMes = 10;
-                break;
-            case "Novembro":
-                numeroMes = 11;
-                break;
-            case "Dezembro":
-                numeroMes = 12;
-                break;
-            default:
-                System.out.println("Mês inválido selecionado.");
-                return; // Sai da função se o mês for inválido
-        }
+        // Convertendo a string para um objeto YearMonth
+        
+        LocalDate nomeData = LocalDate.of(ano, mes, 1);
+        String nomeMes = nomeData.getMonth().getDisplayName(TextStyle.FULL, new Locale("pt", "BR"));
+        
+        
+        List<Integer> resultado = Balanco.gerarBalanco(mes, ano, contaAtual.getTransacoes());
+        entrada00.setText(String.format("R$ %,d", resultado.get(0)));
+        saida.setText(String.format("R$ %,d", resultado.get(1)));
+        balanco00.setText(String.format("R$ %,d", resultado.get(2)));
+        dadosRefere.setText(String.format("Dados referente a %s de %d.",nomeMes, ano));
+        
         
         // Filtrar as transações que correspondem ao mês selecionado
         for (Transacao x : contaAtual.getTransacoes()) {
             // Verifica se o mês da transação coincide com o mês selecionado
-            if (x.getData().getMonthValue() == numeroMes) {
+            if ((x.getData().getMonthValue() == mes) && (x.getData().getYear() == ano)) {
                 // Formata a data para exibição
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                String dataFormatada = x.getData().format(formatter);
+                DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                String dataFormatada = x.getData().format(formatter1);
 
                 // Adiciona os dados da transação na tabela
                 model.addRow(new Object[]{
@@ -152,22 +106,21 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
+        balanco00 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        entrada00 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        saida = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
-        jSeparator3 = new javax.swing.JSeparator();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jLabel10 = new javax.swing.JLabel();
+        dadosRefere = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -213,7 +166,7 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel3.setPreferredSize(new java.awt.Dimension(90, 45));
 
-        jLabel6.setText("R$ 00,00");
+        balanco00.setText("R$ 00,00");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -223,7 +176,7 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(32, 32, 32)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(balanco00, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(44, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
@@ -232,14 +185,14 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(28, 28, 28)
-                    .addComponent(jLabel6)
+                    .addComponent(balanco00)
                     .addContainerGap(29, Short.MAX_VALUE)))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setPreferredSize(new java.awt.Dimension(90, 45));
 
-        jLabel4.setText("R$ 00,00");
+        entrada00.setText("R$ 00,00");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -249,7 +202,7 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(21, 21, 21)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(entrada00, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(26, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
@@ -258,14 +211,14 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(12, 12, 12)
-                    .addComponent(jLabel4)
+                    .addComponent(entrada00)
                     .addContainerGap(22, Short.MAX_VALUE)))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.setPreferredSize(new java.awt.Dimension(90, 45));
 
-        jLabel5.setText("R$ 00,00");
+        saida.setText("R$ 00,00");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -275,7 +228,7 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(21, 21, 21)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saida, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(24, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
@@ -284,7 +237,7 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(12, 12, 12)
-                    .addComponent(jLabel5)
+                    .addComponent(saida)
                     .addContainerGap(22, Short.MAX_VALUE)))
         );
 
@@ -321,14 +274,21 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel9.setText("jLabel9");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
-
         jButton3.setText("Atualizar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
+
+        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("MM/y"))));
+        jFormattedTextField1.setText("mm/aaaa");
+
+        jLabel10.setText("Data:");
+
+        dadosRefere.setEditable(false);
+        dadosRefere.setText("Dados referente a {mes} de {ano}.");
+        dadosRefere.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1485477024-menu_78574.png"))); // NOI18N
         jMenu2.setText("Menu");
@@ -420,26 +380,22 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton4)
-                        .addGap(19, 19, 19))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())))
+                        .addGap(19, 19, 19))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator1)
-                        .addContainerGap())
-                    .addComponent(jSeparator3)))
+                .addComponent(dadosRefere, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -471,22 +427,16 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel9))))
-                .addGap(24, 24, 24)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton4)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(dadosRefere, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4)
+                    .addComponent(jButton3)
+                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
                 .addContainerGap())
         );
 
@@ -536,18 +486,21 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
         controleTelas.getTelaHistorico().setVisible(true);
+        System.out.println("oie");
         dispose();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
         controleTelas.getTelaGrafico().setVisible(true);
+        System.out.println("oie");
         dispose();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
         controleTelas.getTelaCategoria().setVisible(true);
+        System.out.println("oie");
         dispose();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
@@ -561,7 +514,13 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        atualizarTabelaFiltro();
+        String dd = jFormattedTextField1.getText();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yyyy");
+        YearMonth mesEAno = YearMonth.parse(dd, formatter);
+        int mes = mesEAno.getMonthValue();
+        int ano = mesEAno.getYear();
+        
+        atualizarTabelaFiltro(mes, ano);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -600,17 +559,18 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel balanco00;
+    private javax.swing.JTextField dadosRefere;
+    private javax.swing.JLabel entrada00;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -625,9 +585,7 @@ public class TelaPrincipal1 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel saida;
     // End of variables declaration//GEN-END:variables
 }
