@@ -180,7 +180,7 @@ public class TelaCategoria1 extends javax.swing.JFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         jTextArea1.setRows(5);
-        jTextArea1.setText("Lista de Categorias Registradas disponível para gerenciamento");
+        jTextArea1.setText("Existem categorias padrão já criadas para facilitar a organização. As receitas incluem: Salário, Freelance, Investimentos e Aluguel. Já as despesas são categorizadas como Alimentação, Transporte, Saúde e Lazer.");
         jScrollPane2.setViewportView(jTextArea1);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1485477024-menu_78574.png"))); // NOI18N

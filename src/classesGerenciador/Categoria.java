@@ -9,6 +9,7 @@ public class Categoria {
     private static int proximoId = 1; // Variável estática para controlar o próximo ID disponível
     private int id;
     private String nomeCategoria;
+    private String data;
     private List<Transacao> transacoes; // Armazena todas as transações relacionadas à categoria.
 
     // Construtor
@@ -27,6 +28,10 @@ public class Categoria {
         return nomeCategoria;
     }
 
+    public String getData() {
+        return data;
+    }
+
     public List<Transacao> getTransacoes() {
         return transacoes;
     }
@@ -42,8 +47,10 @@ public class Categoria {
     public void setNomeCategoria(String nomeCategoria) {
         this.nomeCategoria = nomeCategoria;
     }
-    
-    
+
+    public void setData(String data) {
+        this.data = data;
+    }
 
     // Método para criar uma nova categoria em uma instância de Usuario (contaAtual)
     public static Categoria criarCategoria(String nome, Usuario contaAtual) {

@@ -401,7 +401,7 @@
               <Font name="Segoe UI" size="12" style="2"/>
             </Property>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="Lista de Categorias Registradas dispon&#xed;vel para gerenciamento"/>
+            <Property name="text" type="java.lang.String" value="Existem categorias padr&#xe3;o j&#xe1; criadas para facilitar a organiza&#xe7;&#xe3;o. As receitas incluem: Sal&#xe1;rio, Freelance, Investimentos e Aluguel. J&#xe1; as despesas s&#xe3;o categorizadas como Alimenta&#xe7;&#xe3;o, Transporte, Sa&#xfa;de e Lazer."/>
           </Properties>
         </Component>
       </SubComponents>
