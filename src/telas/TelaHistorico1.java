@@ -43,8 +43,7 @@ public class TelaHistorico1 extends javax.swing.JFrame {
        
         initComponents();
         this.setLocationRelativeTo(null);
-        carregarMesHistorico();
-        carregarAnoHistorico();
+        
 
         // Adicionando o DocumentListener para os campos
         adicionarDocumentListener(contaHistorico);
@@ -89,31 +88,7 @@ public class TelaHistorico1 extends javax.swing.JFrame {
 }
 
     
-    
-    public class MesUtils {
-
-        private static final Map<String, String> mesParaNumero;
-
-        static {
-            mesParaNumero = new HashMap<>();
-            mesParaNumero.put("Janeiro", "01");
-            mesParaNumero.put("Fevereiro", "02");
-            mesParaNumero.put("Março", "03");
-            mesParaNumero.put("Abril", "04");
-            mesParaNumero.put("Maio", "05");
-            mesParaNumero.put("Junho", "06");
-            mesParaNumero.put("Julho", "07");
-            mesParaNumero.put("Agosto", "08");
-            mesParaNumero.put("Setembro", "09");
-            mesParaNumero.put("Outubro", "10");
-            mesParaNumero.put("Novembro", "11");
-            mesParaNumero.put("Dezembro", "12");
-        }
-
-        public static String obterNumeroMes(String nomeMes) {
-            return mesParaNumero.getOrDefault(nomeMes, ""); // Retorna "" caso o mês não seja encontrado
-        }
-    }
+   
 
    
    
@@ -124,11 +99,38 @@ public class TelaHistorico1 extends javax.swing.JFrame {
             modelo.setRowCount(0); // Limpa a tabela antes de carregar novos dados
 
             String filtroTexto = contaHistorico.getText().trim().toLowerCase(); 
-            String mesSelecionado = cbMesHistorico.getSelectedItem().toString();
-            String anoSelecionado = cbAnoHistorico.getSelectedItem().toString();
+            String mesTexto = txtMesHistorico.getText().trim();
+            String anoTexto = txtAnoHistorico.getText().trim();
 
-            boolean filtrarMes = !mesSelecionado.equals("Selecione um mês");
-            boolean filtrarAno = !anoSelecionado.equals("Selecione um ano");
+            int mesFiltro = -1;
+            int anoFiltro = -1;
+
+            // Verificação do mês inserido (deve ser entre 01 e 12)
+            boolean filtrarMes = !mesTexto.isEmpty();
+            if (filtrarMes) {
+                try {
+                    mesFiltro = Integer.parseInt(mesTexto);
+                    if (mesFiltro < 1 || mesFiltro > 12) {
+                        JOptionPane.showMessageDialog(null, "Mês inválido. Insira um valor entre 01 e 12.", "Erro", JOptionPane.ERROR_MESSAGE);
+                        return; // Interrompe a execução se o mês for inválido
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Mês inválido. Use o formato MM.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+
+            // Verificação do ano inserido
+            boolean filtrarAno = !anoTexto.isEmpty();
+            if (filtrarAno) {
+                try {
+                    anoFiltro = Integer.parseInt(anoTexto);
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Ano inválido. Use o formato aaaa.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+            
             boolean encontrouAlgumaTransacao = false;
 
             int contaId = contaAtual.getId(); // Obtém o ID da conta atual
@@ -136,14 +138,13 @@ public class TelaHistorico1 extends javax.swing.JFrame {
             // Iterar pelas categorias de despesas
             for (Categoria categoria : contaAtual.getCategorias()) {
                 for (Transacao transacao : categoria.getTransacoes()) {
-                    if ((filtrarMes || filtrarAno) && transacao.getData() != null) {
+                    if (transacao.getData() != null) {
                         int anoTransacao = transacao.getData().getYear();
                         int mesTransacao = transacao.getData().getMonthValue();
-                        String numeroMesSelecionado = MesUtils.obterNumeroMes(mesSelecionado);
+                        
 
                         // Verifica filtros de mês e ano
-                        if ((filtrarMes && !numeroMesSelecionado.equals(String.format("%02d", mesTransacao))) || 
-                            (filtrarAno && !anoSelecionado.equals(String.valueOf(anoTransacao)))) {
+                        if ((filtrarMes && mesFiltro != mesTransacao) || (filtrarAno && anoFiltro != anoTransacao)) {
                             continue;
                         }
                     }
@@ -166,10 +167,9 @@ public class TelaHistorico1 extends javax.swing.JFrame {
                     if ((filtrarMes || filtrarAno) && transacao.getData() != null) {
                         int anoTransacao = transacao.getData().getYear();
                         int mesTransacao = transacao.getData().getMonthValue();
-                        String numeroMesSelecionado = MesUtils.obterNumeroMes(mesSelecionado);
+                       
 
-                        if ((filtrarMes && !numeroMesSelecionado.equals(String.format("%02d", mesTransacao))) || 
-                            (filtrarAno && !anoSelecionado.equals(String.valueOf(anoTransacao)))) {
+                        if ((filtrarMes && mesFiltro != mesTransacao) || (filtrarAno && anoFiltro != anoTransacao)) {
                             continue;
                         }
                     }
@@ -193,39 +193,7 @@ public class TelaHistorico1 extends javax.swing.JFrame {
             tblHistorico.setModel(modelo);
         }
 
-
-
     
-    public void carregarMesHistorico(){
-        //Remover os itens da ComboBox
-        cbMesHistorico.removeAllItems();
-
-        cbMesHistorico.addItem("Selecione um mês");
-
-        String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
-        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
-
-        // Adiciona os meses ao JComboBox
-        for (String mes : meses) {
-            cbMesHistorico.addItem(mes);
-
-        }
-    }
-    
-     public void carregarAnoHistorico(){
-            //Remover os itens da ComboBox
-            cbAnoHistorico.removeAllItems();
-
-            cbAnoHistorico.addItem("Selecione um ano");
-
-            String[] anos = {"2024", "2025"};
-
-            // Adiciona os meses ao JComboBox
-            for (String ano : anos) {
-                cbAnoHistorico.addItem(ano);
-
-            }
-        }
 
 
 
@@ -241,10 +209,12 @@ public class TelaHistorico1 extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblHistorico = new javax.swing.JTable();
         btnPesquisarHistorico = new javax.swing.JButton();
-        cbMesHistorico = new javax.swing.JComboBox<>();
-        cbAnoHistorico = new javax.swing.JComboBox<>();
         limparFiltroHistorico = new javax.swing.JButton();
         contaHistorico = new javax.swing.JTextField();
+        txtAnoHistorico = new javax.swing.JTextField();
+        txtMesHistorico = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         menuHistorico = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jmPrincipal = new javax.swing.JMenuItem();
@@ -275,21 +245,25 @@ public class TelaHistorico1 extends javax.swing.JFrame {
             }
         });
 
-        cbMesHistorico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbMesHistorico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbMesHistoricoActionPerformed(evt);
-            }
-        });
-
-        cbAnoHistorico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         limparFiltroHistorico.setText("Limpar");
         limparFiltroHistorico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 limparFiltroHistoricoActionPerformed(evt);
             }
         });
+
+        txtAnoHistorico.setText("aaaa");
+
+        txtMesHistorico.setText("mm");
+        txtMesHistorico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMesHistoricoActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("/");
+
+        jLabel2.setText("Data:");
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1485477024-menu_78574.png"))); // NOI18N
         jMenu3.setText("Menu");
@@ -354,10 +328,15 @@ public class TelaHistorico1 extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(cbMesHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(43, 43, 43)
-                                .addComponent(cbAnoHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(186, 186, 186)
+                                .addGap(13, 13, 13)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtMesHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtAnoHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnPesquisarHistorico))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(contaHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -377,25 +356,23 @@ public class TelaHistorico1 extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbMesHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbAnoHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisarHistorico))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnPesquisarHistorico)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtMesHistorico)
+                    .addComponent(jLabel2)
+                    .addComponent(txtAnoHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbMesHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMesHistoricoActionPerformed
-    
-    }//GEN-LAST:event_cbMesHistoricoActionPerformed
-
     private void btnPesquisarHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarHistoricoActionPerformed
         String filtro = contaHistorico.getText().trim().toLowerCase();
-        int index1 = cbAnoHistorico.getSelectedIndex();
-        int index2 = cbMesHistorico.getSelectedIndex();
+        String index1 = txtAnoHistorico.getText().trim().toLowerCase();
+        String index2 = txtMesHistorico.getText().trim().toLowerCase();
 
-        if (index1 == 0 && index2 == 0 && filtro.isEmpty()) {
+        if (index1.isEmpty() && index2.isEmpty() && filtro.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Pelo menos um filtro deve ser selecionado", "Mensagem", JOptionPane.PLAIN_MESSAGE);
         } else {
             carregarTabela(true); // Exibe a mensagem quando não houver resultados
@@ -439,9 +416,14 @@ public class TelaHistorico1 extends javax.swing.JFrame {
 
     private void limparFiltroHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparFiltroHistoricoActionPerformed
         contaHistorico.setText("");
-        cbMesHistorico.setSelectedIndex(0);
-        cbAnoHistorico.setSelectedIndex(0);
+        txtAnoHistorico.setText("");
+        txtMesHistorico.setText("");
+        
     }//GEN-LAST:event_limparFiltroHistoricoActionPerformed
+
+    private void txtMesHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMesHistoricoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMesHistoricoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -484,14 +466,16 @@ public class TelaHistorico1 extends javax.swing.JFrame {
     private javax.swing.JMenuItem btGraficosHistorico;
     private javax.swing.JMenuItem btSairHistorico;
     private javax.swing.JButton btnPesquisarHistorico;
-    private javax.swing.JComboBox<String> cbAnoHistorico;
-    private javax.swing.JComboBox<String> cbMesHistorico;
     private javax.swing.JTextField contaHistorico;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem jmPrincipal;
     private javax.swing.JButton limparFiltroHistorico;
     private javax.swing.JMenuBar menuHistorico;
     private javax.swing.JTable tblHistorico;
+    private javax.swing.JTextField txtAnoHistorico;
+    private javax.swing.JTextField txtMesHistorico;
     // End of variables declaration//GEN-END:variables
 }

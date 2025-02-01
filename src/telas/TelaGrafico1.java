@@ -19,6 +19,14 @@ import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.PieDataset;
 import projeto.gerenciador.financeiro.ControleTelas;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+
 /**
  *
  * @author Bruno Eduardo <https://github.com/brnduol>
@@ -41,44 +49,21 @@ public class TelaGrafico1 extends javax.swing.JFrame {
         setSize(1000, 800);  
         jPanel1.setLayout(new java.awt.BorderLayout()); 
         
-        carregarMesGrafico();
-        carregarAnoGrafico();
+
         carregarCategoriaOrigemRenda();
+        
+        // Chama a função de atualizar o gráfico ao iniciar a tela, passando a data atual
+        String dataAtual = LocalDate.now().format(DateTimeFormatter.ofPattern("MM/yyyy"));
+        txtDataGrafico.setText(dataAtual);
+        // Configura a ComboBox para a opção "Receitas/Despesas"
+        cbCategoriaOrigemRenda.setSelectedItem("Receitas/Despesas");
+
+        btnAtualizarActionPerformed(null); // Atualiza o gráfico com o mês atual
+        
         
     }
     
     
-    public void carregarMesGrafico(){
-            //Remover os itens da ComboBox
-            cbMesGrafico.removeAllItems();
-
-            cbMesGrafico.addItem("Selecione um mês");
-
-            String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
-                  "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
-
-            // Adiciona os meses ao JComboBox
-            for (String mes : meses) {
-                cbMesGrafico.addItem(mes);
-
-            }
-        }
-    
-     public void carregarAnoGrafico(){
-            //Remover os itens da ComboBox
-            cbAnoGrafico.removeAllItems();
-
-            cbAnoGrafico.addItem("Selecione um ano");
-            
-
-            String[] anos = {"2024", "2025"};
-
-            // Adiciona os meses ao JComboBox
-            for (String ano : anos) {
-                cbAnoGrafico.addItem(ano);
-
-            }
-     }
      
      public void carregarCategoriaOrigemRenda(){
          //Remover os itens da ComboBox
@@ -94,6 +79,18 @@ public class TelaGrafico1 extends javax.swing.JFrame {
      }
     
      
+     private YearMonth validarEConverterData(String dataString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/uuuu")
+                                                       .withResolverStyle(ResolverStyle.STRICT);
+        try {
+            // Faz o parse diretamente
+            return YearMonth.parse(dataString, formatter);
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(null, "Data inválida: " + dataString + ". Use o formato MM/aaaa.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return null; // Retorna null se inválida
+        }
+    }
+     
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -106,9 +103,9 @@ public class TelaGrafico1 extends javax.swing.JFrame {
 
         btnAtualizar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        cbMesGrafico = new javax.swing.JComboBox<>();
-        cbAnoGrafico = new javax.swing.JComboBox<>();
         cbCategoriaOrigemRenda = new javax.swing.JComboBox<>();
+        txtDataGrafico = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuGrafico = new javax.swing.JMenu();
         jmPrincipal = new javax.swing.JMenuItem();
@@ -130,16 +127,12 @@ public class TelaGrafico1 extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 746, Short.MAX_VALUE)
+            .addGap(0, 891, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 491, Short.MAX_VALUE)
+            .addGap(0, 561, Short.MAX_VALUE)
         );
-
-        cbMesGrafico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cbAnoGrafico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         cbCategoriaOrigemRenda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbCategoriaOrigemRenda.addActionListener(new java.awt.event.ActionListener() {
@@ -148,10 +141,19 @@ public class TelaGrafico1 extends javax.swing.JFrame {
             }
         });
 
+        txtDataGrafico.setText("mm/aaaa");
+        txtDataGrafico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDataGraficoActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Data:");
+
         menuGrafico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1485477024-menu_78574.png"))); // NOI18N
         menuGrafico.setText("Menu");
 
-        jmPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/32officeicons-31_89708.png"))); // NOI18N
+        jmPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/3643769-building-home-house-main-menu-start_113416 (1).png"))); // NOI18N
         jmPrincipal.setText("Tela principal");
         jmPrincipal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,7 +162,7 @@ public class TelaGrafico1 extends javax.swing.JFrame {
         });
         menuGrafico.add(jmPrincipal);
 
-        btContasGrafico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/shoppaymentorderbuy-23_icon-icons.com_73884.png"))); // NOI18N
+        btContasGrafico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/4634994-cloud_122540 (1).png"))); // NOI18N
         btContasGrafico.setText("Contas");
         btContasGrafico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,7 +171,7 @@ public class TelaGrafico1 extends javax.swing.JFrame {
         });
         menuGrafico.add(btContasGrafico);
 
-        btHistoricoGrafico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Historical_icon-icons.com_54175.png"))); // NOI18N
+        btHistoricoGrafico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/historical_3107 (1).png"))); // NOI18N
         btHistoricoGrafico.setText("Historico");
         btHistoricoGrafico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,7 +180,7 @@ public class TelaGrafico1 extends javax.swing.JFrame {
         });
         menuGrafico.add(btHistoricoGrafico);
 
-        btCategoriasGrafico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1486486297-attribute-category-label-shop-price-price-tag-tag_81213.png"))); // NOI18N
+        btCategoriasGrafico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/graph_progress_chart_charts_analytics_bars_icon_124175.png"))); // NOI18N
         btCategoriasGrafico.setText("Categorias");
         btCategoriasGrafico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,7 +189,7 @@ public class TelaGrafico1 extends javax.swing.JFrame {
         });
         menuGrafico.add(btCategoriasGrafico);
 
-        btSairGrafico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/logout256_24927.png"))); // NOI18N
+        btSairGrafico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/4115235-exit-logout-sign-out_114030.png"))); // NOI18N
         btSairGrafico.setText("Sair");
         btSairGrafico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,28 +209,30 @@ public class TelaGrafico1 extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cbMesGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(65, 65, 65)
-                        .addComponent(cbAnoGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(83, 83, 83)
-                        .addComponent(cbCategoriaOrigemRenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(69, 69, 69)
-                        .addComponent(btnAtualizar))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(298, Short.MAX_VALUE))
+                        .addGap(9, 9, 9)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtDataGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(cbCategoriaOrigemRenda, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(106, 106, 106)
+                        .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbMesGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbAnoGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDataGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
                     .addComponent(cbCategoriaOrigemRenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAtualizar))
-                .addGap(19, 19, 19))
+                .addGap(53, 53, 53))
         );
 
         pack();
@@ -279,82 +283,80 @@ public class TelaGrafico1 extends javax.swing.JFrame {
     
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
                                                                                                           
-        // Obter os índices selecionados nos ComboBoxes
-        int selectedAnoIndex = cbAnoGrafico.getSelectedIndex();
-        int selectedMesIndex = cbMesGrafico.getSelectedIndex();
-        String selectedCategoriaOrigemRenda = (String) cbCategoriaOrigemRenda.getSelectedItem();
-        
-        // Validar se o usuário selecionou ano e mês
-        if (selectedAnoIndex == 0 || selectedMesIndex == 0 || selectedCategoriaOrigemRenda.equals("")) {
-            JOptionPane.showMessageDialog(null, "Todos os campos devem ser selecionados", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+                                                
+        String dataTexto = txtDataGrafico.getText().trim();
+        YearMonth dataSelecionada = validarEConverterData(dataTexto);
+
+        if (dataTexto.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, insira a data no formato MM/AAAA.", "Mensagem", JOptionPane.PLAIN_MESSAGE);
             return;
         }
-        
-         // Obter o ano e o mês selecionados
-        int anoSelecionado = Integer.parseInt(cbAnoGrafico.getSelectedItem().toString());
-        int mesSelecionado = selectedMesIndex; // O índice do JComboBox corresponde ao número do mês
 
-        
+        if (dataSelecionada == null) {
+            JOptionPane.showMessageDialog(null, "Formato de data inválido. Use MM/AAAA.", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+            return; // Interrompe a execução se a data for inválida
+        }
+
+        int mesSelecionado = dataSelecionada.getMonthValue();
+        int anoSelecionado = dataSelecionada.getYear();
+
+        String selectedCategoriaOrigemRenda = (String) cbCategoriaOrigemRenda.getSelectedItem();
+
+        // Validação adicional para o campo de categoria
+        if (selectedCategoriaOrigemRenda == null || selectedCategoriaOrigemRenda.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, selecione uma categoria.", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+            return;
+        }
+
         // Criar o dataset do gráfico
         DefaultPieDataset dataset = new DefaultPieDataset();
-        
-        if (selectedCategoriaOrigemRenda.equals("Categoria")){
+
+        if (selectedCategoriaOrigemRenda.equals("Categoria")) {
             // Iterar pelas categorias de despesas (Categoria)
             for (Categoria categoria : contaAtual.getCategorias()) {
                 double somaTransacoes = 0;
 
-                // Iterar pelas transações da categoria para somar os valores que pertencem ao mês e ano selecionados
                 for (Transacao transacao : categoria.getTransacoes()) {
                     int anoTransacao = transacao.getData().getYear();
                     int mesTransacao = transacao.getData().getMonthValue();
 
-                    // Verificar se a transação corresponde ao mês e ano selecionados
                     if (anoTransacao == anoSelecionado && mesTransacao == mesSelecionado) {
                         somaTransacoes += transacao.getValor();
                     }
                 }
 
-                // Verifica se há transações para a categoria de despesa e adiciona ao dataset
                 if (somaTransacoes != 0) {
                     dataset.setValue("Despesa - " + categoria.getNomeCategoria(), Math.abs(somaTransacoes));
                     System.out.println("Despesa - Categoria: " + categoria.getNomeCategoria() + " | Soma Transações: " + somaTransacoes);
                 }
             }
 
-            // Iterar pelas categorias de receitas (OrigemRenda)
             for (OrigemRenda origemRenda : contaAtual.getOrigemRendas()) {
                 double somaTransacoes = 0;
 
-                // Iterar pelas transações de origem de renda para somar os valores que pertencem ao mês e ano selecionados
                 for (Transacao transacao : origemRenda.getTransacoes()) {
                     int anoTransacao = transacao.getData().getYear();
                     int mesTransacao = transacao.getData().getMonthValue();
 
-                    // Verificar se a transação corresponde ao mês e ano selecionados
                     if (anoTransacao == anoSelecionado && mesTransacao == mesSelecionado) {
                         somaTransacoes += transacao.getValor();
                     }
                 }
 
-                // Verifica se há transações para a origem de receita e adiciona ao dataset
                 if (somaTransacoes != 0) {
                     dataset.setValue("Receita - " + origemRenda.getNomeOrigemRenda(), somaTransacoes);
                     System.out.println("Receita - Origem: " + origemRenda.getNomeOrigemRenda() + " | Soma Transações: " + somaTransacoes);
                 }
             }
 
-        }
-        
-        if (selectedCategoriaOrigemRenda.equals("Receitas/Despesas")){ 
-           double totalReceitas = 0;
-           double totalDespesas = 0;
+        } else if (selectedCategoriaOrigemRenda.equals("Receitas/Despesas")) { 
+            double totalReceitas = 0;
+            double totalDespesas = 0;
 
-            // Iterar pelas transações do usuário atual
             for (Transacao transacao : contaAtual.getTransacoes()) {
                 int anoTransacao = transacao.getData().getYear();
                 int mesTransacao = transacao.getData().getMonthValue();
 
-                // Verificar se a transação corresponde ao mês e ano selecionados
                 if (anoTransacao == anoSelecionado && mesTransacao == mesSelecionado) {
                     double valor = transacao.getValor();
 
@@ -366,30 +368,24 @@ public class TelaGrafico1 extends javax.swing.JFrame {
                 }
             }
 
-            // Arredondar os valores para inteiros antes de adicioná-los ao dataset
             int receitasInteiras = (int) Math.round(totalReceitas);
             int despesasInteiras = (int) Math.round(totalDespesas);
 
-            // Adicionar receitas e despesas ao dataset
             if (receitasInteiras > 0) {
                 dataset.setValue("Receitas", receitasInteiras);
             }
             if (despesasInteiras > 0) {
                 dataset.setValue("Despesas", despesasInteiras);
             }
-            
         }
-        
 
-        // Verificar se há dados no dataset antes de gerar o gráfico
         if (dataset.getItemCount() == 0) {
             JOptionPane.showMessageDialog(null, "Não há transações para o período selecionado.", "Mensagem", JOptionPane.PLAIN_MESSAGE);
         } else {
             mostrarGrafico(dataset);
         }
+    
 
-
-     
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void btContasGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btContasGraficoActionPerformed
@@ -426,6 +422,10 @@ public class TelaGrafico1 extends javax.swing.JFrame {
     private void cbCategoriaOrigemRendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCategoriaOrigemRendaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbCategoriaOrigemRendaActionPerformed
+
+    private void txtDataGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataGraficoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDataGraficoActionPerformed
 
                     
 
@@ -471,12 +471,12 @@ public class TelaGrafico1 extends javax.swing.JFrame {
     private javax.swing.JMenuItem btHistoricoGrafico;
     private javax.swing.JMenuItem btSairGrafico;
     private javax.swing.JButton btnAtualizar;
-    private javax.swing.JComboBox<String> cbAnoGrafico;
     private javax.swing.JComboBox<String> cbCategoriaOrigemRenda;
-    private javax.swing.JComboBox<String> cbMesGrafico;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem jmPrincipal;
     private javax.swing.JMenu menuGrafico;
+    private javax.swing.JTextField txtDataGrafico;
     // End of variables declaration//GEN-END:variables
 }
