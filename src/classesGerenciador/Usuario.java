@@ -79,11 +79,12 @@ public class Usuario {
     }
 
 
-
     public List<Carteira> getCarteiras() {
         return carteiras;
     }
 
+    
+    
     public void setId(int id) {
         this.id = id;
     }

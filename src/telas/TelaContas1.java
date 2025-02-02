@@ -4,7 +4,9 @@
  */
 package telas;
 
+import classesGerenciador.Carteira;
 import classesGerenciador.ContasUsuarios;
+import classesGerenciador.OrigemRenda;
 import classesGerenciador.Usuario;
 import java.text.ParseException;
 import javax.swing.JOptionPane;
@@ -63,6 +65,8 @@ public class TelaContas1 extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
         jSeparator6 = new javax.swing.JSeparator();
+        lblTipo = new javax.swing.JLabel();
+        cmbTipo = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jmPrincipal = new javax.swing.JMenuItem();
@@ -101,17 +105,17 @@ public class TelaContas1 extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Conta", "Saldo", "Data"
+                "Conta", "Saldo", "Data", "Tipo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -153,6 +157,16 @@ public class TelaContas1 extends javax.swing.JFrame {
         bntPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bntPesquisarActionPerformed(evt);
+            }
+        });
+
+        lblTipo.setText("Tipo");
+
+        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Receita", "Despesa" }));
+        cmbTipo.setToolTipText("Selecione o tipo da conta");
+        cmbTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTipoActionPerformed(evt);
             }
         });
 
@@ -214,19 +228,6 @@ public class TelaContas1 extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblConta, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtConta, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -252,22 +253,46 @@ public class TelaContas1 extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(jSeparator6))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblConta, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtConta, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtSaldo)
+                                .addGap(246, 246, 246)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblConta)
                     .addComponent(txtConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblSaldo)
                     .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblData)
                     .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTipo)
+                    .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -295,62 +320,135 @@ public class TelaContas1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bntCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCriarActionPerformed
-        // Obtém o modelo da tabela
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+      // Obter os valores dos campos
+    String conta = txtConta.getText();
+    String tipo = cmbTipo.getSelectedItem().toString();
+    String saldo = txtSaldo.getText();
+    String data = txtData.getText();  // Obter a data inserida no campo
 
-        // Obtém os dados dos campos de texto
-        String conta = txtConta.getText();
-        String saldoText = txtSaldo.getText();
-        String dataText = txtData.getText();
+    // Verificar se o campo conta está vazio
+    if (conta.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, insira uma conta.");
+        return;
+    }
 
-        // Verifica se os campos não estão vazios
-        if (!conta.isEmpty() && !saldoText.isEmpty() && !dataText.isEmpty()) {
-            try {
-                // Tenta converter o saldo para um número (Double)
-                Double saldo = Double.parseDouble(saldoText);
-                
-                // Valida e converte a data
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                sdf.setLenient(false); // Rejeita datas inválidas como 31/02/2023
-                Date data = sdf.parse(dataText); // Converte a String para Date
+    // Verificar se a data está no formato correto
+    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+    sdf.setLenient(false); // Impede datas inválidas, como 31/02/2025
+    try {
+        // Tenta converter a data
+        sdf.parse(data);
+    } catch (java.text.ParseException e) {
+        // Se ocorrer um erro, significa que a data está no formato errado
+        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, insira a data no formato dd/MM/yyyy.");
+        return;
+    }
 
-                
-               
-                // Insere a nova linha na primeira posição (índice 0)
-                model.insertRow(0, new Object[]{conta, saldo, sdf.format(data)});
-
-                // Limpa os campos de texto após a inserção
-                txtConta.setText("");
-                txtSaldo.setText("");
-                txtData.setText("");
-                
-            } catch (NumberFormatException e) {
-                // Se não for possível converter, exibe uma mensagem de erro
-                JOptionPane.showMessageDialog(this, "Por favor, insira um valor numérico válido para o saldo.");
-            } catch (ParseException e) {
-                // Se a data não estiver no formato correto, exibe um erro
-                JOptionPane.showMessageDialog(this, "Por favor, insira uma data válida no formato dd/mm/yyyy. Exemplo: 25/12/2025.");
+    // Verificar se o tipo de conta é "receita" ou "despesa"
+    if (tipo.equalsIgnoreCase("receita")) {
+        // Verificar se a origem de receita já existe
+        if (contaAtual != null && contaAtual.getOrigemRendas() != null) {
+            for (OrigemRenda origem : contaAtual.getOrigemRendas()) {
+                for (Carteira carteira : contaAtual.getCarteiras()) {
+                    if (carteira.getNome().equalsIgnoreCase(conta)) {
+                    javax.swing.JOptionPane.showMessageDialog(this, "A conta de receita já existe.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+              
+                }
             }
-        } else {
-            // Exibe uma mensagem se algum dos campos estiver vazio
-            JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos.");
         }
+
+        // Criar e adicionar a nova origem de renda
+        OrigemRenda novaOrigemRenda = new OrigemRenda(conta);
+        if (novaOrigemRenda != null) {
+            contaAtual.getOrigemRendas().add(novaOrigemRenda);
+            // Inserir na tabela
+            javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+            model.insertRow(0, new Object[]{conta, saldo, data, tipo});
+            // Limpar os campos
+            txtConta.setText("");
+            txtSaldo.setText("");
+            cmbTipo.setSelectedIndex(0);
+            txtData.setText("");
+            // Mensagem de sucesso
+            javax.swing.JOptionPane.showMessageDialog(this, "Origem de renda adicionada com sucesso!");
+        }
+
+    } else if (tipo.equalsIgnoreCase("despesa")) {
+        // Verificar se a conta de despesa já existe usando o método da classe Usuario
+        if (contaAtual != null && contaAtual.getCarteiras() != null) {
+            for (Carteira carteira : contaAtual.getCarteiras()) {
+                if (carteira.getNome().equalsIgnoreCase(conta)) {
+                    javax.swing.JOptionPane.showMessageDialog(this, "A conta de despesa já existe.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }
+        }
+
+        // Criar a nova conta de despesa utilizando o método criarCarteira da classe Usuario
+        contaAtual.criarCarteira(conta, Integer.parseInt(saldo)); // Passa o nome da conta e o saldo inicial
+        // Inserir na tabela
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+        model.insertRow(0, new Object[]{conta, saldo, data, tipo});
+        // Limpar os campos
+        txtConta.setText("");
+        txtSaldo.setText("");
+        cmbTipo.setSelectedIndex(0);
+        txtData.setText("");
+        // Mensagem de sucesso
+        javax.swing.JOptionPane.showMessageDialog(this, "Conta de despesa adicionada com sucesso!");
+
+    } else {
+        // Se o tipo não for nem "receita" nem "despesa", exibe um erro
+        javax.swing.JOptionPane.showMessageDialog(this, "Tipo inválido. Por favor, selecione entre 'despesa' ou 'receita'.", "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_bntCriarActionPerformed
 
     private void bntExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntExcluirActionPerformed
-        // Obtém o modelo da tabela
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+       // Verificar se uma linha foi selecionada na tabela
+    int selectedRow = jTable1.getSelectedRow();
 
-        // Verifica se há uma linha selecionada
-        int selectedRow = jTable1.getSelectedRow();
+    if (selectedRow != -1) {
+        // Obter o modelo da tabela
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
 
-        if (selectedRow != -1) {
-            // Remove a linha selecionada
-            model.removeRow(selectedRow);
-        } else {
-            // Caso nenhuma linha seja selecionada, exibe uma mensagem de erro
-            JOptionPane.showMessageDialog(null, "Selecione uma linha para excluir.");
+        // Obter o nome da conta da primeira coluna da linha selecionada
+        String nomeConta = (String) model.getValueAt(selectedRow, 0);
+
+        // Remover a linha da tabela
+        model.removeRow(selectedRow);
+
+        // Verificar se o tipo de conta é "receita"
+        String tipoConta = (String) model.getValueAt(selectedRow, 3); // A coluna 3 tem o tipo (receita ou despesa)
+
+        if (tipoConta.equalsIgnoreCase("receita")) {
+            // Remover a origem de renda da lista de origemRendas
+            if (contaAtual != null && contaAtual.getOrigemRendas() != null) {
+                for (OrigemRenda origemRenda : contaAtual.getOrigemRendas()) {
+                    if (origemRenda.getNomeOrigemRenda().equalsIgnoreCase(nomeConta)) {
+                        contaAtual.getOrigemRendas().remove(origemRenda);
+                        break; // Interromper o loop após remover a origem de renda
+                    }
+                }
+            }
+            javax.swing.JOptionPane.showMessageDialog(this, "Origem de renda excluída com sucesso!");
+        } else if (tipoConta.equalsIgnoreCase("despesa")) {
+            // Remover a conta de despesa da lista de carteiras
+            if (contaAtual != null && contaAtual.getCarteiras() != null) {
+                for (Carteira carteira : contaAtual.getCarteiras()) {
+                    if (carteira.getNome().equalsIgnoreCase(nomeConta)) {
+                        contaAtual.getCarteiras().remove(carteira);
+                        break; // Interromper o loop após remover a carteira
+                    }
+                }
+            }
+            javax.swing.JOptionPane.showMessageDialog(this, "Conta de despesa excluída com sucesso!");
         }
+    } else {
+        // Caso não tenha linha selecionada
+        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, selecione uma conta para excluir.");
+    }
     }//GEN-LAST:event_bntExcluirActionPerformed
 
     private void jmCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCategoriasActionPerformed
@@ -397,34 +495,85 @@ public class TelaContas1 extends javax.swing.JFrame {
     }//GEN-LAST:event_bntEditarActionPerformed
 
     private void bntSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSalvarActionPerformed
-        int linhaSelecionada = jTable1.getSelectedRow();  // Obtém a linha selecionada na tabela.
+       // Obtém a linha selecionada na tabela
+    int linhaSelecionada = jTable1.getSelectedRow();
 
-        if (linhaSelecionada != -1) {  // Verifica se uma linha foi selecionada.
-            String conta = txtConta.getText();  // Obtém o valor de "Conta".
-            String saldo = txtSaldo.getText();  // Obtém o valor de "Saldo".
-            String data = txtData.getText();  // Obtém o valor de "Data".
+    if (linhaSelecionada != -1) {  // Verifica se uma linha foi selecionada
+        String conta = txtConta.getText().trim();  // Obtém o valor do campo "Conta"
+        String saldo = txtSaldo.getText().trim();  // Obtém o valor do campo "Saldo"
+        String data = txtData.getText().trim();  // Obtém o valor do campo "Data"
 
-            if (!conta.isEmpty() && !saldo.isEmpty() && !data.isEmpty()) {  // Verifica se os campos não estão vazios.
-                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();  // Obtém o modelo da tabela.
+        // Verificar se os campos não estão vazios
+        if (!conta.isEmpty() && !saldo.isEmpty() && !data.isEmpty()) {
+            // Obter o modelo da tabela
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
-                // Atualiza os dados na tabela, especificando as colunas corretas.
-                model.setValueAt(conta, linhaSelecionada, 0);  // Atualiza a coluna "Conta" (coluna 0).
-                model.setValueAt(saldo, linhaSelecionada, 1);  // Atualiza a coluna "Saldo" (coluna 1).
-                model.setValueAt(data, linhaSelecionada, 2);   // Atualiza a coluna "Data" (coluna 2).
+            // Obter o tipo da conta (receita ou despesa) da tabela (supondo que esteja na coluna 3)
+            String tipoConta = (String) model.getValueAt(linhaSelecionada, 3);  // Ajuste o índice da coluna conforme necessário
 
-                JOptionPane.showMessageDialog(this, "Dados atualizados com sucesso.");  // Informa que os dados foram salvos.
-            } else {
-                JOptionPane.showMessageDialog(this, "Por favor, insira todos os dados para salvar.");  // Verifica se os campos não estão vazios.
+            // Obter a instância do usuário atual
+            Usuario contaAtual = ContasUsuarios.getInstance().conta();
+
+            boolean atualizado = false;  // Flag para verificar se a atualização foi realizada
+
+            // Lógica para "Receita" (Origem de Renda)
+            if (tipoConta.equalsIgnoreCase("receita")) {
+                // Percorrer as origens de renda e tentar encontrar a origem de renda com o nome atual da linha da tabela
+                for (OrigemRenda origem : contaAtual.getOrigemRendas()) {
+                    // Comparando o nome da origem de renda selecionada com o nome na lista de origem de rendas
+                    if (origem.getNomeOrigemRenda().equalsIgnoreCase(jTable1.getValueAt(linhaSelecionada, 0).toString())) {
+                        origem.setNomeOrigemRenda(conta);  // Atualiza o nome da origem de renda
+                        atualizado = true;  // Marca como atualizado
+
+                        // Atualiza a tabela
+                        model.setValueAt(conta, linhaSelecionada, 0);  // Atualiza a coluna "Conta" (coluna 0)
+                        model.setValueAt(saldo, linhaSelecionada, 1);  // Atualiza a coluna "Saldo" (coluna 1)
+                        model.setValueAt(data, linhaSelecionada, 2);   // Atualiza a coluna "Data" (coluna 2)
+                        break;
+                    }
+                }
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Selecione uma linha para editar para poder salvar.");  // Caso nenhuma linha tenha sido selecionada.
-        }
-        // Limpa os campos de texto após a inserção
-        txtConta.setText("");
-        txtSaldo.setText("");
-        txtData.setText("");
-    }//GEN-LAST:event_bntSalvarActionPerformed
 
+            // Lógica para "Despesa" (Carteira)
+            else if (tipoConta.equalsIgnoreCase("despesa")) {
+                // Percorrer as carteiras e tentar encontrar a conta de despesa com o nome atual da linha da tabela
+                for (Carteira carteira : contaAtual.getCarteiras()) {
+                    // Comparando o nome da carteira selecionada com o nome na lista de carteiras
+                    if (carteira.getNome().equalsIgnoreCase(jTable1.getValueAt(linhaSelecionada, 0).toString())) {
+                        carteira.setNome(conta);  // Atualiza o nome da conta de despesa
+                        carteira.setSaldo((int) Double.parseDouble(saldo));  // Atualiza o saldo da conta
+                        atualizado = true;  // Marca como atualizado
+
+                        // Atualiza a tabela
+                        model.setValueAt(conta, linhaSelecionada, 0);  // Atualiza a coluna "Conta" (coluna 0)
+                        model.setValueAt(saldo, linhaSelecionada, 1);  // Atualiza a coluna "Saldo" (coluna 1)
+                        model.setValueAt(data, linhaSelecionada, 2);   // Atualiza a coluna "Data" (coluna 2)
+                        break;
+                    }
+                }
+            }
+
+            // Se os dados foram atualizados, exibe a mensagem de sucesso
+            if (atualizado) {
+                JOptionPane.showMessageDialog(this, "Dados atualizados com sucesso!");
+            } else {
+                // Se não foi possível atualizar, exibe a mensagem de erro
+                JOptionPane.showMessageDialog(this, "Conta não encontrada para edição.");
+            }
+
+            // Limpar os campos após salvar
+            txtConta.setText("");
+            txtSaldo.setText("");
+            txtData.setText("");
+        } else {
+            // Caso algum campo esteja vazio, exibe a mensagem de erro
+            JOptionPane.showMessageDialog(this, "Por favor, insira todos os dados para salvar.");
+        }
+        } else {
+        // Caso nenhuma linha tenha sido selecionada
+            JOptionPane.showMessageDialog(this, "Selecione uma linha para editar para poder salvar.");
+    }//GEN-LAST:event_bntSalvarActionPerformed
+    }
     private void bntPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntPesquisarActionPerformed
      // Obtém o texto digitado no campo de pesquisa 'txtConta'
     String contaPesquisada = txtConta.getText(); // O texto é mantido como foi digitado
@@ -470,6 +619,10 @@ public class TelaContas1 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDataActionPerformed
 
+    private void cmbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbTipoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -512,6 +665,7 @@ public class TelaContas1 extends javax.swing.JFrame {
     private javax.swing.JButton bntPesquisar;
     private javax.swing.JButton bntSalvar;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -529,6 +683,7 @@ public class TelaContas1 extends javax.swing.JFrame {
     private javax.swing.JLabel lblConta;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblSaldo;
+    private javax.swing.JLabel lblTipo;
     private javax.swing.JTextField txtConta;
     private javax.swing.JTextField txtData;
     private javax.swing.JTextField txtSaldo;
