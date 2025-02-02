@@ -6,7 +6,7 @@ package classesGerenciador;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//Classe responsável por calcular o balanço financeiro com base nas transações
 public class Balanco {
 
     // Método para gerar o balanço total (soma de todas as transações)
@@ -28,7 +28,7 @@ public class Balanco {
 
         balanco = entrada + saida; // Calcula o balanço final
 
-        // Retorna uma lista com entrada, saída e balanço
+        // Cria uma dinâmica para armazenar os resultados. 
         List<Integer> resultado = new ArrayList<>();
         resultado.add(entrada);
         resultado.add(saida);
@@ -38,8 +38,8 @@ public class Balanco {
     }
 
     // Método para gerar o balanço por categoria (baseado em mês e ano)
-    public static  int gerarBalancoPorCategoria(String categoria, int mes, int ano, List<Transacao> transacoes) {
-        int total = 0;
+    public static  int gerarBalancoPorCategoria(String categoria, int mes, int ano, List<Transacao> transacoes) { //retorna o total do balanço financeiro de uma categoria específic
+        int total = 0; //variável para armazenar o total de transações filtradas
         for (Transacao transacao : transacoes) {
             // Verifica se a transação pertence à categoria e se o mês/ano correspondem
             if (transacao.pertenceCategoria(categoria) && 

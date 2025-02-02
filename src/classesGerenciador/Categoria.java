@@ -12,7 +12,7 @@ public class Categoria {
     private String data;
     private List<Transacao> transacoes; // Armazena todas as transações relacionadas à categoria.
 
-    // Construtor
+    // Construtor cria uma nova categoria com os parâmetros id,nomeCategoria e Transação
     public Categoria(String nome) {
         this.id = proximoId++;
         this.nomeCategoria = nome;
@@ -54,9 +54,9 @@ public class Categoria {
 
     // Método para criar uma nova categoria em uma instância de Usuario (contaAtual)
     public static Categoria criarCategoria(String nome, Usuario contaAtual) {
-        for (Categoria categoria : contaAtual.getCategorias()) {
+        for (Categoria categoria : contaAtual.getCategorias()) { // Verifica se a categoria já existe
             if (categoria.getNomeCategoria().equalsIgnoreCase(nome)) {
-                JOptionPane.showMessageDialog(null, "A categoria já existe: " + nome, "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "A categoria já existe: " + nome, "Erro", JOptionPane.ERROR_MESSAGE); //Se já existir, exibe um erro e não cria a categoria.
                 return null;
             }
         }
@@ -71,6 +71,7 @@ public class Categoria {
     }
 
     // Método para excluir categoria em uma instância de Usuario (contaAtual)
+    //Percorre todas as categorias do usuário e encontra a que precisa ser excluída.Se não encontrar, categoriaParaRemover continua sendo null.
     public static void excluirCategoria(String nomeCategoria, Usuario contaAtual) {
         Categoria categoriaParaRemover = null;
         for (Categoria categoria : contaAtual.getCategorias()) {
@@ -98,23 +99,4 @@ public class Categoria {
         JOptionPane.showMessageDialog(null, "Categoria excluída com sucesso: " + nomeCategoria, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
     }
     
-    public void imprimirTransacoes() {
-    // Verifica se a categoria possui transações
-    if (transacoes.isEmpty()) {
-        System.out.println("Não há transações para a categoria " + nomeCategoria);
-    } else {
-        System.out.println("Transações da categoria: " + nomeCategoria);
-        
-        // Itera sobre a lista de transações e imprime os detalhes de cada uma
-        for (Transacao transacao : transacoes) {
-            System.out.println("ID: " + transacao.getId());
-            System.out.println("Data: " + transacao.getData());
-            System.out.println("Valor: " + transacao.getValor());
-            System.out.println("Descrição: " + transacao.getDescricao());
-            System.out.println("Tipo: " + transacao.getTipo()); // Caso o tipo seja necessário
-            System.out.println("----------------------------");
-        }
-    }
-}
-
 }
