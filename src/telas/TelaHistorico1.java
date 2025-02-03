@@ -12,9 +12,6 @@ import classesGerenciador.OrigemRenda;
 import classesGerenciador.Transacao;
 import classesGerenciador.Usuario;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -49,28 +46,32 @@ public class TelaHistorico1 extends javax.swing.JFrame {
         adicionarDocumentListener(contaHistorico);
     }
     
-  private void adicionarDocumentListener(JTextField campo) {
-    campo.getDocument().addDocumentListener(new DocumentListener() {
-        @Override
-        public void insertUpdate(DocumentEvent e) {
-            atualizarTabela();
-        }
+  
+    // O listener chama o método atualizarTabela() sempre que o conteúdo do campo é alterado
+    private void adicionarDocumentListener(JTextField campo) {
+        campo.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                atualizarTabela();
+            }
 
-        @Override
-        public void removeUpdate(DocumentEvent e) {
-            atualizarTabela();
-        }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                atualizarTabela();
+            }
 
-        @Override
-        public void changedUpdate(DocumentEvent e) {
-            atualizarTabela();
-        }
-    });
-}
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                atualizarTabela();
+            }
+        });
+    }
 
 
     
-    // Método para atualizar a tabela
+    /* verifica se o campo de texto está vazio. Se estiver, ele limpa a tabela; 
+       caso contrário, carrega a tabela com os dados filtrados. */
+    
     private void atualizarTabela() {
         String filtroTexto = contaHistorico.getText();
         //String filtroTextoCategoria = categoriaHistorico.getText();
@@ -82,118 +83,121 @@ public class TelaHistorico1 extends javax.swing.JFrame {
         }
     }
     
-   private void limparTabela() {
-    DefaultTableModel modeloTabela = (DefaultTableModel) tblHistorico.getModel();
-    modeloTabela.setRowCount(0); // Exemplo de como limpar a tabela
-}
+    private void limparTabela() {
+        DefaultTableModel modeloTabela = (DefaultTableModel) tblHistorico.getModel();
+        modeloTabela.setRowCount(0); 
+    }
 
     
    
 
-   
-   
-        private void carregarTabela(boolean exibirMensagem) {
-   
+    /*
+    carrega as transações na tabela com base nos filtros aplicados (conta, mês e ano). 
+    Itera sobre as categorias de despesas e receitas, aplica os filtros e adiciona as transações correspondentes à tabela. 
+    Se nenhuma transação for encontrada e o parâmetro exibirMensagem for true, uma mensagem é exibida ao usuário. */
+    
+    private void carregarTabela(boolean exibirMensagem) {
 
-            DefaultTableModel modelo = (DefaultTableModel) tblHistorico.getModel();
-            modelo.setRowCount(0); // Limpa a tabela antes de carregar novos dados
 
-            String filtroTexto = contaHistorico.getText().trim().toLowerCase(); 
-            String mesTexto = txtMesHistorico.getText().trim();
-            String anoTexto = txtAnoHistorico.getText().trim();
+        DefaultTableModel modelo = (DefaultTableModel) tblHistorico.getModel();
+        modelo.setRowCount(0); // Limpa a tabela antes de carregar novos dados
 
-            int mesFiltro = -1;
-            int anoFiltro = -1;
+        String filtroTexto = contaHistorico.getText().trim().toLowerCase(); 
+        String mesTexto = txtMesHistorico.getText().trim();
+        String anoTexto = txtAnoHistorico.getText().trim();
 
-            // Verificação do mês inserido (deve ser entre 01 e 12)
-            boolean filtrarMes = !mesTexto.isEmpty();
-            if (filtrarMes) {
-                try {
-                    mesFiltro = Integer.parseInt(mesTexto);
-                    if (mesFiltro < 1 || mesFiltro > 12) {
-                        JOptionPane.showMessageDialog(null, "Mês inválido. Insira um valor entre 01 e 12.", "Erro", JOptionPane.ERROR_MESSAGE);
-                        return; // Interrompe a execução se o mês for inválido
-                    }
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "Mês inválido. Use o formato MM.", "Erro", JOptionPane.ERROR_MESSAGE);
-                    return;
+        int mesFiltro = -1;
+        int anoFiltro = -1;
+
+        // Verificação do mês inserido (deve ser entre 01 e 12)
+        boolean filtrarMes = !mesTexto.isEmpty();
+        if (filtrarMes) {
+            try {
+                mesFiltro = Integer.parseInt(mesTexto);
+                if (mesFiltro < 1 || mesFiltro > 12) {
+                    JOptionPane.showMessageDialog(null, "Mês inválido. Insira um valor entre 01 e 12.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return; // Interrompe a execução se o mês for inválido
                 }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Mês inválido. Use o formato MM.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-
-            // Verificação do ano inserido
-            boolean filtrarAno = !anoTexto.isEmpty();
-            if (filtrarAno) {
-                try {
-                    anoFiltro = Integer.parseInt(anoTexto);
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "Ano inválido. Use o formato aaaa.", "Erro", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            }
-            
-            boolean encontrouAlgumaTransacao = false;
-
-            int contaId = contaAtual.getId(); // Obtém o ID da conta atual
-
-            // Iterar pelas categorias de despesas
-            for (Categoria categoria : contaAtual.getCategorias()) {
-                for (Transacao transacao : categoria.getTransacoes()) {
-                    if (transacao.getData() != null) {
-                        int anoTransacao = transacao.getData().getYear();
-                        int mesTransacao = transacao.getData().getMonthValue();
-                        
-
-                        // Verifica filtros de mês e ano
-                        if ((filtrarMes && mesFiltro != mesTransacao) || (filtrarAno && anoFiltro != anoTransacao)) {
-                            continue;
-                        }
-                    }
-
-                    String categoriaNome = categoria.getNomeCategoria().toLowerCase();
-                    String data = transacao.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                    double valor = transacao.getValor();
-                    String tipo = "Despesa";
-
-                    if (filtroTexto.isEmpty() || String.valueOf(contaId).contains(filtroTexto) || categoriaNome.contains(filtroTexto)) {
-                        modelo.addRow(new Object[]{contaId, data, valor, tipo, categoriaNome});
-                        encontrouAlgumaTransacao = true;
-                    }
-                }
-            }
-
-            // Iterar pelas categorias de receitas
-            for (OrigemRenda origemRenda : contaAtual.getOrigemRendas()) {
-                for (Transacao transacao : origemRenda.getTransacoes()) {
-                    if ((filtrarMes || filtrarAno) && transacao.getData() != null) {
-                        int anoTransacao = transacao.getData().getYear();
-                        int mesTransacao = transacao.getData().getMonthValue();
-                       
-
-                        if ((filtrarMes && mesFiltro != mesTransacao) || (filtrarAno && anoFiltro != anoTransacao)) {
-                            continue;
-                        }
-                    }
-
-                    String categoriaNome = origemRenda.getNomeOrigemRenda().toLowerCase();
-                    String data = transacao.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                    double valor = transacao.getValor();
-                    String tipo = "Receita";
-
-                    if (filtroTexto.isEmpty() || String.valueOf(contaId).contains(filtroTexto) || categoriaNome.contains(filtroTexto)) {
-                        modelo.addRow(new Object[]{contaId, data, valor, tipo, categoriaNome});
-                        encontrouAlgumaTransacao = true;
-                    }
-                }
-            }
-
-            if (exibirMensagem && !encontrouAlgumaTransacao) {
-                JOptionPane.showMessageDialog(null, "Nenhuma transação encontrada", "Mensagem", JOptionPane.PLAIN_MESSAGE);
-            }
-
-            tblHistorico.setModel(modelo);
         }
 
-    
+        // Verificação do ano inserido
+        boolean filtrarAno = !anoTexto.isEmpty();
+        if (filtrarAno) {
+            try {
+                anoFiltro = Integer.parseInt(anoTexto);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Ano inválido. Use o formato aaaa.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+
+        boolean encontrouAlgumaTransacao = false;
+
+        int contaId = contaAtual.getId(); // Obtém o ID da conta atual
+
+        // Iterar pelas categorias de despesas
+        for (Categoria categoria : contaAtual.getCategorias()) {
+            for (Transacao transacao : categoria.getTransacoes()) {
+                if (transacao.getData() != null) {
+                    int anoTransacao = transacao.getData().getYear();
+                    int mesTransacao = transacao.getData().getMonthValue();
+
+
+                    // Verifica filtros de mês e ano
+                    if ((filtrarMes && mesFiltro != mesTransacao) || (filtrarAno && anoFiltro != anoTransacao)) {
+                        continue;
+                    }
+                }
+
+                String categoriaNome = categoria.getNomeCategoria().toLowerCase();
+                String data = transacao.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                double valor = transacao.getValor();
+                String tipo = "Despesa";
+
+                if (filtroTexto.isEmpty() || String.valueOf(contaId).contains(filtroTexto) || categoriaNome.contains(filtroTexto)) {
+                    modelo.addRow(new Object[]{contaId, data, valor, tipo, categoriaNome});
+                    encontrouAlgumaTransacao = true;
+                }
+            }
+        }
+
+        // Iterar pelas categorias de receitas
+        for (OrigemRenda origemRenda : contaAtual.getOrigemRendas()) {
+            for (Transacao transacao : origemRenda.getTransacoes()) {
+                if ((filtrarMes || filtrarAno) && transacao.getData() != null) {
+                    int anoTransacao = transacao.getData().getYear();
+                    int mesTransacao = transacao.getData().getMonthValue();
+
+
+                    if ((filtrarMes && mesFiltro != mesTransacao) || (filtrarAno && anoFiltro != anoTransacao)) {
+                        continue;
+                    }
+                }
+
+                String categoriaNome = origemRenda.getNomeOrigemRenda().toLowerCase();
+                String data = transacao.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                double valor = transacao.getValor();
+                String tipo = "Receita";
+
+                if (filtroTexto.isEmpty() || String.valueOf(contaId).contains(filtroTexto) || categoriaNome.contains(filtroTexto)) {
+                    modelo.addRow(new Object[]{contaId, data, valor, tipo, categoriaNome});
+                    encontrouAlgumaTransacao = true;
+                }
+            }
+        }
+
+        if (exibirMensagem && !encontrouAlgumaTransacao) {
+            JOptionPane.showMessageDialog(null, "Nenhuma transação encontrada", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+        }
+
+        tblHistorico.setModel(modelo);
+    }
+
+
 
 
 
@@ -216,12 +220,12 @@ public class TelaHistorico1 extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         menuHistorico = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
-        jmPrincipal = new javax.swing.JMenuItem();
-        btContasHistorico = new javax.swing.JMenuItem();
-        btGraficosHistorico = new javax.swing.JMenuItem();
-        btCategoriasHistorico = new javax.swing.JMenuItem();
-        btSairHistorico = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -252,9 +256,6 @@ public class TelaHistorico1 extends javax.swing.JFrame {
             }
         });
 
-        txtAnoHistorico.setText("aaaa");
-
-        txtMesHistorico.setText("mm");
         txtMesHistorico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMesHistoricoActionPerformed(evt);
@@ -265,55 +266,50 @@ public class TelaHistorico1 extends javax.swing.JFrame {
 
         jLabel2.setText("Data:");
 
-        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1485477024-menu_78574.png"))); // NOI18N
-        jMenu3.setText("Menu");
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1485477024-menu_78574.png"))); // NOI18N
+        jMenu2.setText("Menu");
 
-        jmPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/32officeicons-31_89708.png"))); // NOI18N
-        jmPrincipal.setText("Tela principal");
-        jmPrincipal.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/3643769-building-home-house-main-menu-start_113416 (1).png"))); // NOI18N
+        jMenuItem2.setText("Tela Principal");
+        jMenu2.add(jMenuItem2);
+
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/4634994-cloud_122540 (1).png"))); // NOI18N
+        jMenuItem1.setText("Contas");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmPrincipalActionPerformed(evt);
+                jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu3.add(jmPrincipal);
+        jMenu2.add(jMenuItem1);
 
-        btContasHistorico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/shoppaymentorderbuy-23_icon-icons.com_73884.png"))); // NOI18N
-        btContasHistorico.setText("Contas");
-        btContasHistorico.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/graph_progress_chart_charts_analytics_bars_icon_124175.png"))); // NOI18N
+        jMenuItem3.setText("Graficos");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btContasHistoricoActionPerformed(evt);
+                jMenuItem3ActionPerformed(evt);
             }
         });
-        jMenu3.add(btContasHistorico);
+        jMenu2.add(jMenuItem3);
 
-        btGraficosHistorico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1477521928_10_icon-icons.com_74620.png"))); // NOI18N
-        btGraficosHistorico.setText("Graficos");
-        btGraficosHistorico.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/category_icon_176162.png"))); // NOI18N
+        jMenuItem4.setText("Categorias");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btGraficosHistoricoActionPerformed(evt);
+                jMenuItem4ActionPerformed(evt);
             }
         });
-        jMenu3.add(btGraficosHistorico);
+        jMenu2.add(jMenuItem4);
 
-        btCategoriasHistorico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1486486297-attribute-category-label-shop-price-price-tag-tag_81213.png"))); // NOI18N
-        btCategoriasHistorico.setText("Categorias");
-        btCategoriasHistorico.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/4115235-exit-logout-sign-out_114030.png"))); // NOI18N
+        jMenuItem5.setText("Sair");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btCategoriasHistoricoActionPerformed(evt);
+                jMenuItem5ActionPerformed(evt);
             }
         });
-        jMenu3.add(btCategoriasHistorico);
+        jMenu2.add(jMenuItem5);
 
-        btSairHistorico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/logout256_24927.png"))); // NOI18N
-        btSairHistorico.setText("Sair");
-        btSairHistorico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSairHistoricoActionPerformed(evt);
-            }
-        });
-        jMenu3.add(btSairHistorico);
-
-        menuHistorico.add(jMenu3);
+        menuHistorico.add(jMenu2);
 
         setJMenuBar(menuHistorico);
 
@@ -355,12 +351,13 @@ public class TelaHistorico1 extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPesquisarHistorico)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtMesHistorico)
-                    .addComponent(jLabel2)
-                    .addComponent(txtAnoHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnPesquisarHistorico)
+                        .addComponent(txtMesHistorico)
+                        .addComponent(jLabel2)
+                        .addComponent(txtAnoHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -384,36 +381,6 @@ public class TelaHistorico1 extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnPesquisarHistoricoActionPerformed
 
-    private void btSairHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairHistoricoActionPerformed
-        contaUsuarios.sairConta();
-        controleTelas.getTelaLogin().setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btSairHistoricoActionPerformed
-
-    private void btContasHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btContasHistoricoActionPerformed
-        controleTelas.getTelaContas().setVisible(true);
-        dispose();
-        
-        
-    }//GEN-LAST:event_btContasHistoricoActionPerformed
-
-    private void btGraficosHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGraficosHistoricoActionPerformed
-        controleTelas.getTelaGrafico().setVisible(true);
-        dispose();
-        
-    }//GEN-LAST:event_btGraficosHistoricoActionPerformed
-
-    private void btCategoriasHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCategoriasHistoricoActionPerformed
-        controleTelas.getTelaCategoria().setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btCategoriasHistoricoActionPerformed
-
-    private void jmPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPrincipalActionPerformed
-        // Abrir a tela principal
-        controleTelas.getTelaPrincipal().setVisible(true);
-        this.dispose(); // Fecha a tela atual
-    }//GEN-LAST:event_jmPrincipalActionPerformed
-
     private void limparFiltroHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparFiltroHistoricoActionPerformed
         contaHistorico.setText("");
         txtAnoHistorico.setText("");
@@ -424,6 +391,33 @@ public class TelaHistorico1 extends javax.swing.JFrame {
     private void txtMesHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMesHistoricoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMesHistoricoActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        contaUsuarios.sairConta();
+        controleTelas.getTelaLogin().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        controleTelas.getTelaCategoria().setVisible(true);
+        System.out.println("oie");
+        dispose();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        controleTelas.getTelaGrafico().setVisible(true);
+        System.out.println("oie");
+        dispose();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        controleTelas.getTelaContas().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -461,17 +455,17 @@ public class TelaHistorico1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem btCategoriasHistorico;
-    private javax.swing.JMenuItem btContasHistorico;
-    private javax.swing.JMenuItem btGraficosHistorico;
-    private javax.swing.JMenuItem btSairHistorico;
     private javax.swing.JButton btnPesquisarHistorico;
     private javax.swing.JTextField contaHistorico;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JMenuItem jmPrincipal;
     private javax.swing.JButton limparFiltroHistorico;
     private javax.swing.JMenuBar menuHistorico;
     private javax.swing.JTable tblHistorico;

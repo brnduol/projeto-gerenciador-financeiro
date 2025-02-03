@@ -9,7 +9,6 @@ import classesGerenciador.ContasUsuarios;
 import classesGerenciador.OrigemRenda;
 import classesGerenciador.Transacao;
 import classesGerenciador.Usuario;
-import java.awt.Color;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -20,7 +19,6 @@ import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.PieDataset;
 import projeto.gerenciador.financeiro.ControleTelas;
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.time.LocalDate;
@@ -46,7 +44,7 @@ public class TelaGrafico1 extends javax.swing.JFrame {
         initComponents();
         
         this.setLocationRelativeTo(null);
-        setSize(1000, 800);  
+        setSize(903, 726);  
         jPanel1.setLayout(new java.awt.BorderLayout()); 
         
 
@@ -54,7 +52,7 @@ public class TelaGrafico1 extends javax.swing.JFrame {
         
         // Chama a função de atualizar o gráfico ao iniciar a tela, passando a data atual
         String dataAtual = LocalDate.now().format(DateTimeFormatter.ofPattern("MM/yyyy"));
-        txtDataGrafico.setText(dataAtual);
+        txtDataGrafico1.setText(dataAtual);
         // Configura a ComboBox para a opção "Receitas/Despesas"
         cbCategoriaOrigemRenda.setSelectedItem("Receitas/Despesas");
 
@@ -83,7 +81,6 @@ public class TelaGrafico1 extends javax.swing.JFrame {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/uuuu")
                                                        .withResolverStyle(ResolverStyle.STRICT);
         try {
-            // Faz o parse diretamente
             return YearMonth.parse(dataString, formatter);
         } catch (DateTimeParseException e) {
             JOptionPane.showMessageDialog(null, "Data inválida: " + dataString + ". Use o formato MM/aaaa.", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -104,7 +101,7 @@ public class TelaGrafico1 extends javax.swing.JFrame {
         btnAtualizar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         cbCategoriaOrigemRenda = new javax.swing.JComboBox<>();
-        txtDataGrafico = new javax.swing.JTextField();
+        txtDataGrafico1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuGrafico = new javax.swing.JMenu();
@@ -127,24 +124,26 @@ public class TelaGrafico1 extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 891, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 561, Short.MAX_VALUE)
+            .addGap(0, 460, Short.MAX_VALUE)
         );
 
         cbCategoriaOrigemRenda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbCategoriaOrigemRenda.setToolTipText("Selecione o tipo");
         cbCategoriaOrigemRenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbCategoriaOrigemRendaActionPerformed(evt);
             }
         });
 
-        txtDataGrafico.setText("mm/aaaa");
-        txtDataGrafico.addActionListener(new java.awt.event.ActionListener() {
+        txtDataGrafico1.setText("mm/aaaa");
+        txtDataGrafico1.setToolTipText("Insira a data");
+        txtDataGrafico1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDataGraficoActionPerformed(evt);
+                txtDataGrafico1ActionPerformed(evt);
             }
         });
 
@@ -207,32 +206,29 @@ public class TelaGrafico1 extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtDataGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addComponent(cbCategoriaOrigemRenda, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(106, 106, 106)
-                        .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGap(15, 15, 15)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(txtDataGrafico1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(cbCategoriaOrigemRenda, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(79, 79, 79)
+                .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(396, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(95, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGap(74, 74, 74)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDataGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
+                    .addComponent(txtDataGrafico1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbCategoriaOrigemRenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAtualizar))
-                .addGap(53, 53, 53))
+                .addGap(35, 35, 35))
         );
 
         pack();
@@ -251,17 +247,16 @@ public class TelaGrafico1 extends javax.swing.JFrame {
         // Customizar o gráfico de pizza
         PiePlot plot = (PiePlot) chart.getPlot();
 
-        // Customização do label generator para mostrar o valor negativo na legenda
         plot.setLabelGenerator(new StandardPieSectionLabelGenerator() {
             @Override
             public String generateSectionLabel(PieDataset dataset, Comparable key) {
                 // Pega o valor da transação associada à categoria
-                double valor = dataset.getValue(key).intValue();
+                int valor = dataset.getValue(key).intValue();
 
-                // Verifica se o valor é negativo
-                if (valor < 0) {
+                // Verifica se o valor é de Despesa
+                if (key.toString().contains("Despesa")) {
                     // Exibe o valor como positivo com uma descrição indicando despesa
-                    return key + ": " + valor + " (Despesa de -" + valor + ")";
+                    return key + ": " + "-" + valor + ")";
                 } else {
                     return key + ": " + valor;
                 }
@@ -284,7 +279,7 @@ public class TelaGrafico1 extends javax.swing.JFrame {
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
                                                                                                           
                                                 
-        String dataTexto = txtDataGrafico.getText().trim();
+        String dataTexto = txtDataGrafico1.getText().trim();
         YearMonth dataSelecionada = validarEConverterData(dataTexto);
 
         if (dataTexto.isEmpty()) {
@@ -423,9 +418,9 @@ public class TelaGrafico1 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbCategoriaOrigemRendaActionPerformed
 
-    private void txtDataGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataGraficoActionPerformed
+    private void txtDataGrafico1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataGrafico1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDataGraficoActionPerformed
+    }//GEN-LAST:event_txtDataGrafico1ActionPerformed
 
                     
 
@@ -477,6 +472,6 @@ public class TelaGrafico1 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem jmPrincipal;
     private javax.swing.JMenu menuGrafico;
-    private javax.swing.JTextField txtDataGrafico;
+    private javax.swing.JTextField txtDataGrafico1;
     // End of variables declaration//GEN-END:variables
 }

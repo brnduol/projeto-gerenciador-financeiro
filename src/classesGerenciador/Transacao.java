@@ -18,6 +18,9 @@ public abstract class Transacao {
     protected LocalDate data;
     protected String descricao;
     
+    public Transacao(){
+        
+    }
     public Transacao(Carteira conta, int valor, LocalDate data, String descricao) {
         this.id = proximoId++; // Incrementa o valor de proximoId para que a próxima instância receba um identificador único e sequencial
         this.conta = conta;
