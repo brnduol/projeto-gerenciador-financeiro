@@ -22,6 +22,7 @@ public class Usuario {
     private List<OrigemRenda> origemRendas;
     private List<Transacao> transacoes;
     
+    public Usuario(){}
     
     public Usuario(String nome, String senha, String email) {
         this.id = proximoId++;

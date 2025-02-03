@@ -18,6 +18,7 @@ public class Carteira {
     private int saldo;
     private List<Transacao> transacoes;
 
+    public Carteira(){}
     
     public Carteira(String nome, int saldo) {
         this.id = proximoId++; 
@@ -72,7 +73,7 @@ public class Carteira {
             }
         }
     }
-    public void atualizarSaldo(double valor){
+    public void atualizarSaldo(int valor){
         this.saldo += valor;
     }
     

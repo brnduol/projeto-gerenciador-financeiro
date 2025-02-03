@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import projeto.gerenciador.financeiro.ControleTelas;
 
 /**
@@ -84,6 +85,7 @@ public class TelaDetalhar extends javax.swing.JFrame {
         conta = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel2.setText("Data");
 
@@ -217,6 +219,14 @@ public class TelaDetalhar extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         transacaoAtual.excluirTransacao();
+        JOptionPane.showMessageDialog(this, "Excluida com sucesso");
+        LocalDate dataAtual = LocalDate.now();
+        int mesAtual = dataAtual.getMonthValue(); // Retorna um número de 1 a 12
+        int anoAtual = dataAtual.getYear();       // Retorna o ano atual
+        ControleTelas.getInstance().getTelaPrincipal().atualizarTabelaCarteiras();
+        ControleTelas.getInstance().getTelaPrincipal().atualizarTabelaFiltro(mesAtual, anoAtual);
+        
+        
         
         
     }//GEN-LAST:event_jButton2ActionPerformed

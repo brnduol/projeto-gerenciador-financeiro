@@ -9,5 +9,5 @@ package classesGerenciador;
  * @author Bruno Eduardo <https://github.com/brnduol>
  */
 public interface Atualizavel {
-        void atualizar();
+        void atualizar(Carteira carteira);
 }

@@ -80,6 +80,7 @@ public class TelaDespesas extends javax.swing.JFrame {
         data = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel2.setText("Data");
 
@@ -207,8 +208,7 @@ public class TelaDespesas extends javax.swing.JFrame {
                 // Criar e adicionar a transação
                 if (categoria != null && carteira1 != null) {
                     Transacao transacao = new TransacaoDespesas(carteira1, valor1, dataConvertida, descricao1, categoria1);
-                    transacao.adicionarTransacao();
-                    carteira1.adicionarTransacao(transacao);
+                    transacao.atualizar(carteira1);
                     
                     // Atualizar a tabela da TelaPrincipal
                     ControleTelas.getInstance().getTelaPrincipal().atualizarTabelaFiltro(dataConvertida.getMonthValue(), dataConvertida.getYear());

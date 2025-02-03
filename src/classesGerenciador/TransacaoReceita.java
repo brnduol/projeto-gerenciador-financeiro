@@ -12,7 +12,7 @@ import java.time.LocalDate;
  *
  * @author Bruno Eduardo <https://github.com/brnduol>
  */
-public class TransacaoReceita extends Transacao {
+public class TransacaoReceita extends Transacao implements Atualizavel {
     private OrigemRenda origemRenda; 
     private Usuario usuarioAtual; 
 
@@ -53,6 +53,8 @@ public class TransacaoReceita extends Transacao {
      */
     @Override
     public void atualizar(Carteira carteira) {
+        origemRenda.getTransacoes().add(this); 
+        usuarioAtual.getTransacoes().add(this);
         carteira.atualizarSaldo(valor); 
     }
 
@@ -63,6 +65,7 @@ public class TransacaoReceita extends Transacao {
     public void excluirTransacao() {
         origemRenda.getTransacoes().remove(this); 
         usuarioAtual.getTransacoes().remove(this); 
+        conta.atualizarSaldo(valor*-1);
     }
 
     /**
@@ -103,11 +106,6 @@ public class TransacaoReceita extends Transacao {
     /**
      * Adiciona a transação à lista de transações da origem da receita e do usuário atual.
      */
-    @Override
-    public void adicionarTransacao() {
-        origemRenda.getTransacoes().add(this); 
-        usuarioAtual.getTransacoes().add(this); 
-    }
 
     
     @Override

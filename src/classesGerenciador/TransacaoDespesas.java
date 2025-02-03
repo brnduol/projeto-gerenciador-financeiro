@@ -12,7 +12,7 @@ import java.time.LocalDate;
  *
  * @author Bruno Eduardo <https://github.com/brnduol>
  */
-public class TransacaoDespesas extends Transacao {
+public class TransacaoDespesas extends Transacao implements Atualizavel {
     private Categoria categoriaDespesa; 
     private Usuario usuarioAtual; 
 
@@ -44,6 +44,8 @@ public class TransacaoDespesas extends Transacao {
      */
     @Override
     public void atualizar(Carteira carteira) {
+        categoriaDespesa.getTransacoes().add(this); 
+        usuarioAtual.getTransacoes().add(this); 
         carteira.atualizarSaldo(valor); 
     }
 
@@ -54,6 +56,7 @@ public class TransacaoDespesas extends Transacao {
     public void excluirTransacao() {
         categoriaDespesa.getTransacoes().remove(this); 
         usuarioAtual.getTransacoes().remove(this); 
+        conta.atualizarSaldo(valor*-1);
     }
 
     /**
@@ -99,11 +102,6 @@ public class TransacaoDespesas extends Transacao {
     /**
      * Adiciona a transação à lista de transações da categoria da despesa e do usuário atual.
      */
-    @Override
-    public void adicionarTransacao() {
-        categoriaDespesa.getTransacoes().add(this); 
-        usuarioAtual.getTransacoes().add(this); 
-    }
 
     /**
      * Retorna o nome da categoria da despesa associada à transação.

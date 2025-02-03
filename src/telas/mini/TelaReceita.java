@@ -84,6 +84,7 @@ public class TelaReceita extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         descricao.setColumns(20);
         descricao.setRows(5);
@@ -225,8 +226,7 @@ public class TelaReceita extends javax.swing.JFrame {
                 // Criar e adicionar a transação
                 if (origemRenda != null && carteira1 != null) {
                     Transacao transacao = new TransacaoReceita(carteira1, valor1, dataConvertida, descricao1, origemRenda);
-                    transacao.adicionarTransacao();
-                    carteira1.adicionarTransacao(transacao);
+                    transacao.atualizar(carteira1);
                     
                     // Atualizar a tabela da TelaPrincipal
                     ControleTelas.getInstance().getTelaPrincipal().atualizarTabelaFiltro(dataConvertida.getMonthValue(), dataConvertida.getYear());
