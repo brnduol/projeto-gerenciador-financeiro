@@ -8,39 +8,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * A classe `Usuario` representa um usuário do sistema. 
+ * Cada usuário possui um identificador único, nome, e-mail, senha, e diversas listas relacionadas às suas operações financeiras:
+ * carteiras, categorias de despesas, origens de renda e transações. 
+ * A classe inclui inicialização padrão de carteiras, categorias e origens de renda para facilitar a experiência do usuário.
+ * 
  * @author Bruno Eduardo <https://github.com/brnduol>
  */
 public class Usuario {
-    private static int proximoId = 1;
-    private int id;
-    private String nome;
-    private String email;
-        private String senha;
-    private List<Carteira> carteiras;
-    private List<Categoria> categorias;
-    private List<OrigemRenda> origemRendas;
-    private List<Transacao> transacoes;
-    
-    public Usuario(){}
-    
+    private static int proximoId = 1; // Controle estático para geração de IDs únicos para cada usuário.
+    private int id; // Identificador único de cada usuário.
+    private String nome; // Nome do usuário.
+    private String email; // E-mail do usuário.
+    private String senha; // Senha do usuário.
+    private List<Carteira> carteiras; // Lista de carteiras do usuário.
+    private List<Categoria> categorias; // Lista de categorias de despesas padrão associadas ao usuário.
+    private List<OrigemRenda> origemRendas; // Lista de origens de renda padrão associadas ao usuário.
+    private List<Transacao> transacoes; // Lista de transações realizadas pelo usuário.
+
+    // Construtor vazio, necessário para instâncias criadas sem parâmetros.
+    public Usuario() {}
+
+    // Construtor principal, inicializa o usuário com nome, senha e e-mail.
     public Usuario(String nome, String senha, String email) {
-        this.id = proximoId++;
+        this.id = proximoId++; // Atribui um ID único ao usuário.
         this.nome = nome;
         this.senha = senha;
         this.email = email;
-        
-         // Inicializando as listas
+
+        // Inicialização das listas que armazenam objetos relacionados ao usuário.
         this.carteiras = new ArrayList<>();
         this.categorias = new ArrayList<>();
         this.origemRendas = new ArrayList<>();
         this.transacoes = new ArrayList<>();
-        
-        // Criando e adicionando a carteira fixa para o usuário
-        Carteira carteiraFixa = new Carteira("Carteira Padrão", 0); // Criando uma carteira padrão com saldo 0
-        this.carteiras.add(carteiraFixa); // Adiciona a carteira à lista de carteiras
-        
-        // Criando 4 categorias padrão 
+
+        // Adiciona uma carteira padrão ao usuário, com saldo inicial de zero.
+        Carteira carteiraFixa = new Carteira("Carteira Padrão", 0);
+        this.carteiras.add(carteiraFixa);
+
+        // Adiciona categorias padrão associadas ao usuário.
         categorias.add(new Categoria("Alimentação"));
         categorias.add(new Categoria("Transporte"));
         categorias.add(new Categoria("Saúde"));
@@ -49,20 +55,19 @@ public class Usuario {
         for (Categoria categoria : categorias) {
             System.out.println(categoria.getNomeCategoria());
         }
-  
 
-        // Criando 4 origens de renda padrão 
+        // Adiciona origens de renda padrão associadas ao usuário.
         origemRendas.add(new OrigemRenda("Salário"));
         origemRendas.add(new OrigemRenda("Freelance"));
         origemRendas.add(new OrigemRenda("Investimentos"));
         origemRendas.add(new OrigemRenda("Aluguel"));
-       System.out.println("Origens de renda criadas:");
+        System.out.println("Origens de renda criadas:");
         for (OrigemRenda origemRenda : origemRendas) {
             System.out.println(origemRenda.getNomeOrigemRenda());
         }
-
     }
-    
+
+    // Métodos getters para acessar os atributos do usuário.
     public int getId() {
         return id;
     }
@@ -70,8 +75,8 @@ public class Usuario {
     public String getNome() {
         return nome;
     }
-    
-     public String getEmail() {
+
+    public String getEmail() {
         return email;
     }
 
@@ -79,13 +84,23 @@ public class Usuario {
         return senha;
     }
 
-
     public List<Carteira> getCarteiras() {
         return carteiras;
     }
 
-    
-    
+    public List<OrigemRenda> getOrigemRendas() {
+        return origemRendas;
+    }
+
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public List<Transacao> getTransacoes() {
+        return transacoes;
+    }
+
+    // Métodos setters para modificar os atributos do usuário.
     public void setId(int id) {
         this.id = id;
     }
@@ -93,7 +108,7 @@ public class Usuario {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -102,33 +117,18 @@ public class Usuario {
         this.senha = senha;
     }
 
-
     public void setCarteiras(List<Carteira> carteiras) {
         this.carteiras = carteiras;
     }
-    public List<OrigemRenda> getOrigemRendas() {
-            return origemRendas;
-        }
 
-    public List<Categoria> getCategorias() {
-        return categorias;
-    }
-    
-    public List<Transacao> getTransacoes(){
-        return transacoes;
-    }
-
-    public void criarCarteira(String nome, int saldo){
+    // Método para criar e adicionar uma nova carteira à lista de carteiras do usuário.
+    public void criarCarteira(String nome, int saldo) {
         Carteira carteira = new Carteira(nome, saldo);
         carteiras.add(carteira);
     }
-    
-    public void adicionarTrasacao(Carteira carteira, Transacao transacao){
+
+    // Método para adicionar uma transação a uma carteira específica.
+    public void adicionarTrasacao(Carteira carteira, Transacao transacao) {
         carteira.adicionarTransacao(transacao);
     }
-
-   
-    
-    
-    
 }
