@@ -49,6 +49,7 @@ public class Cadastro1 extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/imagens/finance.png")).getImage());
         setResizable(false);
 
         jPanel1.setPreferredSize(new java.awt.Dimension(250, 170));
